@@ -23,6 +23,10 @@
     <script src="../js/main.js"></script>
 
 </head>
+
+
+
+
 <body>
     <form id="form1" runat="server">
 
@@ -42,7 +46,7 @@
 
             <header>
                 <div class="logo">
-                    <a href="index.aspx">
+                    <a href="../index.aspx">
                         <img src="../imagenes/logoInbay3.png" width="150" /></a>
                 </div>
                 <input type="checkbox" id="menu-bar" />
@@ -88,18 +92,40 @@
                 </div>
 
             </header>
-
-
-            <div id="menu">
-<asp:LinkButton ID="LinkButton1" runat="server" OnClick="TipoProductoPanes_Click" >panes</asp:LinkButton>
-                
-
+            <div id="subcabecera" runat="server">
             </div>
 
+            <div id="contenedor">
+                <div id="menuVerticalArticulos">
+                    <!-- Contenido del div de menú vertical -->
+                    <h2>ARTICULOS DE VENTA</h2>
+                    <ol>
+                        <li>
+                            <asp:LinkButton ID="LinkButton1" runat="server" OnClick='TipoProductoPanes_Click'>Panes</asp:LinkButton>
+                        </li>
+                        <li>
+                            <asp:LinkButton ID="LinkButton2" runat="server" OnClick='TipoProductoBollos_Click'>Bollos</asp:LinkButton>
+                        </li>
+                        <li>
+                            <asp:LinkButton ID="LinkButton3" runat="server" OnClick='TipoProductoPasteles_Click'>Pasteles</asp:LinkButton>
+                        </li>
+                        <li>
+                            <asp:LinkButton ID="LinkButton4" runat="server" OnClick='TipoProductoTartas_Click'>Tartas</asp:LinkButton>
+                        </li>
+                    </ol>
+                </div>
+                <div id="filtrosProductos" runat="server">
+                    <asp:LinkButton ID="LinkButtonNombre" runat="server" OnClick='OrdenarPorNombre_Click' CssClass="boton-filtro">Nombre</asp:LinkButton>
+                    <asp:LinkButton ID="LinkButtonPrecioBajo" runat="server" OnClick='OrdenarPorPrecioBajo_Click' CssClass="boton-filtro">Precio más bajo</asp:LinkButton>
+                    <asp:LinkButton ID="LinkButtonPrecioAlto" runat="server" OnClick='OrdenarPorPrecioAlto_Click' CssClass="boton-filtro">Precio más alto</asp:LinkButton>
+                    <asp:LinkButton ID="LinkButtonMejorValorado" runat="server" OnClick='OrdenarPorMejorValorado_Click' CssClass="boton-filtro">Mejor valorado</asp:LinkButton>
+                </div>
 
-             <div id="productosDisponibles" runat="server" class="productos-container">
-     
-         </div>
+                <div id="productosDisponibles" runat="server" class="productos-container">
+                    <!-- Contenido del div de productos disponibles -->
+                </div>
+            </div>
+
 
         </div>
     </form>

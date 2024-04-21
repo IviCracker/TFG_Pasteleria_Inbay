@@ -127,6 +127,7 @@
     <Content Include="fonts\icomoon\fonts\icomoon.svg" />
     <Content Include="fonts\icomoon\Read Me.txt" />
     <Content Include="fonts\icomoon\style.css" />
+    <Content Include="imagenes\lineaSubmenu.png" />
     <Content Include="imagenes\logoInbay3.png" />
     <Content Include="imagenes\logoInbay1.png" />
     <Content Include="imagenes\tarjeta inbay1.jpg" />
