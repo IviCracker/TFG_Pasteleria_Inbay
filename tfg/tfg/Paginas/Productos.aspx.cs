@@ -20,7 +20,7 @@ namespace tfg.Paginas
         {
             if (!IsPostBack)
             {
-                cargarSubcabecera();
+                CargarProductos("bollo");
             }
         }
 
@@ -70,10 +70,7 @@ namespace tfg.Paginas
 
 
 
-        string nombre;
-        string descripcion;
-        decimal precio;
-        int stock;
+
         static string tipoProducto;
 
         protected void cargarSubcabecera()
@@ -91,7 +88,6 @@ namespace tfg.Paginas
                 productoHtml = $"<a href='../index.aspx'>Inicio</a> / <a href='productos.aspx'>Productos</a>";
             }
 
-
             subcabecera.Controls.Add(new LiteralControl(productoHtml));
         }
 
@@ -100,11 +96,12 @@ namespace tfg.Paginas
             string connectionString = "DataBase=tfg;DataSource=localhost;user=root;Port=3306";
             string query;
 
-
-
-
-
-            query = $"SELECT Nombre, Descripcion, Precio, Stock, Imagen FROM producto WHERE Tipo = '{tipo}' ORDER BY Precio ASC";
+            query = $"SELECT p.Nombre, p.Descripcion, p.Precio, p.Stock, p.Imagen, AVG(vp.valoracion) AS ValoracionMedia " +
+                    $"FROM producto p " +
+                    $"LEFT JOIN valoracion_producto vp ON p.id_producto = vp.id_producto " +
+                    $"WHERE p.Tipo = '{tipo}' " +
+                    $"GROUP BY p.id_producto " +
+                    $"ORDER BY p.Precio ASC";
 
             using (MySqlConnection conexion = new MySqlConnection(connectionString))
             {
@@ -119,29 +116,29 @@ namespace tfg.Paginas
                         string descripcion = reader["Descripcion"].ToString();
                         decimal precio = Convert.ToDecimal(reader["Precio"]);
                         int stock = Convert.ToInt32(reader["Stock"]);
+                        double valoracionMedia = reader["ValoracionMedia"] == DBNull.Value ? 0 : Convert.ToDouble(reader["ValoracionMedia"]);
 
                         // Obtener la imagen como un array de bytes
                         byte[] imagenBytes = (byte[])reader["Imagen"];
                         string imagenBase64 = Convert.ToBase64String(imagenBytes);
                         string imagenUrl = $"data:image/jpeg;base64,{imagenBase64}";
 
-                        // Crear un elemento <div> con la imagen y el nombre del producto
+                        // Crear un elemento <div> con la imagen, el nombre, el precio y la valoración media del producto
                         string productoHtml = $"<div class='producto'>" +
                                                $"<img src='{imagenUrl}' alt='{nombre}' onclick='openModal(\"{nombre}\", \"{imagenUrl}\")' data-nombre='{nombre}' />" +
                                                $"<p class='nombre-producto'>{nombre}</p>" +
+                                               $"<p class='precio-producto'>Precio: {precio} €</p>" +
+                                               $"<p class='valoracion-media-producto'>Valoración media: {valoracionMedia.ToString("0.##")}</p>" +
                                                $"</div>";
 
                         productosDisponibles.Controls.Add(new LiteralControl(productoHtml));
-
-
                     }
                 }
             }
             tipoProducto = tipo.ToString();
             cargarSubcabecera();
-
-
         }
+
 
         protected void CargarProductosOrden(string TipoOrden)
         {
@@ -153,35 +150,43 @@ namespace tfg.Paginas
                 tipoProducto = "tarta";
             }
 
-
             resetearColoresFiltro();
             switch (TipoOrden)
             {
                 case "nombre":
-                    query = $"SELECT Nombre, Descripcion, Precio, Stock, Imagen FROM producto WHERE Tipo = '{tipoProducto}' ORDER BY Nombre ASC";
-
+                    query = $"SELECT p.Nombre, p.Descripcion, p.Precio, p.Stock, p.Imagen, AVG(vp.valoracion) AS ValoracionMedia " +
+                            $"FROM producto p " +
+                            $"LEFT JOIN valoracion_producto vp ON p.id_producto = vp.id_producto " +
+                            $"WHERE p.Tipo = '{tipoProducto}' " +
+                            $"GROUP BY p.id_producto " +
+                            $"ORDER BY p.Nombre ASC";
                     LinkButtonNombre.Attributes["style"] = "margin: 5px; padding: 8px 16px; border: 1px solid orange; border-radius: 4px; color: #333; text-decoration: none; text-align: center; transition: background-color 0.5s ease, border 0.3s ease; display: block; width: 100%; margin-bottom: 8px;";
                     break;
 
                 case "precioBajo":
-                    query = $"SELECT Nombre, Descripcion, Precio, Stock, Imagen FROM producto WHERE Tipo = '{tipoProducto}' ORDER BY Precio ASC";
+                    query = $"SELECT p.Nombre, p.Descripcion, p.Precio, p.Stock, p.Imagen, AVG(vp.valoracion) AS ValoracionMedia " +
+                            $"FROM producto p " +
+                            $"LEFT JOIN valoracion_producto vp ON p.id_producto = vp.id_producto " +
+                            $"WHERE p.Tipo = '{tipoProducto}' " +
+                            $"GROUP BY p.id_producto " +
+                            $"ORDER BY p.Precio ASC";
                     LinkButtonPrecioBajo.Attributes["style"] = "margin: 5px; padding: 8px 16px; border: 1px solid orange; border-radius: 4px; color: #333; text-decoration: none; text-align: center; transition: background-color 0.5s ease, border 0.3s ease; display: block; width: 100%; margin-bottom: 8px;";
                     break;
 
                 case "precioAlto":
-                    query = $"SELECT Nombre, Descripcion, Precio, Stock, Imagen FROM producto WHERE Tipo = '{tipoProducto}' ORDER BY Precio DESC";
+                    query = $"SELECT p.Nombre, p.Descripcion, p.Precio, p.Stock, p.Imagen, AVG(vp.valoracion) AS ValoracionMedia " +
+                            $"FROM producto p " +
+                            $"LEFT JOIN valoracion_producto vp ON p.id_producto = vp.id_producto " +
+                            $"WHERE p.Tipo = '{tipoProducto}' " +
+                            $"GROUP BY p.id_producto " +
+                            $"ORDER BY p.Precio DESC";
                     LinkButtonPrecioAlto.Attributes["style"] = "margin: 5px; padding: 8px 16px; border: 1px solid orange; border-radius: 4px; color: #333; text-decoration: none; text-align: center; transition: background-color 0.5s ease, border 0.3s ease; display: block; width: 100%; margin-bottom: 8px;";
-
                     break;
 
                 case "valoracion":
-                    //query = $"SELECT Nombre, Descripcion, Precio, Stock, Imagen FROM producto WHERE Tipo = '{tipoProducto}' ORDER BY Precio DESC";
-                    //LinkButtonMejorValorado.Attributes["style"] = "margin: 5px; padding: 8px 16px; border: 1px solid orange; border-radius: 4px; color: #333; text-decoration: none; text-align: center; transition: background-color 0.5s ease, border 0.3s ease; display: block; width: 100%; margin-bottom: 8px;";
+                    // No es necesario hacer cambios en la consulta SQL ya que ya calculamos la valoración media en las otras consultas
                     break;
             }
-
-
-
 
             using (MySqlConnection conexion = new MySqlConnection(connectionString))
             {
@@ -196,28 +201,29 @@ namespace tfg.Paginas
                         string descripcion = reader["Descripcion"].ToString();
                         decimal precio = Convert.ToDecimal(reader["Precio"]);
                         int stock = Convert.ToInt32(reader["Stock"]);
+                        double valoracionMedia = reader["ValoracionMedia"] == DBNull.Value ? 0 : Convert.ToDouble(reader["ValoracionMedia"]);
 
                         // Obtener la imagen como un array de bytes
                         byte[] imagenBytes = (byte[])reader["Imagen"];
                         string imagenBase64 = Convert.ToBase64String(imagenBytes);
                         string imagenUrl = $"data:image/jpeg;base64,{imagenBase64}";
 
-                        // Crear un elemento <div> con la imagen y el nombre del producto
+                        // Crear un elemento <div> con la imagen, el nombre, el precio y la valoración media del producto
                         string productoHtml = $"<div class='producto'>" +
                                                $"<img src='{imagenUrl}' alt='{nombre}' onclick='openModal(\"{nombre}\", \"{imagenUrl}\")' data-nombre='{nombre}' />" +
                                                $"<p class='nombre-producto'>{nombre}</p>" +
+                                               $"<p class='precio-producto'>Precio: {precio} €</p>" +
+                                               $"<p class='valoracion-media-producto'>Valoración media: {valoracionMedia.ToString("0.##")}</p>" +
                                                $"</div>";
 
                         productosDisponibles.Controls.Add(new LiteralControl(productoHtml));
-
-
                     }
                 }
             }
 
             cargarSubcabecera();
-
         }
+
 
 
 
@@ -239,7 +245,7 @@ namespace tfg.Paginas
                     // Quitar cualquier estilo CSS existente
                     boton.Attributes["style"] = "";
 
-                    
+
                 }
             }
         }

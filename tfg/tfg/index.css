@@ -1,4 +1,6 @@
-﻿* {
+﻿
+
+* {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
@@ -121,24 +123,32 @@ header ul .submenu li {
     align-items: center;
     border: 2px solid #ccc;
     margin-right: 20px;
+    border-radius: 50px; /* Bordes redondos */
 }
 
-.search-input {
-    border: none;
-    outline: none;
-    padding: 10px;
-    border-radius: 0;
-}
+    .search-container .search-input {
+        border: none;
+        outline: none;
+        padding: 10px;
+        border-radius: 20px; /* Bordes redondos */
+    }
 
-.search-button {
-    border: none;
-    outline: none;
-    background-color: #ff7e5f;
-    color: #fff;
-    padding: 10px 15px;
-    border-radius: 0;
-    cursor: pointer;
-}
+    .search-container .search-button {
+        border: none;
+        outline: none;
+        background-color: #ff7e5f;
+        color: #fff;
+        border-radius: 20px; /* Bordes redondos */
+        cursor: pointer;
+        padding: 10px 20px;
+        background-color: #ff7e5f;
+        color: #fff;
+        border: none;
+        cursor: pointer;
+        
+    }
+
+
 
 .cart {
     cursor: pointer;
@@ -363,7 +373,7 @@ p {
 }
 
 
-button {
+#filtrosProductos button {
     padding: 10px 20px;
     background-color: #ff7e5f;
     color: #fff;
@@ -373,9 +383,9 @@ button {
     transition: background-color 0.3s;
 }
 
-    button:hover {
-        background-color: #ff5a36;
-    }
+#filtrosProductos button:hover {
+    background-color: #ff5a36;
+}
 
 
 #contenedor {
@@ -468,7 +478,6 @@ button {
     grid-area: 2 / 2 / 3 / 3;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    grid-template-rows:;
     grid-column-gap: 0px;
     grid-row-gap: 0px;
     padding-top:20px;
@@ -493,3 +502,133 @@ button {
         #subcabecera a:hover {
             color: orange;
         }
+
+
+
+
+.parentRegistro {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(4, 1fr);
+    grid-column-gap: 0px;
+    grid-row-gap: 0px;
+   
+}
+
+.div1 {
+    grid-area: 1 / 1 / 2 / 3;
+    align-items: center; /* Centrado horizontal */
+    text-align: center;
+}
+
+.div2 {
+    grid-area: 2 / 1 / 3 / 2;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start; /* Alinea los elementos a la izquierda */
+    align-items: center; /* Centra horizontalmente */
+    text-align: left;
+    width: 100%;
+}
+
+    .div2 .btn {
+        width: 100%; /* Ocupa todo el ancho del div2 */
+        margin-bottom: 10px; /* Separación entre botones */
+    }
+
+
+.div3 {
+    grid-area: 2 / 2 / 3 / 3;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding-left: 50px;
+    align-items: center; /* Centrado horizontal */
+    text-align: center; /* Alineación del texto dentro de los botones */
+}
+    .div3 .btn {
+        width: 50%;
+        margin-bottom: 10px; /* Separación entre botones */
+    }
+
+.div4 {
+    grid-area: 3 / 1 / 4 / 3;
+    align-items: center; /* Centrado horizontal */
+    text-align: center;
+}
+
+.div5 {
+    grid-area: 4 / 1 / 5 / 3;
+    align-items: center; /* Centrado horizontal */
+    text-align: center;
+}
+
+
+#textoCrearCuenta{
+    text-align: center;
+    padding-top: 5%;
+    padding-bottom: 2%;
+    font-size: 12px;
+}
+
+#registro {
+    width: 90%;
+    max-width: 700px;
+    margin: 20px auto;
+    padding: 30px;
+    background-color: #ffffff;
+    border-radius: 20px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+.input-container {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+    .input-container i {
+        margin-right: 10px;
+        width: 20px;
+        
+    }
+
+.textbox {
+    width: 100%;
+    padding: 10px;
+    font-size: 1.2em;
+    border: none;
+    border-bottom: 2px solid #000000; /* Borde solo en la parte inferior */
+    transition: border-color 0.3s ease; /* Transición para el color del borde */
+}
+
+    .textbox:focus {
+        outline: none; /* Elimina el contorno de enfoque predeterminado */
+        border-color: orange; /* Cambia el color del borde al naranja al enfocar */
+    }
+
+
+    #registro h2 {
+        font-size: 2em; /* Tamaño de fuente más grande */
+        margin-bottom: 20px; /* Añade más espacio debajo del título */
+    }
+
+    #registro input[type="text"],
+    #registro input[type="email"],
+    #registro input[type="tel"],
+    #registro input[type="password"],
+    #registro button {
+        width: 100%; /* Los campos y botón ocupan todo el ancho disponible */
+        padding: 10px; /* Añade espacio interior */
+        margin-bottom: 15px; /* Añade espacio entre elementos */
+        font-size: 1.2em; /* Tamaño de fuente más grande */
+    }
+
+@media (max-width: 600px) {
+    #registro {
+        /* Utiliza el 90% del ancho disponible en dispositivos móviles */
+        max-width: none; /* Elimina el máximo de ancho */
+        width: 100%;
+    }
+}
+

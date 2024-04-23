@@ -22,10 +22,10 @@
     <form id="form1" runat="server">
         <div class="usuario">
             <ul>
-                <li><a href="#">
+                <li><a href="/Paginas/Registro.aspx">
                     <ion-icon name="lock-open"></ion-icon>
                     &nbsp;Registro</a></li>
-                <li><a href="#">
+                <li><a href="/Paginas/MiCuenta.aspx">
                     <ion-icon name="person"></ion-icon>
                     &nbsp;Mi cuenta</a></li>
             </ul>
@@ -144,18 +144,24 @@
                 </div>
 
 
-
+                
+            <div class="elfsight-app-1224c210-7a6c-478b-a82a-764cf5fa5110" data-elfsight-app-lazy>&nbsp</div>
 
 
             </main>
         </div>
     </form>
+    <script src="https://static.elfsight.com/platform/platform.js" data-use-service-core defer></script>
+    <script src='https://widgets.sociablekit.com/google-reviews/widget.js' async defer></script>
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
     <script src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
     <script src="js/jquery-3.3.1.min.js"></script>
     <script src="js/popper.min.js"></script>
     <script src="js/owl.carousel.min.js"></script>
     <script src="js/main.js"></script>
+    <script>
+
+    </script>
 </body>
 </html>
 
