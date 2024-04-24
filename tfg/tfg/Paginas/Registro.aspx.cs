@@ -11,19 +11,32 @@ namespace tfg.Paginas
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-
+         
         }
 
+        protected void btnRegistrarse_Click(object sender, EventArgs e)
+        {
+           
+        }
 
-
-        public void btnRegistrarse_Click(object sender, EventArgs e)
+        protected void btnIniciarSesion_Click(object sender, EventArgs e)
         {
 
         }
-        
+
+        protected void btnMostrarRegistro_Click(object sender, EventArgs e)
+        {
+            // Ocultar el formulario de inicio de sesión y mostrar el formulario de registro
+            textoIniciarSesion.Style["display"] = "none";
+            textoCrearCuenta.Style["display"] = "block";
+            
+        }
 
 
-
+        protected void lnkIniciarSesion_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("../Paginas/Registro.aspx");
+        }
 
 
 

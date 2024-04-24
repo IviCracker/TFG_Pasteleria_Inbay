@@ -11,19 +11,11 @@
     <link rel="stylesheet" href="../index.css" />
     <script src="https://kit.fontawesome.com/24693b33fa.js" crossorigin="anonymous"></script>
 
-
     <script src="../index.js"></script>
-
-    <link rel="stylesheet" href="../fonts/icomoon/style.css" />
-    <link rel="stylesheet" href="../css/owl.carousel.min.css" />
-    <link rel="stylesheet" href="../css/style.css" />
 
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
     <script src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
-    <script src="../js/jquery-3.3.1.min.js"></script>
-    <script src="../js/popper.min.js"></script>
-    <script src="../js/owl.carousel.min.js"></script>
-    <script src="../js/main.js"></script>
+
 
 </head>
 <body>
@@ -88,41 +80,65 @@
 
         </header>
         <br />
-        <div id="textoCrearCuenta">
-            <h1>CREAR UNA CUENTA</h1>
+
+        <div id="textoIniciarSesion" runat="server" class="formulario">
+            <h1 class="tituloRegistroInicio">INICIAR SESIÓN</h1>
+            <p>
+                ¿No tienes cuenta aún?
+                <asp:LinkButton ID="lnkMostrarRegistro" runat="server" Text=" ¡Crea una ya!" OnClick="btnMostrarRegistro_Click" CssClass="enlace-texto" />
+            </p>
+            <br />
+            <div class="input-container">
+                <i class="fa-solid fa-user"></i>
+                <asp:TextBox ID="txtNombreUsuario" runat="server" placeholder="Nombre de usuario" CssClass="textbox" />
+            </div>
+            <div class="input-container">
+                <i class="fa-solid fa-lock"></i>
+                <asp:TextBox ID="txtContraseñaInicioSesion" runat="server" TextMode="Password" placeholder="Contraseña" CssClass="textbox" />
+            </div>
+            <asp:Button ID="btnIniciarSesion" runat="server" Text="Iniciar Sesión" OnClick="btnIniciarSesion_Click" />
         </div>
 
-        <div id="registro">
+        <div id="textoCrearCuenta" runat="server" class="formulario" style="display: none;">
+            <!-- Ocultar el formulario de registro por defecto -->
 
-            <div> 
-                <p>¿Ya tienes cuenta? <a href="../Paginas/Productos.aspx"> ¡Inicia sesión!</a></p>
+            <h1 class="tituloRegistroInicio">CREAR CUENTA</h1>
+            <p>
+                ¿Ya tiene una cuenta?
+    <asp:LinkButton ID="lnkIniciarSesion" runat="server" Text="¡Inicie sesión!" OnClick="lnkIniciarSesion_Click" CssClass="enlace-texto" />
+            </p>
+
+            <div class="input-container">
+                <i class="fa-solid fa-user"></i>
+                <asp:TextBox ID="txtNombre" runat="server" placeholder="Nombre" CssClass="textbox" />
             </div>
-    <div class="input-container">
-        <i class="fa-solid fa-user"></i>
-        <asp:TextBox ID="txtNombre" runat="server" placeholder="Nombre" CssClass="textbox" />
-    </div>
-    <div class="input-container">
-        <i class="fa-solid fa-envelope"></i>
-        <asp:TextBox ID="txtCorreo" runat="server" TextMode="Email" placeholder="Correo electrónico" CssClass="textbox"/>
-    </div>
-    <div class="input-container">
-        <i class="fa-solid fa-phone"></i>
-        <asp:TextBox ID="txtTelefono" runat="server" placeholder="Teléfono" CssClass="textbox" />
-    </div>
-    <div class="input-container">
-        <i class="fa-solid fa-location-dot"></i>
-        <asp:TextBox ID="txtDireccion" runat="server" placeholder="Dirección" CssClass="textbox" />
-    </div>
-    <div class="input-container">
-        <i class="fa-solid fa-lock"></i>
-        <asp:TextBox ID="txtContraseña" runat="server" TextMode="Password" placeholder="Contraseña" CssClass="textbox" />
-    </div>
-    <div class="input-container">
-        <i class="fa-solid fa-unlock"></i>
-        <asp:TextBox ID="txtRepetContraseña" runat="server" TextMode="Password" placeholder="Repetir contraseña" CssClass="textbox" />
-    </div>
-    <asp:Button ID="btnRegistrarse" runat="server" Text="Registrarse" OnClick="btnRegistrarse_Click" />
-</div>
+            <div class="input-container">
+                <i class="fa-solid fa-envelope"></i>
+                <asp:TextBox ID="txtCorreo" runat="server" TextMode="Email" placeholder="Correo electrónico" CssClass="textbox" />
+            </div>
+            <div class="input-container">
+                <i class="fa-solid fa-phone"></i>
+                <asp:TextBox ID="txtTelefono" runat="server" placeholder="Teléfono" CssClass="textbox" />
+            </div>
+            <div class="input-container">
+                <i class="fa-solid fa-location-dot"></i>
+                <asp:TextBox ID="txtDireccion" runat="server" placeholder="Dirección" CssClass="textbox" />
+            </div>
+            <div class="input-container">
+                <i class="fa-solid fa-lock"></i>
+                <asp:TextBox ID="txtContraseña" runat="server" TextMode="Password" placeholder="Contraseña" CssClass="textbox" />
+            </div>
+            <div class="input-container">
+                <i class="fa-solid fa-unlock"></i>
+                <asp:TextBox ID="txtRepetContraseña" runat="server" TextMode="Password" placeholder="Repetir contraseña" CssClass="textbox" />
+            </div>
+            <div style="display: inline;">
+
+                <asp:Button ID="btnRegistrarse" runat="server" Text="Registrarse" OnClick="btnRegistrarse_Click" />
+
+            </div>
+        </div>
+
 
 
     </form>

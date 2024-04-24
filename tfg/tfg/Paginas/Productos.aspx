@@ -11,9 +11,7 @@
     <link rel="stylesheet" href="../index.css" />
     <script src="../index.js"></script>
 
-    <link rel="stylesheet" href="../fonts/icomoon/style.css" />
-    <link rel="stylesheet" href="../css/owl.carousel.min.css" />
-    <link rel="stylesheet" href="../css/style.css" />
+   
 
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
     <script src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
@@ -126,8 +124,9 @@
                 </div>
             </div>
 
-
         </div>
+
+        
     </form>
 </body>
 </html>

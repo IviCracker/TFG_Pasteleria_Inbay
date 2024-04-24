@@ -49,7 +49,7 @@ header ul li {
 
     header ul li a {
         text-decoration: none;
-        color: #42424a;
+        color: black;
         padding: 22px 0;
         display: inline-block;
         transition: all ease 0.5s;
@@ -57,7 +57,7 @@ header ul li {
     }
 
         header ul li a:hover {
-            color: #ff8a00;
+            color: #AA4465;
         }
 
 /* Submenu style */
@@ -107,7 +107,7 @@ header ul .submenu li {
 
         .usuario li a {
             text-decoration: none;
-            color: #42424a;
+            color: black;
             padding: 22px 0;
             display: inline-block;
             transition: all ease 0.3s;
@@ -115,7 +115,7 @@ header ul .submenu li {
         }
 
             .usuario li a:hover {
-                color: #ff8a00;
+                color: #AA4465;
             }
 
 .search-container {
@@ -236,8 +236,8 @@ header label {
 .producto {
     width: 300px;
     margin-bottom: 20px;
-    border: 1px solid #ccc;
-    border-radius: 10px;
+    border: 1px solid black;
+    border-radius: 30px;
     overflow: hidden;
     position: relative; /* Añadido para que el overlay funcione correctamente */
     transition: border 0.3s; /* Transición para el cambio de borde */
@@ -253,7 +253,8 @@ header label {
 
     /* Cambiar el cursor al hacer hover */
     .producto:hover {
-        border: thick;
+        border: 2px solid black;
+        transition: transform 0.3s;
     }
 
         /* Cambiar el tamaño de la imagen al hacer hover */
@@ -369,7 +370,8 @@ p {
     font-family: Oswald;
     color: black;
     font-weight: bold;
-    font-style:normal;
+    font-style: normal;
+    text-decoration: none !important;
 }
 
 
@@ -500,78 +502,15 @@ p {
     }
 
         #subcabecera a:hover {
-            color: orange;
+            color: #AA4465;
         }
 
 
 
 
-.parentRegistro {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    grid-template-rows: repeat(4, 1fr);
-    grid-column-gap: 0px;
-    grid-row-gap: 0px;
-   
-}
-
-.div1 {
-    grid-area: 1 / 1 / 2 / 3;
-    align-items: center; /* Centrado horizontal */
-    text-align: center;
-}
-
-.div2 {
-    grid-area: 2 / 1 / 3 / 2;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start; /* Alinea los elementos a la izquierda */
-    align-items: center; /* Centra horizontalmente */
-    text-align: left;
-    width: 100%;
-}
-
-    .div2 .btn {
-        width: 100%; /* Ocupa todo el ancho del div2 */
-        margin-bottom: 10px; /* Separación entre botones */
-    }
 
 
-.div3 {
-    grid-area: 2 / 2 / 3 / 3;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    padding-left: 50px;
-    align-items: center; /* Centrado horizontal */
-    text-align: center; /* Alineación del texto dentro de los botones */
-}
-    .div3 .btn {
-        width: 50%;
-        margin-bottom: 10px; /* Separación entre botones */
-    }
-
-.div4 {
-    grid-area: 3 / 1 / 4 / 3;
-    align-items: center; /* Centrado horizontal */
-    text-align: center;
-}
-
-.div5 {
-    grid-area: 4 / 1 / 5 / 3;
-    align-items: center; /* Centrado horizontal */
-    text-align: center;
-}
-
-
-#textoCrearCuenta{
-    text-align: center;
-    padding-top: 5%;
-    padding-bottom: 2%;
-    font-size: 12px;
-}
-
-#registro {
+#textoCrearCuenta, #textoIniciarSesion {
     width: 90%;
     max-width: 700px;
     margin: 20px auto;
@@ -579,6 +518,7 @@ p {
     background-color: #ffffff;
     border-radius: 20px;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    
 }
 
 .input-container {
@@ -604,7 +544,7 @@ p {
 
     .textbox:focus {
         outline: none; /* Elimina el contorno de enfoque predeterminado */
-        border-color: orange; /* Cambia el color del borde al naranja al enfocar */
+        border-color: #AA4465; /* Cambia el color del borde al naranja al enfocar */
     }
 
 
@@ -632,3 +572,15 @@ p {
     }
 }
 
+.tituloRegistroInicio {
+    text-align:center; 
+    padding-bottom:5%;
+}
+
+#lnkMostrarRegistro, #lnkIniciarSesion {
+    text-decoration: none !important;
+    color: #bb8cd0;
+}
+    #lnkMostrarRegistro:hover, #lnkIniciarSesion:hover {
+        color: #FFA686;
+    }
