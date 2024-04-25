@@ -160,7 +160,7 @@ namespace tfg.Paginas
                             $"WHERE p.Tipo = '{tipoProducto}' " +
                             $"GROUP BY p.id_producto " +
                             $"ORDER BY p.Nombre ASC";
-                    LinkButtonNombre.Attributes["style"] = "margin: 5px; padding: 8px 16px; border: 1px solid #AA4465; border-radius: 4px; color: #333; text-decoration: none; text-align: center; transition: background-color 0.5s ease, border 0.3s ease; display: block; width: 100%; margin-bottom: 8px;";
+                    LinkButtonNombre.Attributes["style"] = "margin: 5px; padding: 8px 16px; border: 1px solid #FF8C00; border-radius: 4px; color: #333; text-decoration: none; text-align: center; transition: background-color 0.5s ease, border 0.3s ease; display: block; width: 100%; margin-bottom: 8px;";
                     break;
 
                 case "precioBajo":
@@ -170,7 +170,7 @@ namespace tfg.Paginas
                             $"WHERE p.Tipo = '{tipoProducto}' " +
                             $"GROUP BY p.id_producto " +
                             $"ORDER BY p.Precio ASC";
-                    LinkButtonPrecioBajo.Attributes["style"] = "margin: 5px; padding: 8px 16px; border: 1px solid #AA4465; border-radius: 4px; color: #333; text-decoration: none; text-align: center; transition: background-color 0.5s ease, border 0.3s ease; display: block; width: 100%; margin-bottom: 8px;";
+                    LinkButtonPrecioBajo.Attributes["style"] = "margin: 5px; padding: 8px 16px; border: 1px solid #FF8C00; border-radius: 4px; color: #333; text-decoration: none; text-align: center; transition: background-color 0.5s ease, border 0.3s ease; display: block; width: 100%; margin-bottom: 8px;";
                     break;
 
                 case "precioAlto":
@@ -180,7 +180,7 @@ namespace tfg.Paginas
                             $"WHERE p.Tipo = '{tipoProducto}' " +
                             $"GROUP BY p.id_producto " +
                             $"ORDER BY p.Precio DESC";
-                    LinkButtonPrecioAlto.Attributes["style"] = "margin: 5px; padding: 8px 16px; border: 1px solid #AA4465; border-radius: 4px; color: #333; text-decoration: none; text-align: center; transition: background-color 0.5s ease, border 0.3s ease; display: block; width: 100%; margin-bottom: 8px;";
+                    LinkButtonPrecioAlto.Attributes["style"] = "margin: 5px; padding: 8px 16px; border: 1px solid #FF8C00; border-radius: 4px; color: #333; text-decoration: none; text-align: center; transition: background-color 0.5s ease, border 0.3s ease; display: block; width: 100%; margin-bottom: 8px;";
                     break;
 
                 case "valoracion":

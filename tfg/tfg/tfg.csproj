@@ -131,6 +131,8 @@
     <Content Include="imagenes\lineaSubmenu.png" />
     <Content Include="imagenes\logoInbay3.png" />
     <Content Include="imagenes\logoInbay1.png" />
+    <Content Include="imagenes\logoInbay4.png" />
+    <Content Include="imagenes\logoInbayInvertido.png" />
     <Content Include="imagenes\tarjeta inbay1.jpg" />
     <Content Include="images\hero_1.jpg" />
     <Content Include="images\hero_2.jpg" />

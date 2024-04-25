@@ -1,5 +1,6 @@
 ﻿footer {
-    background: #462255;
+    background: #940d05;
+    font-family: Oswald;
 }
 div.container-footer.w-container {
     box-sizing: border-box;
@@ -60,9 +61,10 @@ div.footer-column.w-clearfix.w-col.w-col-4 {
     min-height: 1px;
     padding-left: 10px;
     padding-right: 10px;
-    position: relative;
-    width: 33.3333%;
+    width: calc(33.3333% - 20px); /* Ajusta el ancho para dejar espacio para los márgenes */
+    margin: 0 auto; /* Centra el div horizontalmente */
 }
+
 
     div.footer-column.w-clearfix.w-col.w-col-4:after {
         clear: both;
@@ -90,11 +92,13 @@ img.failory-logo-image {
     float: left;
     max-width: 100%;
     vertical-align: middle;
+    text-align: center;
+    align-content: center;
 }
 
 h3.footer-failory-name {
     box-sizing: border-box;
-    color: #FFFFFF;
+    color: black;
     display: block;
     font-size: 20px;
     font-weight: 900;
@@ -153,9 +157,8 @@ div.w-col.w-col-7.w-col-small-6.w-col-tiny-7 {
 
 h3.footer-titles {
     box-sizing: border-box;
-    color: #FFFFFF;
+    color: #fff2db;
     display: block;
-    
     font-size: 20px;
     font-weight: 900;
     line-height: 1.1em;
@@ -166,9 +169,8 @@ h3.footer-titles {
 
 p.footer-links {
     box-sizing: border-box;
-    color: rgba(255, 255, 255, 0.8);
+    color: #fff2db;
     display: block;
-    
     font-size: 17px;
     font-weight: 300;
     letter-spacing: .5px;
@@ -180,8 +182,7 @@ p.footer-links {
 a {
     background-color: transparent;
     box-sizing: border-box;
-    color: #FFFFFF;
-    
+    color: #fff2db;
     font-size: 17px;
     font-weight: 400;
     line-height: 1.2em;
@@ -198,12 +199,12 @@ a {
 
 span.footer-link {
     box-sizing: border-box;
-    color: rgba(255, 255, 255, 0.8);
+    color: #fff2db;
     font-weight: 300;
 }
 
     span.footer-link:hover {
-        color: #FFFFFF;
+        color: #d0a075;
         font-weight: 400;
     }
 
@@ -237,11 +238,12 @@ div.column-center-mobile.w-col.w-col-4 {
 }
 
 a.footer-social-network-icons.w-inline-block {
-    background-color: transparent;
+    background-color: #fff2db;
     box-sizing: border-box;
-    color: #FFFFFF;
+    border: 2px solid #fff2db; /* Cambia #ff0000 por el color que desees */
+    border-radius: 5px; /* Opcional: añade bordes redondeados */
+    color: #55281b;
     display: inline-block;
-    
     font-size: 17px;
     font-weight: 400;
     line-height: 1.2em;
@@ -250,10 +252,13 @@ a.footer-social-network-icons.w-inline-block {
     max-width: 100%;
     opacity: .8;
     text-decoration: none;
+    text-align: center;
+    align-content: center;
 }
 
     a.footer-social-network-icons.w-inline-block:active {
         outline: 0;
+        
     }
 
     a.footer-social-network-icons.w-inline-block:hover {
@@ -267,13 +272,13 @@ img {
     display: inline-block;
     max-width: 100%;
     vertical-align: middle;
+    
 }
 
 p.footer-description {
     box-sizing: border-box;
-    color: rgba(255, 255, 255, 0.8);
+    color: #fff2db;
     display: block;
-    
     font-size: 17px;
     font-weight: 300;
     letter-spacing: .5px;
@@ -286,3 +291,50 @@ strong.link-email-footer {
     box-sizing: border-box;
     font-weight: 700;
 }
+
+.imagenesRedesSociales {
+    filter: grayscale(100%) brightness(0%) contrast(100%);
+}
+
+h6{
+    padding: 10px;
+    text-align:center;
+    font-family: Oswald;
+}
+
+#subfooter {
+    background-color: #fff2db; /* Color pastel */
+    padding: 20px;
+    text-align: center;
+}
+
+.subfooter p {
+    margin: 10px 0;
+    font-size: 18px;
+    line-height: 1.6;
+    color: #55281b;
+}
+
+.subfooter a {
+    color: white; /* Color marrón chocolate complementario */
+    text-decoration: none;
+}
+
+    .subfooter a:hover {
+        text-decoration: underline;
+    }
+
+.subfooter-link {
+    display: inline-block;
+    margin-top: 20px;
+    padding: 10px 20px;
+    background-color: #895848; /* Color marrón chocolate complementario */
+    color: #ffffff; /* Color blanco */
+    border-radius: 5px;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+}
+
+    .subfooter-link:hover {
+        background-color: #55281b; /* Color marrón chocolate más oscuro */
+    }
