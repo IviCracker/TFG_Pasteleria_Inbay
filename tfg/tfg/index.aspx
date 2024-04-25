@@ -147,7 +147,7 @@
                 <div class="w-row">
                     <div class="footer-column w-clearfix w-col w-col-4">
 
-                        <img src="imagenes/logoInbayInvertido.png" alt="" width="200" class="failory-logo-image">
+                        <img src="imagenes/logoInbay4Vacio.png" alt="" width="200" class="failory-logo-image">
                     </div>
                     <div class="footer-column w-col w-col-8">
                         <div class="w-row">
