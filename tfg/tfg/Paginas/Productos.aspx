@@ -45,7 +45,7 @@
             <header>
                 <div class="logo">
                     <a href="../index.aspx">
-                        <img src="../imagenes/logoInbay3.png" width="150" /></a>
+                        <img src="../imagenes/logoInbay4.png" width="150" /></a>
                 </div>
                 <input type="checkbox" id="menu-bar" />
                 <label for="menu-bar">Menu</label>
@@ -113,6 +113,7 @@
                     </ol>
                 </div>
                 <div id="filtrosProductos" runat="server">
+                    <h3>Ordenar:</h3>
                     <asp:LinkButton ID="LinkButtonNombre" runat="server" OnClick='OrdenarPorNombre_Click' CssClass="boton-filtro">Nombre</asp:LinkButton>
                     <asp:LinkButton ID="LinkButtonPrecioBajo" runat="server" OnClick='OrdenarPorPrecioBajo_Click' CssClass="boton-filtro">Precio más bajo</asp:LinkButton>
                     <asp:LinkButton ID="LinkButtonPrecioAlto" runat="server" OnClick='OrdenarPorPrecioAlto_Click' CssClass="boton-filtro">Precio más alto</asp:LinkButton>

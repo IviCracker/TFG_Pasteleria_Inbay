@@ -1,5 +1,5 @@
 ﻿footer {
-    background: #940d05;
+    background: #55281b;
     font-family: Oswald;
 }
 div.container-footer.w-container {
@@ -184,7 +184,7 @@ a {
     box-sizing: border-box;
     color: #fff2db;
     font-size: 17px;
-    font-weight: 400;
+    
     line-height: 1.2em;
     text-decoration: none;
 }
@@ -300,6 +300,10 @@ h6{
     padding: 10px;
     text-align:center;
     font-family: Oswald;
+}
+
+h6 a{
+    color: #55281b;
 }
 
 #subfooter {

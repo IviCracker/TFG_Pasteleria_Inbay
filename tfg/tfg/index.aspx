@@ -83,27 +83,10 @@
                     </div>
 
                 </header>
-
-                <div class="content">
-
-                    <div class="container">
-
-                        <div class="owl-carousel owl-1">
-                            <div>
-                                <img src="imagenes/tarjeta inbay1.jpg" alt="Image" class="img-fluid" />
-                            </div>
-                            <div>
-                                <img src="images/hero_2.jpg" alt="Image" class="img-fluid" />
-                            </div>
-                            <div>
-                                <img src="images/hero_3.jpg" alt="Image" class="img-fluid" />
-                            </div>
-                            <div>
-                                <img src="images/hero_3.jpg" alt="Image" class="img-fluid" />
-                            </div>
-                        </div>
-                    </div>
+                <div style="text-align: center">
+                    <img src="imagenes/portadaFinal.png" style="height: 80%;" />
                 </div>
+
                 <br />
                 <br />
 
@@ -154,34 +137,33 @@
                             <div class="w-col w-col-8">
                                 <div class="w-row">
                                     <div class="w-col w-col-7 w-col-small-6 w-col-tiny-7">
-                                        <h3 class="footer-titles">Learn</h3>
+                                        <h3 class="footer-titles">Informacion</h3>
                                         <p class="footer-links">
-                                            <a href="" target="_blank"><span class="footer-link">Failed Startups<br>
-                                            </span></a><a href=""><span class="footer-link">Successful Startups<br>
-                                            </span></a><a href=""><span class="footer-link">Blog</span></a><span><br>
-                                            </span><a href=""><span class="footer-link">Entrepreneurial Tools<br>
-                                            </span></a><a href=""><span class="footer-link">Startup Cemetery<br>
-                                            </span></a><a href=""><span class="footer-link">Podcast</span></a><strong><br>
+                                            <a href="" <span class="footer-link">Inicio<br />
+                                            </span></a><a href=""><span class="footer-link">Productos<br />
+                                            </span><a href=""><span class="footer-link">Nosotros<br />
+                                            </span></a><a href=""><span class="footer-link">Contacto<br />
+                                            </span></a><a href=""><span class="footer-link">Hacer Pedido</span></a><strong><br />
                                             </strong>
                                         </p>
                                     </div>
                                     <div class="w-col w-col-5 w-col-small-6 w-col-tiny-5">
-                                        <h3 class="footer-titles">Other</h3>
+                                        <h3 class="footer-titles">Otros</h3>
                                         <p class="footer-links">
-                                            <a href=""><span class="footer-link">Sponsor Us!<br>
-                                            </span></a><a href=""><span class="footer-link">Open Startup<br>
-                                            </span></a><a href=""><span class="footer-link"></span></a><a href=""><span class="footer-link">Contribute<br>
-                                            </span></a><a href=""><span class="footer-link">FAQ</span></a><strong><br>
+                                            <a href=""><span class="footer-link">Pasteleria Inbay<br/></span></a>
+                                            <a href=""><span class="footer-link">915 72 20 17<br/></span></a>
+                                            <a href=""><span class="footer-link">Calle Capitan Blanco Argibay 43<br/></span></a>
+                                            <strong><br/>
                                             </strong>
                                         </p>
                                     </div>
                                 </div>
                             </div>
                             <div class="column-center-mobile w-col w-col-4">
-                                <h3 class="footer-titles">Follow Us!</h3>
+                                <h3 class="footer-titles">Siguenos en nuestras redes sociales!</h3>
                                 <a href="" target="_blank" class="footer-social-network-icons w-inline-block">
                                     <img class="imagenesRedesSociales" src="https://uploads-ssl.webflow.com/5966ea9a9217ca534caf139f/5c8dbf0a2f2b67e3b3ba079c_Twitter%20Icon.svg" width="20" alt="Twitter icon"></a><a href="" target="_blank" class="footer-social-network-icons w-inline-block">
-                                        <img class="imagenesRedesSociales" src="https://uploads-ssl.webflow.com/5966ea9a9217ca534caf139f/5c8dbfe70fcf5a0514c5b1da_Instagram%20Icon.svg" width="20" alt="Instagram icon"></a><a href="" target="_blank" class="footer-social-network-icons w-inline-block">
+                                        <img class="imagenesRedesSociales" src="https://uploads-ssl.webflow.com/5966ea9a9217ca534caf139f/5c8dbfe70fcf5a0514c5b1da_Instagram%20Icon.svg" width="20" alt="Instagram icon"></a><a href="https://www.instagram.com/pasteleriainbay/" target="_blank" class="footer-social-network-icons w-inline-block">
                                             <img class="imagenesRedesSociales" src="https://uploads-ssl.webflow.com/5966ea9a9217ca534caf139f/5c8dbe42e1e6034fdaba46f6_Facebook%20Icon.svg" width="20" alt="Facebook Icon"></a><a href="" target="_blank" class="footer-social-network-icons w-inline-block">
                                                 <img class="imagenesRedesSociales" src="https://uploads-ssl.webflow.com/5966ea9a9217ca534caf139f/5c8dc0002f2b676eb4ba0869_LinkedIn%20Icon.svg" width="20" alt="LinkedIn Icon"></a><a href="" target="_blank" class="footer-social-network-icons w-inline-block">
                                                     <img class="imagenesRedesSociales" src="https://uploads-ssl.webflow.com/5966ea9a9217ca534caf139f/5c8dc0112f2b6739c9ba0871_Pinterest%20Icon.svg" width="20" alt="Pinterest Icon"></a>

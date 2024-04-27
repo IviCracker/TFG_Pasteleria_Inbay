@@ -20,7 +20,7 @@ namespace tfg.Paginas
         {
             if (!IsPostBack)
             {
-                CargarProductos("bollo");
+                CargarProductos("Tartas");
             }
         }
 
@@ -34,7 +34,7 @@ namespace tfg.Paginas
         }
         protected void TipoProductoBollos_Click(object sender, EventArgs e)
         {
-            CargarProductos("bollo");
+            CargarProductos("Bollos");
         }
         protected void TipoProductoPasteles_Click(object sender, EventArgs e)
         {
@@ -42,7 +42,7 @@ namespace tfg.Paginas
         }
         protected void TipoProductoTartas_Click(object sender, EventArgs e)
         {
-            CargarProductos("tarta");
+            CargarProductos("Tartas");
         }
 
         public void OrdenarPorNombre_Click(object sender, EventArgs e)
@@ -118,6 +118,9 @@ namespace tfg.Paginas
                         int stock = Convert.ToInt32(reader["Stock"]);
                         double valoracionMedia = reader["ValoracionMedia"] == DBNull.Value ? 0 : Convert.ToDouble(reader["ValoracionMedia"]);
 
+                        // Convertir la valoración a estrellas
+                        string valoracionEstrellas = ConvertirValoracionAEstrellas(valoracionMedia);
+
                         // Obtener la imagen como un array de bytes
                         byte[] imagenBytes = (byte[])reader["Imagen"];
                         string imagenBase64 = Convert.ToBase64String(imagenBytes);
@@ -125,11 +128,15 @@ namespace tfg.Paginas
 
                         // Crear un elemento <div> con la imagen, el nombre, el precio y la valoración media del producto
                         string productoHtml = $"<div class='producto'>" +
-                                               $"<img src='{imagenUrl}' alt='{nombre}' onclick='openModal(\"{nombre}\", \"{imagenUrl}\")' data-nombre='{nombre}' />" +
-                                               $"<p class='nombre-producto'>{nombre}</p>" +
-                                               $"<p class='precio-producto'>Precio: {precio} €</p>" +
-                                               $"<p class='valoracion-media-producto'>Valoración media: {valoracionMedia.ToString("0.##")}</p>" +
-                                               $"</div>";
+                       $"<div class='imagen-producto' style='background-color: white; width: 250px; height: 250px; display: flex; justify-content: center; align-items: center; overflow: hidden;'>" +
+                       $"<img src='{imagenUrl}' alt='{nombre}' style='width: auto; height: 100%; object-fit: cover;' onclick='openModal(\"{nombre}\", \"{imagenUrl}\")' data-nombre='{nombre}' />" +
+                       $"</div>" +
+                       $"<div class='datos-producto' style='text-align: left; padding-top:10px;'>" +
+                       $"<p class='nombre-producto' style='text-align: left;font-family: Pompiere; font-size: 18px;'>{nombre}</p>" +
+                       $"<p class='precio-valoracion-producto' style='font-family: Pompiere; font-size: 16px;'>Precio: {precio} € {valoracionEstrellas}</p>" +
+                       $"</div>" +
+                       $"</div>";
+
 
                         productosDisponibles.Controls.Add(new LiteralControl(productoHtml));
                     }
@@ -160,7 +167,7 @@ namespace tfg.Paginas
                             $"WHERE p.Tipo = '{tipoProducto}' " +
                             $"GROUP BY p.id_producto " +
                             $"ORDER BY p.Nombre ASC";
-                    LinkButtonNombre.Attributes["style"] = "margin: 5px; padding: 8px 16px; border: 1px solid #FF8C00; border-radius: 4px; color: #333; text-decoration: none; text-align: center; transition: background-color 0.5s ease, border 0.3s ease; display: block; width: 100%; margin-bottom: 8px;";
+                   
                     break;
 
                 case "precioBajo":
@@ -170,7 +177,7 @@ namespace tfg.Paginas
                             $"WHERE p.Tipo = '{tipoProducto}' " +
                             $"GROUP BY p.id_producto " +
                             $"ORDER BY p.Precio ASC";
-                    LinkButtonPrecioBajo.Attributes["style"] = "margin: 5px; padding: 8px 16px; border: 1px solid #FF8C00; border-radius: 4px; color: #333; text-decoration: none; text-align: center; transition: background-color 0.5s ease, border 0.3s ease; display: block; width: 100%; margin-bottom: 8px;";
+                    
                     break;
 
                 case "precioAlto":
@@ -180,12 +187,21 @@ namespace tfg.Paginas
                             $"WHERE p.Tipo = '{tipoProducto}' " +
                             $"GROUP BY p.id_producto " +
                             $"ORDER BY p.Precio DESC";
-                    LinkButtonPrecioAlto.Attributes["style"] = "margin: 5px; padding: 8px 16px; border: 1px solid #FF8C00; border-radius: 4px; color: #333; text-decoration: none; text-align: center; transition: background-color 0.5s ease, border 0.3s ease; display: block; width: 100%; margin-bottom: 8px;";
+                   
                     break;
 
                 case "valoracion":
-                    // No es necesario hacer cambios en la consulta SQL ya que ya calculamos la valoración media en las otras consultas
+                    query = $"SELECT p.Nombre, p.Descripcion, p.Precio, p.Stock, p.Imagen, AVG(vp.valoracion) AS ValoracionMedia " +
+                            $"FROM producto p " +
+                            $"LEFT JOIN valoracion_producto vp ON p.id_producto = vp.id_producto " +
+                            $"WHERE p.Tipo = '{tipoProducto}' " +
+                            $"GROUP BY p.id_producto " +
+                            $"ORDER BY ValoracionMedia DESC";
+                    
                     break;
+
+
+                  
             }
 
             using (MySqlConnection conexion = new MySqlConnection(connectionString))
@@ -203,6 +219,9 @@ namespace tfg.Paginas
                         int stock = Convert.ToInt32(reader["Stock"]);
                         double valoracionMedia = reader["ValoracionMedia"] == DBNull.Value ? 0 : Convert.ToDouble(reader["ValoracionMedia"]);
 
+                        // Convertir la valoración a estrellas
+                        string valoracionEstrellas = ConvertirValoracionAEstrellas(valoracionMedia);
+
                         // Obtener la imagen como un array de bytes
                         byte[] imagenBytes = (byte[])reader["Imagen"];
                         string imagenBase64 = Convert.ToBase64String(imagenBytes);
@@ -213,7 +232,7 @@ namespace tfg.Paginas
                                                $"<img src='{imagenUrl}' alt='{nombre}' onclick='openModal(\"{nombre}\", \"{imagenUrl}\")' data-nombre='{nombre}' />" +
                                                $"<p class='nombre-producto'>{nombre}</p>" +
                                                $"<p class='precio-producto'>Precio: {precio} €</p>" +
-                                               $"<p class='valoracion-media-producto'>Valoración media: {valoracionMedia.ToString("0.##")}</p>" +
+                                               $"<p class='valoracion-media-producto'>{valoracionEstrellas}</p>" +
                                                $"</div>";
 
                         productosDisponibles.Controls.Add(new LiteralControl(productoHtml));
@@ -250,6 +269,25 @@ namespace tfg.Paginas
             }
         }
 
+        protected string ConvertirValoracionAEstrellas(double valoracion)
+        {
+            // Calcula el número de estrellas completas
+            int estrellasCompletas = (int)Math.Floor(valoracion / 2);
+
+            // Calcula si hay una estrella adicional para agregar si la valoración es impar
+            bool agregarEstrellaMedia = valoracion % 2 != 0;
+
+            // Crea una cadena con las estrellas completas
+            string estrellas = new string('★', estrellasCompletas);
+
+            // Si es necesario, agrega una estrella media
+            if (agregarEstrellaMedia)
+            {
+                estrellas += '½';
+            }
+
+            return estrellas;
+        }
 
 
 
