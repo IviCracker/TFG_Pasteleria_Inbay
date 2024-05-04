@@ -1,0 +1,60 @@
+﻿/* Estilos para el contenedor de la tarjeta de crédito */
+.tarjetaCredito {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px; /* Espacio interno */
+    border-radius: 10px; /* Bordes redondeados */
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); /* Sombra */
+    margin-top: 5%;
+    margin-bottom: 5%;
+}
+
+/* Estilos para los grupos de campos */
+.datosTarjeta .grupo {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px; /* Espacio entre grupos */
+}
+
+    /* Estilos para los span (etiquetas) dentro de los grupos */
+    .datosTarjeta .grupo span {
+        flex: 1;
+    }
+
+    /* Estilos para los textbox dentro de los grupos */
+    .datosTarjeta .grupo input[type="text"],
+    .datosTarjeta .grupo select {
+        flex: 3;
+        margin-right: 10px;
+        padding: 10px; /* Espacio interno */
+        width: 100%;
+        border: 1px solid #ccc; /* Borde */
+        border-radius: 5px; /* Bordes redondeados */
+        color: #4d4d4d;
+        background-color: rgba(0, 0, 0, 0.2);
+        font-family: Arial, Helvetica, sans-serif;
+    }
+
+        /* Estilos cuando un textbox está enfocado */
+        .datosTarjeta .grupo input[type="text"]:focus,
+        .datosTarjeta .grupo select:focus {
+            color: black; /* Color del texto cuando está enfocado */
+            background-color: white; /* Color de fondo cuando está enfocado */
+            border-color: #4d4d4d; /* Color del borde cuando está enfocado */
+            outline: none; /* Quita el contorno predeterminado */
+        }
+
+/* Estilos para el botón */
+.datosTarjeta .btnGuardar {
+    padding: 10px 20px;
+    background-color: #94604f;
+    color: white;
+    border: none;
+    border-radius: 5px; /* Bordes redondeados */
+    cursor: pointer;
+}
+
+    /* Estilos para el botón al pasar el ratón por encima */
+    .datosTarjeta .btnGuardar:hover {
+        background-color: #55281b;
+    }

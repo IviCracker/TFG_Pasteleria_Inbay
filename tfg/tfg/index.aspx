@@ -16,6 +16,7 @@
     <link rel="stylesheet" href="fonts/icomoon/style.css" />
     <link rel="stylesheet" href="css/owl.carousel.min.css" />
     <link rel="stylesheet" href="css/style.css" />
+
 </head>
 
 
@@ -23,15 +24,24 @@
 <body>
     <form id="form1" runat="server">
         <div class="usuario">
-            <ul>
-                <li><a href="/Paginas/Registro.aspx">
-                    <ion-icon name="lock-open"></ion-icon>
-                    &nbsp;Registro</a></li>
-                <li><a href="/Paginas/MiCuenta.aspx">
-                    <ion-icon name="person"></ion-icon>
-                    &nbsp;Mi cuenta</a></li>
-            </ul>
-        </div>
+    <ul>
+        <% if (Session["UsuarioActual"] != null)
+            { %>
+        <li><a href="Paginas/Registro.aspx">
+            <ion-icon name="person"></ion-icon>
+            &nbsp;<%= Session["UsuarioActual"] %></a></li>
+        <% }
+            else
+            { %>
+        <li><a href="Paginas/Registro.aspx">
+            <ion-icon name="lock-open"></ion-icon>
+            &nbsp;Registro</a></li>
+        <% } %>
+        <li><a href="/Paginas/MiCuenta.aspx">
+            <ion-icon name="person"></ion-icon>
+            &nbsp;Mi cuenta</a></li>
+    </ul>
+</div>
         <div>
             <main>
 

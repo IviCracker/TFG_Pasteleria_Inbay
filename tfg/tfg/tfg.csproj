@@ -121,7 +121,10 @@
     <Content Include="css\bootstrap.min.css" />
     <Content Include="css\owl.carousel.min.css" />
     <Content Include="css\style.css" />
+    <Content Include="Estilos\DatosCuenta.css" />
+    <Content Include="Estilos\DatosTarjeta.css" />
     <Content Include="Estilos\Footer.css" />
+    <Content Include="Estilos\MiCuenta.css" />
     <Content Include="fonts\icomoon\demo-files\demo.css" />
     <Content Include="fonts\icomoon\demo-files\demo.js" />
     <Content Include="fonts\icomoon\demo.html" />
@@ -152,7 +155,11 @@
     <Content Include="js\owl.carousel.min.js" />
     <Content Include="js\popper.min.js" />
     <Content Include="Paginas\Contacto.aspx" />
+    <Content Include="Paginas\DatosCuenta.aspx" />
+    <Content Include="Paginas\DatosTarjeta.aspx" />
+    <Content Include="Paginas\DetalleProducto.aspx" />
     <Content Include="Paginas\HacerPedido.aspx" />
+    <Content Include="Paginas\MiCuenta.aspx" />
     <Content Include="Paginas\Nosotros.aspx" />
     <Content Include="Paginas\Productos.aspx" />
     <Content Include="Paginas\Registro.aspx" />
@@ -173,12 +180,40 @@
     <Compile Include="Paginas\Contacto.aspx.designer.cs">
       <DependentUpon>Contacto.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Paginas\DatosCuenta.aspx.cs">
+      <DependentUpon>DatosCuenta.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Paginas\DatosCuenta.aspx.designer.cs">
+      <DependentUpon>DatosCuenta.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Paginas\DatosTarjeta.aspx.cs">
+      <DependentUpon>DatosTarjeta.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Paginas\DatosTarjeta.aspx.designer.cs">
+      <DependentUpon>DatosTarjeta.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Paginas\DetalleProducto.aspx.cs">
+      <DependentUpon>DetalleProducto.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Paginas\DetalleProducto.aspx.designer.cs">
+      <DependentUpon>DetalleProducto.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Paginas\HacerPedido.aspx.cs">
       <DependentUpon>HacerPedido.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Paginas\HacerPedido.aspx.designer.cs">
       <DependentUpon>HacerPedido.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Paginas\MiCuenta.aspx.cs">
+      <DependentUpon>MiCuenta.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Paginas\MiCuenta.aspx.designer.cs">
+      <DependentUpon>MiCuenta.aspx</DependentUpon>
     </Compile>
     <Compile Include="Paginas\Nosotros.aspx.cs">
       <DependentUpon>Nosotros.aspx</DependentUpon>

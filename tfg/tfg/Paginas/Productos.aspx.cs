@@ -113,9 +113,7 @@ namespace tfg.Paginas
                     while (reader.Read())
                     {
                         string nombre = reader["Nombre"].ToString();
-                        string descripcion = reader["Descripcion"].ToString();
                         decimal precio = Convert.ToDecimal(reader["Precio"]);
-                        int stock = Convert.ToInt32(reader["Stock"]);
                         double valoracionMedia = reader["ValoracionMedia"] == DBNull.Value ? 0 : Convert.ToDouble(reader["ValoracionMedia"]);
 
                         // Convertir la valoración a estrellas
@@ -126,18 +124,19 @@ namespace tfg.Paginas
                         string imagenBase64 = Convert.ToBase64String(imagenBytes);
                         string imagenUrl = $"data:image/jpeg;base64,{imagenBase64}";
 
-                        // Crear un elemento <div> con la imagen, el nombre, el precio y la valoración media del producto
-                        string productoHtml = $"<div class='producto'>" +
-                       $"<div class='imagen-producto' style='background-color: white; width: 250px; height: 250px; display: flex; justify-content: center; align-items: center; overflow: hidden;'>" +
-                       $"<img src='{imagenUrl}' alt='{nombre}' style='width: auto; height: 100%; object-fit: cover;' onclick='openModal(\"{nombre}\", \"{imagenUrl}\")' data-nombre='{nombre}' />" +
-                       $"</div>" +
-                       $"<div class='datos-producto' style='text-align: left; padding-top:10px;'>" +
-                       $"<p class='nombre-producto' style='text-align: left;font-family: Pompiere; font-size: 18px;'>{nombre}</p>" +
-                       $"<p class='precio-valoracion-producto' style='font-family: Pompiere; font-size: 16px;'>Precio: {precio} € {valoracionEstrellas}</p>" +
-                       $"</div>" +
-                       $"</div>";
+                        // Crear un elemento <div> con el nombre, el precio y la valoración media del producto
+                        string productoHtml = $@"
+                    <div class='producto' onclick='mostrarDetalleProducto(""{nombre}"", ""{imagenUrl}"", {precio}, {valoracionMedia})'>
+                        <div class='imagen-producto' style=' width: 250px; height: 250px; display: flex; justify-content: center; align-items: center; overflow: hidden;'>
+                            <img src='{imagenUrl}' alt='{nombre}' style='width: auto; height: 100%; object-fit: cover;' />
+                        </div>
+                        <div class='datos-producto' style='text-align: left; padding-top:10px;'>
+                            <p class='nombre-producto' style='text-align: left;font-family: Pompiere; font-size: 18px;'>{nombre}</p>
+                            <p class='precio-valoracion-producto' style='font-family: Pompiere; font-size: 16px;'>Precio: {precio}      {valoracionEstrellas}</p>
+                        </div>
+                    </div>";
 
-
+                        // Agregar el producto generado dinámicamente al contenedor 'productosDisponibles'
                         productosDisponibles.Controls.Add(new LiteralControl(productoHtml));
                     }
                 }
@@ -145,6 +144,7 @@ namespace tfg.Paginas
             tipoProducto = tipo.ToString();
             cargarSubcabecera();
         }
+
 
 
         protected void CargarProductosOrden(string TipoOrden)
@@ -229,11 +229,14 @@ namespace tfg.Paginas
 
                         // Crear un elemento <div> con la imagen, el nombre, el precio y la valoración media del producto
                         string productoHtml = $"<div class='producto'>" +
-                                               $"<img src='{imagenUrl}' alt='{nombre}' onclick='openModal(\"{nombre}\", \"{imagenUrl}\")' data-nombre='{nombre}' />" +
-                                               $"<p class='nombre-producto'>{nombre}</p>" +
-                                               $"<p class='precio-producto'>Precio: {precio} €</p>" +
-                                               $"<p class='valoracion-media-producto'>{valoracionEstrellas}</p>" +
-                                               $"</div>";
+                       $"<div class='imagen-producto' style=' width: 250px; height: 250px; display: flex; justify-content: center; align-items: center; overflow: hidden;'>" +
+                       $"<img src='{imagenUrl}' alt='{nombre}' style='width: auto; height: 100%; object-fit: cover;' onclick='openModal(\"{nombre}\", \"{imagenUrl}\")' data-nombre='{nombre}' />" +
+                       $"</div>" +
+                       $"<div class='datos-producto' style='text-align: left; padding-top:10px;'>" +
+                       $"<p class='nombre-producto' style='text-align: left;font-family: Pompiere; font-size: 18px;'>{nombre}</p>" +
+                       $"<p class='precio-valoracion-producto' style='font-family: Pompiere; font-size: 16px;'>Precio: {precio} € {valoracionEstrellas}</p>" +
+                       $"</div>" +
+                       $"</div>";
 
                         productosDisponibles.Controls.Add(new LiteralControl(productoHtml));
                     }

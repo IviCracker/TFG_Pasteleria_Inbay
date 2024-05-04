@@ -225,6 +225,7 @@ div.w-col.w-col-5.w-col-small-6.w-col-tiny-5 {
     padding-right: 0;
     position: relative;
     width: 41.6667%;
+    
 }
 
 div.column-center-mobile.w-col.w-col-4 {
@@ -310,12 +311,14 @@ h6 a{
     background-color: #fff2db; /* Color pastel */
     padding: 20px;
     text-align: center;
+    
 }
 
 .subfooter p {
     margin: 10px 0;
-    font-size: 18px;
+    font-size: 14px;
     line-height: 1.6;
+    font-family: Georgia, 'Times New Roman', Times, serif;
     color: #55281b;
 }
 

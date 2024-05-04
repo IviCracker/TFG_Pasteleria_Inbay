@@ -1,11 +1,10 @@
-﻿
-
+﻿@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&display=swap');
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
     outline: none;
-    font-family: Oswald;
+    font-family: "Oswald", sans-serif;
     
 }
 
@@ -466,6 +465,7 @@ p {
     background-color: #ffffff;
     border-radius: 20px;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    margin-bottom: 50px;
     
 }
 
@@ -521,14 +521,47 @@ p {
 }
 
 .tituloRegistroInicio {
-    text-align:center; 
+   
+    text-align: center;
     padding-bottom:5%;
 }
 
 #lnkMostrarRegistro, #lnkIniciarSesion {
     text-decoration: none !important;
-    color: #bb8cd0;
+    color: #bf7a01;
 }
     #lnkMostrarRegistro:hover, #lnkIniciarSesion:hover {
         color: #FFA686;
     }
+
+#txtNombreUsuario, #txtContraseñaInicioSesion {
+   
+}
+
+#lblErrorInicioSesion {
+    color: red; /* Color rojo para los mensajes de error */
+    font-size: 14px; /* Tamaño de fuente */
+    margin-top: 5px; /* Margen superior para separar el mensaje de los campos de entrada */
+    display: block; /* Hacer que el Label sea un elemento de bloque para que ocupe toda la anchura disponible */
+}
+
+.botonIniciarSesion {
+    background-color: #94604f; /* Color de fondo verde */
+    color: #fff2db; /* Color del texto blanco */
+    padding: 10px 20px; /* Espacio interno del botón */
+    border: none; /* Sin borde */
+    border-radius: 4px; /* Borde redondeado */
+    cursor: pointer; /* Cursor de puntero al pasar por encima */
+    text-align: center; /* Alinear el texto al centro */
+    text-decoration: none; /* Sin decoración de texto */
+    display: inline-block; /* Hacer que el botón sea un elemento en línea */
+    font-size: 16px; /* Tamaño de fuente */
+    margin-top: 10px; /* Margen superior */
+    margin-left: auto; /* Centrar horizontalmente */
+    margin-right: auto; /* Centrar horizontalmente */
+    display: block; /* Hacer que el botón sea un elemento de bloque para que ocupe toda la anchura disponible */
+}
+    .botonIniciarSesion:hover {
+        background-color: #ff7e5f; /* Cambio de color de fondo al pasar el ratón */
+    }
+
