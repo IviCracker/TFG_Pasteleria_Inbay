@@ -81,11 +81,11 @@ namespace tfg.Paginas
 
             if (tipoProducto != null)
             {
-                productoHtml = $"<p><a href='../index.aspx'>Inicio</a> / <a href='productos.aspx'>Productos</a> / {tipoProducto}</p>";
+                productoHtml = $"<p><a href='../default.aspx'>Inicio</a> / <a href='productos.aspx'>Productos</a> / {tipoProducto}</p>";
             }
             else
             {
-                productoHtml = $"<a href='../index.aspx'>Inicio</a> / <a href='productos.aspx'>Productos</a>";
+                productoHtml = $"<a href='../default.aspx'>Inicio</a> / <a href='productos.aspx'>Productos</a>";
             }
 
             subcabecera.Controls.Add(new LiteralControl(productoHtml));

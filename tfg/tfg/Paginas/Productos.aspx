@@ -68,14 +68,14 @@
 
             <header>
                 <div class="logo">
-                    <a href="../index.aspx">
+                    <a href="../default.aspx">
                         <img src="../imagenes/logoInbay4.png" width="150" /></a>
                 </div>
                 <input type="checkbox" id="menu-bar" />
                 <label for="menu-bar">Menu</label>
                 <nav class="navbar">
                     <ul>
-                        <li><a href="../index.aspx">Inicio</a></li>
+                        <li><a href="../default.aspx">Inicio</a></li>
                         <li><a href="../Paginas/Productos.aspx">Productos</a>
                             <ul class="submenu" id="productos">
                                 <li><a href="#">Panes</a></li>

@@ -89,7 +89,7 @@ namespace tfg.Paginas
                             }
                             conexion.Close();
 
-                            HttpContext.Current.Response.Redirect("../index.aspx");
+                            HttpContext.Current.Response.Redirect("../default.aspx");
                             // Aquí puedes redirigir a otra página si el inicio de sesión es exitoso
                         }
                         else

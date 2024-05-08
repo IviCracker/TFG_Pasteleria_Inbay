@@ -16,7 +16,7 @@ namespace tfg.Paginas
             if (Session["UsuarioActual"] == null)
             {
                 // La sesión ha caducado o el usuario no está autenticado, redirigir a una página de inicio de sesión
-                Response.Redirect("~/index.aspx");
+                Response.Redirect("~/default.aspx");
             }
             else
             {
@@ -87,7 +87,7 @@ namespace tfg.Paginas
             else
             {
                 // La sesión ha caducado o el usuario no está autenticado, redirigir a una página de inicio de sesión
-                Response.Redirect("../index.aspx");
+                Response.Redirect("../default.aspx");
             }
         }
 

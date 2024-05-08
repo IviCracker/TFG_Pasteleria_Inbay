@@ -146,7 +146,7 @@
     <Content Include="images\hero_1.jpg" />
     <Content Include="images\hero_2.jpg" />
     <Content Include="images\hero_3.jpg" />
-    <Content Include="index.aspx" />
+    <Content Include="default.aspx" />
     <Content Include="index.css" />
     <Content Include="index.js" />
     <Content Include="js\bootstrap.min.js" />
@@ -166,12 +166,12 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="index.aspx.cs">
-      <DependentUpon>index.aspx</DependentUpon>
+    <Compile Include="default.aspx.cs">
+      <DependentUpon>default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="index.aspx.designer.cs">
-      <DependentUpon>index.aspx</DependentUpon>
+    <Compile Include="default.aspx.designer.cs">
+      <DependentUpon>default.aspx</DependentUpon>
     </Compile>
     <Compile Include="Paginas\Contacto.aspx.cs">
       <DependentUpon>Contacto.aspx</DependentUpon>
