@@ -134,8 +134,8 @@
     <Content Include="imagenes\.jpg" />
     <Content Include="imagenes\lineaSubmenu.png" />
     <Content Include="imagenes\logoInbay3.png" />
-    <Content Include="imagenes\logoInbay1.png" />
     <Content Include="imagenes\logoInbay4.png" />
+    <Content Include="imagenes\logoInbay4Vacio.png" />
     <Content Include="imagenes\logoInbayInvertido.png" />
     <Content Include="imagenes\portada.png" />
     <Content Include="imagenes\portada1.png" />

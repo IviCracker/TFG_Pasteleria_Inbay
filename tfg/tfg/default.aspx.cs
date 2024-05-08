@@ -1,15 +1,17 @@
-﻿using MySql.Data.MySqlClient;
+﻿
+using MySql.Data.MySqlClient;
 using System;
+using System.Data.SqlClient;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
 namespace tfg
 {
-    public partial class index : System.Web.UI.Page
+    public partial class Default : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            
+
             if (!IsPostBack)
             {
                 CargarProductos();
@@ -18,73 +20,54 @@ namespace tfg
 
         protected void CargarProductos()
         {
-            string connectionString = "DataBase=tfg;DataSource=localhost;user=root;Port=3306";
-            string query = "SELECT Nombre, Descripcion, Precio, Stock, Imagen FROM producto WHERE destacado = 1";
+            string connectionString = "Server=sql.bsite.net\\MSSQL2016;Database=proyectopasteleriainbay_;Uid=proyectopasteleriainbay_;Pwd=proyectopasteleriainbay_;";
 
-            using (MySqlConnection conexion = new MySqlConnection(connectionString))
+            string query = "SELECT Nombre, Descripcion, Precio, Stock FROM producto WHERE destacado = 1";
+
+            try
             {
-                MySqlCommand comando = new MySqlCommand(query, conexion);
-                conexion.Open();
-
-                using (MySqlDataReader reader = comando.ExecuteReader())
+                using (SqlConnection conexion = new SqlConnection(connectionString))
                 {
-                    while (reader.Read())
+                    SqlCommand comando = new SqlCommand(query, conexion);
+                    conexion.Open();
+
+                    using (SqlDataReader reader = comando.ExecuteReader())
                     {
-                        string nombre = reader["Nombre"].ToString();
-                        string descripcion = reader["Descripcion"].ToString();
-                        decimal precio = Convert.ToDecimal(reader["Precio"]);
-                        int stock = Convert.ToInt32(reader["Stock"]);
+                        while (reader.Read())
+                        {
+                            string nombre = reader["Nombre"].ToString();
+                            string descripcion = reader["Descripcion"].ToString();
+                            decimal precio = Convert.ToDecimal(reader["Precio"]);
+                            int stock = Convert.ToInt32(reader["Stock"]);
 
-                        // Obtener la imagen como un array de bytes
-                        byte[] imagenBytes = (byte[])reader["Imagen"];
-                        string imagenBase64 = Convert.ToBase64String(imagenBytes);
-                        string imagenUrl = $"data:image/jpeg;base64,{imagenBase64}";
+                            // Crear un elemento <div> con el nombre del producto
+                            string productoHtml = $"<div class='producto'>" +
+                                                   $"<p class='nombre-producto'>{nombre}</p>" +
+                                                   $"</div>";
 
-                        // Crear un elemento <div> con la imagen y el nombre del producto
-                        string productoHtml = $"<div class='producto'>" +
-                                               $"<img src='{imagenUrl}' alt='{nombre}' onclick='openModal(\"{nombre}\", \"{imagenUrl}\")' data-nombre='{nombre}' />" +
-                                               $"<p class='nombre-producto'>{nombre}</p>" +
-                                               $"</div>";
-
-                        productosDestacadosContainer.Controls.Add(new LiteralControl(productoHtml));
+                            productosDestacadosContainer.Controls.Add(new LiteralControl(productoHtml));
+                        }
                     }
                 }
+            }
+            catch (Exception ex)
+            {
+                // Manejar la excepción aquí (por ejemplo, registrándola, mostrando un mensaje de error, etc.)
+                // Aquí puedes personalizar la forma en que deseas manejar la excepción
+                // Por ejemplo:
+                // Console.WriteLine("Error: " + ex.Message);
+                // Log.Error("Error al cargar productos", ex);
+                // MostrarMensajeError("Error al cargar productos. Por favor, inténtalo de nuevo más tarde.");
             }
         }
 
 
-        // Método para cargar dinámicamente la información del producto en el modal
-        [System.Web.Services.WebMethod]
-        public static string CargarInformacionProducto(string nombreProducto)
-        {
-            string descripcion = "";
-            decimal precio = 0;
-            int stock = 0;
 
-            string connectionString = "DataBase=tfg;DataSource=localhost;user=root;Port=3306";
-            string query = "SELECT Descripcion, Precio, Stock FROM producto WHERE Nombre = @nombreProducto";
 
-            using (MySqlConnection connection = new MySqlConnection(connectionString))
-            {
-                MySqlCommand command = new MySqlCommand(query, connection);
-                command.Parameters.AddWithValue("@nombreProducto", nombreProducto);
-                connection.Open();
 
-                using (MySqlDataReader reader = command.ExecuteReader())
-                {
-                    if (reader.Read())
-                    {
-                        descripcion = reader["Descripcion"].ToString();
-                        precio = Convert.ToDecimal(reader["Precio"]);
-                        stock = Convert.ToInt32(reader["Stock"]);
-                    }
-                }
-            }
 
-            // Formatear la respuesta como un JSON
-            return $"{{\"descripcion\": \"{descripcion}\", \"precio\": {precio}, \"stock\": {stock}}}";
-        }
 
-      
+
     }
 }
+

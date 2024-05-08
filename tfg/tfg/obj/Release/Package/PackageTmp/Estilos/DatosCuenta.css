@@ -1,0 +1,57 @@
+﻿.infoCuenta {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px; /* Espacio interno */
+    border-radius: 10px; /* Bordes redondeados */
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); /* Sombra */
+    margin-top:5%;
+    margin-bottom:5%;
+}
+
+.campo {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px; /* Espacio entre campos */
+    
+}
+
+    .campo span {
+        flex: 1;
+    }
+
+    .campo input[type="text"],
+    .campo input[type="email"],
+    .campo input[type="tel"],
+    .campo input[type="password"] {
+        flex: 3;
+        margin-right: 10px;
+        padding: 10px; /* Espacio interno */
+        width: 100%;
+        border: 1px solid #ccc; /* Borde */
+        border-radius: 5px; /* Bordes redondeados */
+        color: #4d4d4d;
+        background-color: rgba(0, 0, 0, 0.2);
+        font-family: Arial, Helvetica, sans-serif;
+    }
+        .campo input[type="text"]:focus,
+        .campo input[type="email"]:focus,
+        .campo input[type="tel"]:focus,
+        .campo input[type="password"]:focus {
+            color: black; /* Color del texto cuando está enfocado */
+            background-color: white; /* Color de fondo cuando está enfocado */
+            border-color: #4d4d4d; /* Color del borde cuando está enfocado */
+            outline: none; /* Quita el contorno predeterminado */
+        }
+
+    .campo .btnEditar {
+        padding: 10px 20px;
+        background-color: #94604f;
+        color: white;
+        border: none;
+        border-radius: 5px; /* Bordes redondeados */
+        cursor: pointer;
+    }
+
+        .campo .btnEditar:hover {
+            background-color: #55281b;
+        }
