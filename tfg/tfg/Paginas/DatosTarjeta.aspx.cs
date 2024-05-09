@@ -1,6 +1,7 @@
 ﻿using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
@@ -39,13 +40,13 @@ namespace tfg.Paginas
             // Obtener el ID del cliente
             int idCliente = ObtenerIdCliente();
 
-            string connectionString = "DataBase=tfg;DataSource=localhost;user=root;Port=3306";
+            string connectionString = "Server=sql.bsite.net\\MSSQL2016;Database=proyectopasteleriainbay_;Uid=proyectopasteleriainbay_;Pwd=proyectopasteleriainbay_;"; // Aquí debes poner tu cadena de conexión
             string queryCheckExistence = "SELECT COUNT(*) FROM informacion_tarjeta WHERE id_cliente = @id_cliente";
 
-            using (MySqlConnection connection = new MySqlConnection(connectionString))
+            using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 // Verificar si existe una tarjeta para el cliente
-                MySqlCommand commandCheck = new MySqlCommand(queryCheckExistence, connection);
+                SqlCommand commandCheck = new SqlCommand(queryCheckExistence, connection);
                 commandCheck.Parameters.AddWithValue("@id_cliente", idCliente);
                 connection.Open();
 
@@ -56,7 +57,7 @@ namespace tfg.Paginas
                     // Si no hay tarjetas asociadas al cliente, realizamos una inserción
                     string queryInsert = "INSERT INTO informacion_tarjeta (id_cliente, numero_tarjeta, nombre_tarjeta, mes_expiracion, anio_expiracion, cvv) VALUES (@id_cliente, @numero_tarjeta, @nombre_tarjeta, @mes_expiracion, @anio_expiracion, @cvv)";
 
-                    MySqlCommand commandInsert = new MySqlCommand(queryInsert, connection);
+                    SqlCommand commandInsert = new SqlCommand(queryInsert, connection);
                     commandInsert.Parameters.AddWithValue("@id_cliente", idCliente);
                     commandInsert.Parameters.AddWithValue("@numero_tarjeta", NumeroTarjeta);
                     commandInsert.Parameters.AddWithValue("@nombre_tarjeta", NombreTarjeta);
@@ -71,7 +72,7 @@ namespace tfg.Paginas
                     // Si ya existe una tarjeta, realizamos una actualización
                     string queryUpdate = "UPDATE informacion_tarjeta SET numero_tarjeta = @numero_tarjeta, nombre_tarjeta = @nombre_tarjeta, mes_expiracion = @mes_expiracion, anio_expiracion = @anio_expiracion, cvv = @cvv WHERE id_cliente = @id_cliente";
 
-                    MySqlCommand commandUpdate = new MySqlCommand(queryUpdate, connection);
+                    SqlCommand commandUpdate = new SqlCommand(queryUpdate, connection);
                     commandUpdate.Parameters.AddWithValue("@numero_tarjeta", NumeroTarjeta);
                     commandUpdate.Parameters.AddWithValue("@nombre_tarjeta", NombreTarjeta);
                     commandUpdate.Parameters.AddWithValue("@mes_expiracion", mesExp);
@@ -89,13 +90,13 @@ namespace tfg.Paginas
         {
             int id_cliente = 0; // Inicializamos el ID del cliente como 0
 
-            string connectionString = "DataBase=tfg;DataSource=localhost;user=root;Port=3306"; // Reemplaza "tucontraseña" con la contraseña de tu base de datos
+            string connectionString = "Server=sql.bsite.net\\MSSQL2016;Database=proyectopasteleriainbay_;Uid=proyectopasteleriainbay_;Pwd=proyectopasteleriainbay_;";
             string query = "SELECT id_cliente FROM cliente WHERE Nombre = @nombre"; // Consulta para obtener el ID del cliente basado en el nombre
 
             string nombreUsuario = Session["UsuarioActual"].ToString();
-            using (MySqlConnection conexion = new MySqlConnection(connectionString))
+            using (SqlConnection conexion = new SqlConnection(connectionString))
             {
-                MySqlCommand comando = new MySqlCommand(query, conexion);
+                SqlCommand comando = new SqlCommand(query, conexion);
                 comando.Parameters.AddWithValue("@nombre", nombreUsuario); // Agregar el parámetro del nombre de usuario
                 conexion.Open();
 
@@ -110,7 +111,6 @@ namespace tfg.Paginas
             return id_cliente;
         }
 
-
         protected void CargarValoresCampos()
         {
             // Verificar si la sesión está activa y el usuario está autenticado
@@ -119,23 +119,24 @@ namespace tfg.Paginas
                 int id_cliente = ObtenerIdCliente(); // Obtener el ID del cliente
 
                 // Consulta para obtener la información de la tarjeta del cliente
-                string connectionString = "DataBase=tfg;DataSource=localhost;user=root;Port=3306";
+                string connectionString = "Server=sql.bsite.net\\MSSQL2016;Database=proyectopasteleriainbay_;Uid=proyectopasteleriainbay_;Pwd=proyectopasteleriainbay_;"; // Aquí debes poner tu cadena de conexión
                 string query = "SELECT numero_tarjeta, nombre_tarjeta, mes_expiracion, anio_expiracion, cvv FROM informacion_tarjeta WHERE id_cliente = @id_cliente";
 
-                using (MySqlConnection conexion = new MySqlConnection(connectionString))
+                using (SqlConnection conexion = new SqlConnection(connectionString))
                 {
-                    MySqlCommand comando = new MySqlCommand(query, conexion);
+                    SqlCommand comando = new SqlCommand(query, conexion);
                     comando.Parameters.AddWithValue("@id_cliente", id_cliente); // Agregar el parámetro del ID del cliente
                     conexion.Open();
 
-                    using (MySqlDataReader reader = comando.ExecuteReader())
+                    using (SqlDataReader reader = comando.ExecuteReader())
                     {
                         if (reader.Read())
                         {
                             txtNumeroTarjeta.Text = reader["numero_tarjeta"].ToString();
                             txtNombreTarjeta.Text = reader["nombre_tarjeta"].ToString();
-                            mesExpiracion.SelectedValue = reader["mes_expiracion"].ToString();
-                            anioExpiracion.SelectedValue = reader["anio_expiracion"].ToString();
+                            mesExpiracion.SelectedIndex = Convert.ToInt32(reader["mes_expiracion"]);
+                            anioExpiracion.SelectedIndex = Convert.ToInt32(reader["anio_expiracion"]);
+
                             txtCVV.Text = reader["cvv"].ToString();
                         }
                     }

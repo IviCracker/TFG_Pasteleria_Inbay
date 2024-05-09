@@ -63,13 +63,13 @@
                                     <li><a href="#">Tartas</a></li>
                                 </ul>
                             </li>
-                            <li><a href="#">Nosotros</a></li>
-                            <li><a href="#" onclick="mostrarSubMenu('contacto')">Contacto</a>
+                            <li><a href="Paginas/Nosotros.aspx">Nosotros</a></li>
+                            <li><a href="Paginas/Contacto.aspx">Contacto</a>
                                 <ul class="submenu" id="contacto">
                                     <li><a href="#">Dónde estamos</a></li>
                                 </ul>
                             </li>
-                            <li><a href="#" onclick="cambiarVista(4)">Hacer Pedido</a></li>
+                            <li><a href="Paginas/HacerPedido.aspx" onclick="cambiarVista(4)">Hacer Pedido</a></li>
                         </ul>
                     </nav>
 
@@ -149,20 +149,20 @@
                                     <div class="w-col w-col-7 w-col-small-6 w-col-tiny-7">
                                         <h3 class="footer-titles">Informacion</h3>
                                         <p class="footer-links">
-                                            <a href="" <span class="footer-link">Inicio<br />
-                                            </span></a><a href=""><span class="footer-link">Productos<br />
-                                            </span><a href=""><span class="footer-link">Nosotros<br />
-                                            </span></a><a href=""><span class="footer-link">Contacto<br />
-                                            </span></a><a href=""><span class="footer-link">Hacer Pedido</span></a><strong><br />
+                                            <a href="default.aspx"><span class="footer-link">Inicio<br/></span></a>
+                                            <a href="Paginas/Productos.aspx"><span class="footer-link">Productos<br/></span></a>
+                                            <a href="Paginas/Nosotros.aspx"><span class="footer-link">Nosotros<br/></span></a>
+                                            <a href="Paginas/Contacto.aspx"><span class="footer-link">Contacto<br/></span></a>
+                                            <a href="Paginas/HacerPedido.aspx"><span class="footer-link">Hacer Pedido</span></a><strong><br />
                                             </strong>
                                         </p>
                                     </div>
                                     <div class="w-col w-col-5 w-col-small-6 w-col-tiny-5">
                                         <h3 class="footer-titles">Otros</h3>
                                         <p class="footer-links">
-                                            <a href=""><span class="footer-link">Pasteleria Inbay<br/></span></a>
-                                            <a href=""><span class="footer-link">915 72 20 17<br/></span></a>
-                                            <a href=""><span class="footer-link">Calle Capitan Blanco Argibay 43<br/></span></a>
+                                            <a href="https://g.co/kgs/eR36i2S"><span class="footer-link">Pasteleria Inbay<br/></span></a>
+                                            <a href="tel:915722017"><span class="footer-link">915 72 20 17<br/></span></a>
+                                            <a href="https://maps.app.goo.gl/GMDvFgaLnnw97igS6"><span class="footer-link" style="white-space: nowrap; display: block;">Calle Capitan Blanco<br/> Argibay 43<br/></span></a>
                                             <strong><br/>
                                             </strong>
                                         </p>
@@ -171,14 +171,11 @@
                             </div>
                             <div class="column-center-mobile w-col w-col-4">
                                 <h3 class="footer-titles">Siguenos en nuestras redes sociales!</h3>
-                                <a href="" target="_blank" class="footer-social-network-icons w-inline-block">
-                                    <img class="imagenesRedesSociales" src="https://uploads-ssl.webflow.com/5966ea9a9217ca534caf139f/5c8dbf0a2f2b67e3b3ba079c_Twitter%20Icon.svg" width="20" alt="Twitter icon"></a><a href="" target="_blank" class="footer-social-network-icons w-inline-block">
-                                        <img class="imagenesRedesSociales" src="https://uploads-ssl.webflow.com/5966ea9a9217ca534caf139f/5c8dbfe70fcf5a0514c5b1da_Instagram%20Icon.svg" width="20" alt="Instagram icon"></a><a href="https://www.instagram.com/pasteleriainbay/" target="_blank" class="footer-social-network-icons w-inline-block">
-                                            <img class="imagenesRedesSociales" src="https://uploads-ssl.webflow.com/5966ea9a9217ca534caf139f/5c8dbe42e1e6034fdaba46f6_Facebook%20Icon.svg" width="20" alt="Facebook Icon"></a><a href="" target="_blank" class="footer-social-network-icons w-inline-block">
-                                                <img class="imagenesRedesSociales" src="https://uploads-ssl.webflow.com/5966ea9a9217ca534caf139f/5c8dc0002f2b676eb4ba0869_LinkedIn%20Icon.svg" width="20" alt="LinkedIn Icon"></a><a href="" target="_blank" class="footer-social-network-icons w-inline-block">
-                                                    <img class="imagenesRedesSociales" src="https://uploads-ssl.webflow.com/5966ea9a9217ca534caf139f/5c8dc0112f2b6739c9ba0871_Pinterest%20Icon.svg" width="20" alt="Pinterest Icon"></a>
+                                <a href="https://www.instagram.com/pasteleriainbay/" target="_blank" class="footer-social-network-icons w-inline-block">
+                                        <img class="imagenesRedesSociales" src="https://uploads-ssl.webflow.com/5966ea9a9217ca534caf139f/5c8dbfe70fcf5a0514c5b1da_Instagram%20Icon.svg" width="20" alt="Instagram icon"/></a><a href="https://www.facebook.com/pasteleriainbay/?locale=es_ES" target="_blank" class="footer-social-network-icons w-inline-block">
+                                            <img class="imagenesRedesSociales" src="https://uploads-ssl.webflow.com/5966ea9a9217ca534caf139f/5c8dbe42e1e6034fdaba46f6_Facebook%20Icon.svg" width="20" alt="Facebook Icon"/></a>
                                 <p class="footer-description">
-                                    Enviame un correo a: <a href=""><strong class="link-email-footer">PasteleriaInbay@gmail.com</strong></a><br />
+                                    Enviame un correo a: <a href="mailto:pasteleriainbay@gmail.com"><strong class="link-email-footer">PasteleriaInbay@gmail.com</strong></a><br />
                                 </p>
                             </div>
                         </div>
@@ -187,7 +184,7 @@
             </div>
         </footer>
         <div>
-            <h6>COPYRIGHT 2024 - TODOS LOS DERECHOS RESERVADOS. DISEÑO POR POR <a href="https://www.linkedin.com/in/ivan-almendros-lozano/">IVÁN ALMENDROS</a></h6>
+            <h6>COPYRIGHT 2024 - TODOS LOS DERECHOS RESERVADOS. DISEÑO POR <a href="https://www.linkedin.com/in/ivan-almendros-lozano/">IVÁN ALMENDROS</a></h6>
         </div>
     </form>
     <script src="https://static.elfsight.com/platform/platform.js" data-use-service-core defer></script>

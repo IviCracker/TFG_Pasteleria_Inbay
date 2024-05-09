@@ -1,6 +1,7 @@
 ﻿using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Web;
@@ -43,14 +44,16 @@ namespace tfg.Paginas
 
             try
             {
-                string connectionString = "DataBase=tfg;DataSource=localhost;user=root;Port=3306";
+                string connectionString = "Server=sql.bsite.net\\MSSQL2016;Database=proyectopasteleriainbay_;Uid=proyectopasteleriainbay_;Pwd=proyectopasteleriainbay_;";
+
+
                 string consulta = "SELECT COUNT(*) FROM cliente WHERE (nombre = @nombreOCorreo OR correo = @nombreOCorreo) AND contraseña = @contraseña";
 
-                using (MySqlConnection conexion = new MySqlConnection(connectionString))
+                using (SqlConnection conexion = new SqlConnection(connectionString))
                 {
                     conexion.Open();
 
-                    using (MySqlCommand comando = new MySqlCommand(consulta, conexion))
+                    using (SqlCommand comando = new SqlCommand(consulta, conexion))
                     {
                         comando.Parameters.AddWithValue("@nombreOCorreo", nombreOCorreo);
                         comando.Parameters.AddWithValue("@contraseña", contraseña);
@@ -63,18 +66,14 @@ namespace tfg.Paginas
                             if (nombreOCorreo.Contains("@"))
                             {
                                 string consultaSesion = "SELECT Nombre FROM cliente WHERE (nombre = @nombreOCorreo OR correo = @nombreOCorreo) AND contraseña = @contraseña";
-                                using (MySqlCommand comandoNombreSesion = new MySqlCommand(consultaSesion, conexion))
+                                using (SqlCommand comandoNombreSesion = new SqlCommand(consultaSesion, conexion))
                                 {
                                     // Suponiendo que tienes los parámetros @nombreOCorreo y @contraseña definidos previamente
                                     comandoNombreSesion.Parameters.AddWithValue("@nombreOCorreo", nombreOCorreo);
                                     comandoNombreSesion.Parameters.AddWithValue("@contraseña", contraseña);
 
-                                    // Abres la conexión y ejecutas la consulta
-                                    
+                                    // Ejecutas la consulta
                                     string nombreUsuario = comandoNombreSesion.ExecuteScalar() as string; // Suponiendo que el nombre es un string
-
-                                    // Cierras la conexión
-                                    
 
                                     // Almacenar el nombre en la sesión si se encontró un resultado
                                     if (!string.IsNullOrEmpty(nombreUsuario))
@@ -110,6 +109,7 @@ namespace tfg.Paginas
                 txtContraseñaInicioSesion.CssClass = "textbox error"; // Aplicamos una clase CSS para marcar el campo en rojo
             }
         }
+
 
         protected void btnRegistrarse_Click(object sender, EventArgs e)
         {
@@ -165,8 +165,20 @@ namespace tfg.Paginas
                     isValid = false;
                 }
 
-
-
+                if (string.IsNullOrEmpty(telefono))
+                {
+                    lblErrorTelefono.Text = "El teléfono es obligatorio.";
+                    lblErrorTelefono.Visible = true;
+                    txtTelefono.CssClass = "textbox error-textbox";
+                    isValid = false;
+                }
+                else if (!EsNumero(telefono))
+                {
+                    lblErrorTelefono.Text = "El teléfono solo debe contener números.";
+                    lblErrorTelefono.Visible = true;
+                    txtTelefono.CssClass = "textbox error-textbox";
+                    isValid = false;
+                }
 
                 if (!ValidarContraseña(contraseña))
                 {
@@ -187,26 +199,33 @@ namespace tfg.Paginas
                 if (!isValid) return;
 
                 // Database Insertion
-                string connectionString = "DataBase=tfg;DataSource=localhost;user=root;Port=3306";
-                using (MySqlConnection conexion = new MySqlConnection(connectionString))
+                string connectionString = "Server=sql.bsite.net\\MSSQL2016;Database=proyectopasteleriainbay_;Uid=proyectopasteleriainbay_;Pwd=proyectopasteleriainbay_;";
+                using (SqlConnection conexion = new SqlConnection(connectionString))
                 {
-                    MySqlCommand comando = new MySqlCommand("INSERT INTO cliente(nombre, correo, telefono, direccion, contraseña) VALUES(@nombre, @correo, @telefono, @direccion, @contraseña)", conexion);
-                    comando.Parameters.AddWithValue("@nombre", nombre);
-                    comando.Parameters.AddWithValue("@correo", correo);
-                    comando.Parameters.AddWithValue("@telefono", telefono);
-                    comando.Parameters.AddWithValue("@direccion", direccion);
-                    comando.Parameters.AddWithValue("@contraseña", contraseña);
+                    string consulta = "INSERT INTO cliente(nombre, correo, telefono, direccion, contraseña) VALUES(@nombre, @correo, @telefono, @direccion, @contraseña)";
+                    using (SqlCommand comando = new SqlCommand(consulta, conexion))
+                    {
+                        comando.Parameters.AddWithValue("@nombre", nombre);
+                        comando.Parameters.AddWithValue("@correo", correo);
+                        comando.Parameters.AddWithValue("@telefono", telefono);
+                        comando.Parameters.AddWithValue("@direccion", direccion);
+                        comando.Parameters.AddWithValue("@contraseña", contraseña);
 
-                    conexion.Open();
-                    comando.ExecuteNonQuery();
-                    conexion.Close();
+                        conexion.Open();
+                        comando.ExecuteNonQuery();
+                        conexion.Close();
+                    }
                 }
 
+                // Almacenar el nombre en la sesión si el registro es exitoso
+                Session["UsuarioActual"] = nombre;
 
+                // Redireccionar a la página de inicio de sesión u otra página después del registro
+                Response.Redirect("../default.aspx");
             }
             catch (Exception ex)
             {
-
+                // Manejar la excepción
             }
         }
 
@@ -249,6 +268,17 @@ namespace tfg.Paginas
             return contraseña.Length >= 4 && contraseña.Any(char.IsDigit) && contraseña.Any(char.IsUpper) && contraseña.Any(char.IsLower);
         }
 
+        private bool EsNumero(string str)
+        {
+            foreach (char c in str)
+            {
+                if (!char.IsDigit(c))
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
 
 
 

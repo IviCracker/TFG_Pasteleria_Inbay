@@ -61,17 +61,18 @@ namespace tfg.Paginas
             // Verificar si la sesión está activa y el usuario está autenticado
             if (Session["UsuarioActual"] != null)
             {
-                string connectionString = "DataBase=tfg;DataSource=localhost;user=root;Port=3306"; // Reemplaza "tucontraseña" con la contraseña de tu base de datos
+                string connectionString = "Server=sql.bsite.net\\MSSQL2016;Database=proyectopasteleriainbay_;Uid=proyectopasteleriainbay_;Pwd=proyectopasteleriainbay_;";
+
                 string query = "SELECT Nombre, Correo, Telefono, Direccion, Contraseña FROM cliente WHERE id_cliente = @id_cliente"; // Ajusta esta consulta según tu base de datos y tu esquema de tablas
                 int id_cliente = ObtenerIdCliente(); // Supongamos que tienes una función para obtener el ID del cliente
 
-                using (MySqlConnection conexion = new MySqlConnection(connectionString))
+                using (SqlConnection conexion = new SqlConnection(connectionString))
                 {
-                    MySqlCommand comando = new MySqlCommand(query, conexion);
+                    SqlCommand comando = new SqlCommand(query, conexion);
                     comando.Parameters.AddWithValue("@id_cliente", id_cliente); // Agrega el parámetro del ID del cliente
                     conexion.Open();
 
-                    using (MySqlDataReader reader = comando.ExecuteReader())
+                    using (SqlDataReader reader = comando.ExecuteReader())
                     {
                         if (reader.Read())
                         {
@@ -96,13 +97,13 @@ namespace tfg.Paginas
         {
             int id_cliente = 0; // Inicializamos el ID del cliente como 0
 
-            string connectionString = "DataBase=tfg;DataSource=localhost;user=root;Port=3306"; // Reemplaza "tucontraseña" con la contraseña de tu base de datos
+            string connectionString = "Server=sql.bsite.net\\MSSQL2016;Database=proyectopasteleriainbay_;Uid=proyectopasteleriainbay_;Pwd=proyectopasteleriainbay_;";
             string query = "SELECT id_cliente FROM cliente WHERE Nombre = @nombre"; // Consulta para obtener el ID del cliente basado en el nombre
 
             string nombreUsuario = Session["UsuarioActual"].ToString();
-            using (MySqlConnection conexion = new MySqlConnection(connectionString))
+            using (SqlConnection conexion = new SqlConnection(connectionString))
             {
-                MySqlCommand comando = new MySqlCommand(query, conexion);
+                SqlCommand comando = new SqlCommand(query, conexion);
                 comando.Parameters.AddWithValue("@nombre", nombreUsuario); // Agregar el parámetro del nombre de usuario
                 conexion.Open();
 
@@ -117,6 +118,7 @@ namespace tfg.Paginas
             return id_cliente;
         }
 
+
         protected void btnActualizar()
         {
             // Obtener los nuevos valores de los campos de texto
@@ -125,17 +127,18 @@ namespace tfg.Paginas
             string nuevoTelefono = txtTelefono.Text;
             string nuevaDireccion = txtDireccion.Text;
             string nuevaContraseña = txtContraseña.Text;
-            
+
             // Obtener el ID del cliente
             int idCliente = ObtenerIdCliente();
 
             // Realizar la actualización en la base de datos
-            string connectionString = "DataBase=tfg;DataSource=localhost;user=root;Port=3306";
+            string connectionString = "Server=sql.bsite.net\\MSSQL2016;Database=proyectopasteleriainbay_;Uid=proyectopasteleriainbay_;Pwd=proyectopasteleriainbay_;"; // Aquí debes poner tu cadena de conexión
+
             string query = "UPDATE cliente SET nombre = @nombre, correo = @correo, telefono = @telefono, direccion = @direccion, contraseña = @contraseña WHERE id_cliente = @id_cliente";
 
-            using (MySqlConnection connection = new MySqlConnection(connectionString))
+            using (SqlConnection connection = new SqlConnection(connectionString))
             {
-                MySqlCommand command = new MySqlCommand(query, connection);
+                SqlCommand command = new SqlCommand(query, connection);
                 command.Parameters.AddWithValue("@nombre", nuevoNombre);
                 command.Parameters.AddWithValue("@correo", nuevoCorreo);
                 command.Parameters.AddWithValue("@telefono", nuevoTelefono);
@@ -147,8 +150,6 @@ namespace tfg.Paginas
                 command.ExecuteNonQuery();
                 Session["UsuarioActual"] = nuevoNombre;
             }
-
-            
         }
 
 

@@ -131,6 +131,11 @@
     <Content Include="fonts\icomoon\fonts\icomoon.svg" />
     <Content Include="fonts\icomoon\Read Me.txt" />
     <Content Include="fonts\icomoon\style.css" />
+    <Content Include="imagenesProductos\Tarta de Bombon.png" />
+    <Content Include="imagenesProductos\donuts.png" />
+    <Content Include="imagenesProductos\nata y trufa.png" />
+    <Content Include="imagenesProductos\Tarta de crema sacher.png" />
+    <Content Include="imagenesProductos\tarta de naranja.png" />
     <Content Include="imagenes\.jpg" />
     <Content Include="imagenes\lineaSubmenu.png" />
     <Content Include="imagenes\logoInbay3.png" />
