@@ -1,0 +1,38 @@
+﻿/* Estilos para el contenedor del detalle del producto */
+.producto-detalle {
+    border: 1px solid #ccc;
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+    .producto-detalle img {
+        max-width: 100%;
+        height: auto;
+        margin-bottom: 10px;
+    }
+
+    .producto-detalle p {
+        margin-bottom: 10px;
+    }
+
+/* Estilos para los botones */
+.btn {
+    display: inline-block;
+    padding: 8px 16px;
+    margin-right: 10px;
+    font-size: 14px;
+    cursor: pointer;
+    border: none;
+    border-radius: 4px;
+    background-color: #007bff;
+    color: #fff;
+    text-decoration: none;
+}
+
+    .btn:hover {
+        background-color: #0056b3;
+    }
+
+    .btn:last-child {
+        margin-right: 0;
+    }

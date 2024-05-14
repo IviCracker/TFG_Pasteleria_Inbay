@@ -46,11 +46,11 @@ namespace tfg
                             // Crear un elemento <div> con el nombre del producto
                             string productoHtml = $@"
                 <div class='producto' onclick='mostrarDetalleProducto(""{nombre}"", ""{imagenUrl}"")'>
-                    <div class='imagen-producto' style=' width: 250px; height: 250px; display: flex; justify-content: center; align-items: center; overflow: hidden;'>
-                        <img src='{imagenUrl}' alt='{nombre}' style='width: auto; height: 100%; object-fit: cover;' />
+                    <div class='imagen-producto'>
+                        <img src='{imagenUrl}' alt='{nombre}'/>
                     </div>
-                    <div class='datos-producto' style='text-align: left; padding-top:10px;'>
-                        <p class='nombre-producto' style='text-align: left;font-family: Oswald; font-size: 18px;'>{nombre}</p>
+                    <div class='datos-producto' style='text-align: center;'>
+                        <p class='nombre-producto' style='text-align: center; font-size: 24px;'>{nombre}</p>
                     </div>
                 </div>";
 

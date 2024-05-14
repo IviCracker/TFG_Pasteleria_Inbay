@@ -7,18 +7,21 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>Productos</title>
 
-    <link href="https://fonts.googleapis.com/css2?family=Oswald&display=swap" rel="stylesheet" />
+
     <link rel="stylesheet" href="../index.css" />
     <link rel="stylesheet" href="../Estilos/Footer.css" />
+    <link rel="stylesheet" href="../Estilos/DetalleProducto.css" />
     <script src="../index.js"></script>
 
-
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
         function mostrarDetalleProducto(nombre, imagenUrl, precio, valoracion) {
             // Codificar los parámetros de la URL para pasarlos a la página de detalle
             var encodedNombre = encodeURIComponent(nombre);
             var encodedImagenUrl = encodeURIComponent(imagenUrl);
-            var encodedPrecio = encodeURIComponent(precio);
+            // Convertir el precio a formato de cadena con dos decimales
+            
+            var encodedPrecio = encodeURIComponent(precioString);
             var encodedValoracion = encodeURIComponent(valoracion);
 
             // Construir la URL de la página de detalle del producto con los parámetros codificados
@@ -27,6 +30,8 @@
             // Redirigir a la página de detalle del producto
             window.location.href = url;
         }
+
+
     </script>
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
     <script src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
@@ -102,7 +107,7 @@
 
                 </div>
                 <div class="cart-icon">
-                    <ion-icon size="large" name="cart-outline"></ion-icon>
+                    <ion-icon name="cart"></ion-icon>
                 </div>
                 <div class="cart-panel">
                     <h2>Carrito de compra</h2>

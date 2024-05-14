@@ -24,24 +24,24 @@
 <body>
     <form id="form1" runat="server">
         <div class="usuario">
-    <ul>
-        <% if (Session["UsuarioActual"] != null)
-            { %>
-        <li><a href="Paginas/Registro.aspx">
-            <ion-icon name="person"></ion-icon>
-            &nbsp;<%= Session["UsuarioActual"] %></a></li>
-        <% }
-            else
-            { %>
-        <li><a href="Paginas/Registro.aspx">
-            <ion-icon name="lock-open"></ion-icon>
-            &nbsp;Registro</a></li>
-        <% } %>
-        <li><a href="/Paginas/MiCuenta.aspx">
-            <ion-icon name="person"></ion-icon>
-            &nbsp;Mi cuenta</a></li>
-    </ul>
-</div>
+            <ul>
+                <% if (Session["UsuarioActual"] != null)
+                    { %>
+                <li><a href="Paginas/Registro.aspx">
+                    <ion-icon name="person"></ion-icon>
+                    &nbsp;<%= Session["UsuarioActual"] %></a></li>
+                <% }
+                    else
+                    { %>
+                <li><a href="Paginas/Registro.aspx">
+                    <ion-icon name="lock-open"></ion-icon>
+                    &nbsp;Registro</a></li>
+                <% } %>
+                <li><a href="/Paginas/MiCuenta.aspx">
+                    <ion-icon name="person"></ion-icon>
+                    &nbsp;Mi cuenta</a></li>
+            </ul>
+        </div>
         <div>
             <main>
 
@@ -51,7 +51,9 @@
                             <img src="imagenes/logoInbay4.png" width="150" /></a>
                     </div>
                     <input type="checkbox" id="menu-bar" />
+                    
                     <label for="menu-bar">Menu</label>
+                        
                     <nav class="navbar">
                         <ul>
                             <li><a href="default.aspx">Inicio</a></li>
@@ -69,7 +71,7 @@
                                     <li><a href="#">Dónde estamos</a></li>
                                 </ul>
                             </li>
-                            <li><a href="Paginas/HacerPedido.aspx" onclick="cambiarVista(4)">Hacer Pedido</a></li>
+                            <li><a href="Paginas/HacerPedido.aspx">Hacer Pedido</a></li>
                         </ul>
                     </nav>
 
@@ -81,9 +83,10 @@
 
                     </div>
                     <div class="cart-icon">
-                        <ion-icon size="large" name="cart-outline"></ion-icon>
+                        <ion-icon name="cart"></ion-icon>
                     </div>
                     <div class="cart-panel">
+                        <h2>Carrito de compra</h2>
                         <h2>Carrito de compra</h2>
                         <ul>
                             <li>Producto 1</li>
@@ -114,12 +117,7 @@
 
 
                 <div class="ubicacion-horario">
-                    <h2>Horario y Ubicación</h2>
-                    <p><strong>Horario de Apertura:</strong></p>
-                    <ul>
-                        <li>Lunes - Viernes: 8:30 AM - 2:30 PM, 5:00 PM - 8:00 PM</li>
-                        <li>Sábado - Domingo: 8:30 AM - 2:30 PM</li>
-                    </ul>
+                    <img src="imagenes/horario.png" />
                 </div>
 
 
@@ -149,10 +147,14 @@
                                     <div class="w-col w-col-7 w-col-small-6 w-col-tiny-7">
                                         <h3 class="footer-titles">Informacion</h3>
                                         <p class="footer-links">
-                                            <a href="default.aspx"><span class="footer-link">Inicio<br/></span></a>
-                                            <a href="Paginas/Productos.aspx"><span class="footer-link">Productos<br/></span></a>
-                                            <a href="Paginas/Nosotros.aspx"><span class="footer-link">Nosotros<br/></span></a>
-                                            <a href="Paginas/Contacto.aspx"><span class="footer-link">Contacto<br/></span></a>
+                                            <a href="default.aspx"><span class="footer-link">Inicio<br />
+                                            </span></a>
+                                            <a href="Paginas/Productos.aspx"><span class="footer-link">Productos<br />
+                                            </span></a>
+                                            <a href="Paginas/Nosotros.aspx"><span class="footer-link">Nosotros<br />
+                                            </span></a>
+                                            <a href="Paginas/Contacto.aspx"><span class="footer-link">Contacto<br />
+                                            </span></a>
                                             <a href="Paginas/HacerPedido.aspx"><span class="footer-link">Hacer Pedido</span></a><strong><br />
                                             </strong>
                                         </p>
@@ -160,10 +162,15 @@
                                     <div class="w-col w-col-5 w-col-small-6 w-col-tiny-5">
                                         <h3 class="footer-titles">Otros</h3>
                                         <p class="footer-links">
-                                            <a href="https://g.co/kgs/eR36i2S"><span class="footer-link">Pasteleria Inbay<br/></span></a>
-                                            <a href="tel:915722017"><span class="footer-link">915 72 20 17<br/></span></a>
-                                            <a href="https://maps.app.goo.gl/GMDvFgaLnnw97igS6"><span class="footer-link" style="white-space: nowrap; display: block;">Calle Capitan Blanco<br/> Argibay 43<br/></span></a>
-                                            <strong><br/>
+                                            <a href="https://g.co/kgs/eR36i2S"><span class="footer-link">Pasteleria Inbay<br />
+                                            </span></a>
+                                            <a href="tel:915722017"><span class="footer-link">915 72 20 17<br />
+                                            </span></a>
+                                            <a href="https://maps.app.goo.gl/GMDvFgaLnnw97igS6"><span class="footer-link" style="white-space: nowrap; display: block;">Calle Capitan Blanco<br />
+                                                Argibay 43<br />
+                                            </span></a>
+                                            <strong>
+                                                <br />
                                             </strong>
                                         </p>
                                     </div>
@@ -172,8 +179,8 @@
                             <div class="column-center-mobile w-col w-col-4">
                                 <h3 class="footer-titles">Siguenos en nuestras redes sociales!</h3>
                                 <a href="https://www.instagram.com/pasteleriainbay/" target="_blank" class="footer-social-network-icons w-inline-block">
-                                        <img class="imagenesRedesSociales" src="https://uploads-ssl.webflow.com/5966ea9a9217ca534caf139f/5c8dbfe70fcf5a0514c5b1da_Instagram%20Icon.svg" width="20" alt="Instagram icon"/></a><a href="https://www.facebook.com/pasteleriainbay/?locale=es_ES" target="_blank" class="footer-social-network-icons w-inline-block">
-                                            <img class="imagenesRedesSociales" src="https://uploads-ssl.webflow.com/5966ea9a9217ca534caf139f/5c8dbe42e1e6034fdaba46f6_Facebook%20Icon.svg" width="20" alt="Facebook Icon"/></a>
+                                    <img class="imagenesRedesSociales" src="https://uploads-ssl.webflow.com/5966ea9a9217ca534caf139f/5c8dbfe70fcf5a0514c5b1da_Instagram%20Icon.svg" width="20" alt="Instagram icon" /></a><a href="https://www.facebook.com/pasteleriainbay/?locale=es_ES" target="_blank" class="footer-social-network-icons w-inline-block">
+                                        <img class="imagenesRedesSociales" src="https://uploads-ssl.webflow.com/5966ea9a9217ca534caf139f/5c8dbe42e1e6034fdaba46f6_Facebook%20Icon.svg" width="20" alt="Facebook Icon" /></a>
                                 <p class="footer-description">
                                     Enviame un correo a: <a href="mailto:pasteleriainbay@gmail.com"><strong class="link-email-footer">PasteleriaInbay@gmail.com</strong></a><br />
                                 </p>

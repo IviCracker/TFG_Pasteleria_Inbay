@@ -76,7 +76,7 @@
 
                 </div>
                 <div class="cart-icon">
-                    <ion-icon size="large" name="cart-outline"></ion-icon>
+                    <ion-icon name="cart"></ion-icon>
                 </div>
                 <div class="cart-panel">
                     <h2>Carrito de compra</h2>

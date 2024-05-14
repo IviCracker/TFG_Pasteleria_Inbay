@@ -179,28 +179,21 @@ p.footer-links {
     margin-top: 2px;
 }
 
-a {
+.footer-description a {
     background-color: transparent;
     box-sizing: border-box;
     color: #fff2db;
-    font-size: 17px;
-    
     line-height: 1.2em;
     text-decoration: none;
 }
 
-    a:active {
-        outline: 0;
-    }
-
-    a:hover {
-        outline: 0;
-    }
 
 span.footer-link {
     box-sizing: border-box;
     color: #fff2db;
     font-weight: 300;
+    text-decoration:none;
+
 }
 
     span.footer-link:hover {
