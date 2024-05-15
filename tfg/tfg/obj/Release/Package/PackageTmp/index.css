@@ -204,60 +204,85 @@ header label {
 
 
 }
-
+/* Estilos para el contenedor de productos */
 /* Estilos para el contenedor de productos */
 .productos-container {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-around;
-    margin-top: 20px;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); /* Tamaño mínimo de 250px para las columnas */
+    grid-gap: 20px; /* Espacio entre los productos */
+    margin-top: 10%;
+    margin-bottom: 10%;
+
 }
 
 /* Estilos para cada cuadro de producto */
 .producto {
-    width: 250px;
-    margin-bottom: 20px;
-    
+    width: 100%; /* Ocupar todo el espacio disponible en la columna */
     position: relative; /* Añadido para que el overlay funcione correctamente */
     transition: border 0.3s; /* Transición para el cambio de borde */
     text-align: center;
-
+    border: solid 1px;
+    border-color: #cccccc;
+    border-radius: 10px;
 }
-    .imagen-producto {
-        width: 250px;
-        height: 250px;
-        display: flex;
-        justify-content: center;
-        text-align: center;
-        align-items: center;
-        
-    }
-    /* Estilos para la imagen de cada producto */
-    .producto img {
-        
-        height:250px;
-        width:100%;
-        object-fit: cover;
-        transition: transform 0.3s; /* Transición para el cambio de tamaño */
+
+.imagen-producto {
+    height: 250px; /* Altura fija para la imagen */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-bottom: solid 1px;
+    border-color: #cccccc;
+    padding-bottom:10px;
+}
+
+/* Estilos para la imagen de cada producto */
+.producto img {
+    height: 100%; /* Ajustar la imagen a la altura del contenedor */
+    width: 100%;
+    object-fit: cover;
+    transition: transform 0.3s; /* Transición para el cambio de tamaño */
+}
+
+/* Cambiar el cursor al hacer hover */
+.producto:hover {
+    
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); /* Agrega una sombra alrededor del contenedor */
+    
+}
+
+    /* Cambiar el tamaño de la imagen al hacer hover */
+    .producto:hover img {
+        transform: scale(0.85); /* Aumentar el tamaño al 85% */
+        cursor: pointer; /* Cambiar el cursor al puntero */
     }
 
-    /* Cambiar el cursor al hacer hover */
-    .producto:hover {
-        transition: transform 0.3s;
-    }
+.panel-hover {
+    position: absolute;
+    bottom: -20%; /* Inicialmente oculto, posicionado fuera del contenedor */
+    left: 0;
+    width: 100%;
+    background-color: #55281b;
+    padding: 10px;
+    box-sizing: border-box;
+    transition: bottom 0.3s ease-out; /* Transición suave para la propiedad bottom */
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between; /* Espacio uniforme entre los elementos */
+}
 
-        /* Cambiar el tamaño de la imagen al hacer hover */
-        .producto:hover img {
-            transform: scale(0.85); /* Aumentar el tamaño al 85% */
-            cursor: pointer; /* Cambiar el cursor al puntero */
-        }
+.producto:hover .panel-hover {
+    bottom: 0; /* Muestra el panel al hacer hover */
+    
+}
+btn-deseos ion-icon {
+    /* Estilos al pasar el mouse por encima */
+    color: red; /* Color del ícono cuando se encuentra en estado de hover */
+}
+
 
 /* Media query para dispositivos en orientación portrait */
-@media (orientation: portrait) {
-    .producto {
-        width: calc(50% - 20px); /* Calcula el ancho para dos columnas con margen */
-    }
-}
+
 
 @media (orientation: landscape) {
     header ul li a {
@@ -566,7 +591,7 @@ header label {
 
     #contenedor {
         display: grid;
-        grid-template-columns: 25% 75%;
+        grid-template-columns: 30% 70%;
         grid-template-rows: 30px 1fr;
         grid-column-gap: 0px;
         grid-row-gap: 0px;
@@ -782,3 +807,23 @@ header label {
         background-color: #ff7e5f; /* Cambio de color de fondo al pasar el ratón */
     }
 
+.btn-deseos {
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color:none;
+}
+
+    .btn-deseos ion-icon {
+       
+        color: #f8f8f8;
+        font-size:20px;
+    }
+
+    .btn-deseos:hover ion-icon {
+        color: red; /* Color del ícono cuando se encuentra en estado de hover */
+    }

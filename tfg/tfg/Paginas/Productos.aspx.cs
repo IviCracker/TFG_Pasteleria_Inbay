@@ -12,6 +12,7 @@ using System.Web.UI.WebControls;
 using static Google.Protobuf.Reflection.ExtensionRangeOptions.Types;
 using static System.Net.Mime.MediaTypeNames;
 using System.Data.SqlClient;
+using System.Web.UI.HtmlControls;
 
 namespace tfg.Paginas
 {
@@ -22,6 +23,11 @@ namespace tfg.Paginas
             if (!IsPostBack)
             {
                 CargarProductos("Tartas");
+            }
+            else
+            {
+                // Vuelve a cargar productos en cada postback
+                CargarProductos(ViewState["ProductoTipo"].ToString());
             }
         }
 
@@ -94,18 +100,20 @@ namespace tfg.Paginas
 
         protected void CargarProductos(string tipo)
         {
+            // Guardar el tipo de producto en ViewState para usar en postbacks
+            ViewState["ProductoTipo"] = tipo;
+
             // Directorio donde se almacenan las imágenes de los productos
             string rutaImagenes = "../imagenesProductos/";
 
             // Seleccionar los productos de acuerdo al tipo especificado
             string connectionString = "Server=sql.bsite.net\\MSSQL2016;Database=proyectopasteleriainbay_;Uid=proyectopasteleriainbay_;Pwd=proyectopasteleriainbay_;";
             string query = "SELECT p.Nombre, p.Descripcion, p.Precio, p.Stock, ISNULL(AVG(vp.valoracion), 0) AS ValoracionMedia " +
-               "FROM producto p " +
-               "LEFT JOIN valoracion_producto vp ON p.id_producto = vp.id_producto " +
-               "WHERE p.Tipo = @Tipo " +
-               "GROUP BY p.id_producto, p.Nombre, p.Descripcion, p.Precio, p.Stock " +
-               "ORDER BY p.Precio ASC";
-
+                "FROM producto p " +
+                "LEFT JOIN valoracion_producto vp ON p.id_producto = vp.id_producto " +
+                "WHERE p.Tipo = @Tipo " +
+                "GROUP BY p.id_producto, p.Nombre, p.Descripcion, p.Precio, p.Stock " +
+                "ORDER BY p.Precio ASC";
 
             // Crear la conexión y el comando SQL
             using (SqlConnection conexion = new SqlConnection(connectionString))
@@ -146,32 +154,70 @@ namespace tfg.Paginas
                             // Generar un identificador único para el botón basado en el nombre del producto
                             string idBotonDeseos = $"btn-deseos-{nombre.Replace(" ", "-")}";
 
-                            // Crear un elemento <div> con el nombre, el precio y la valoración media del producto
-                            string productoHtml = $@"
-                            <div class='producto'>
-                                <div class='imagen-producto' onclick='mostrarDetalleProducto(""{nombre}"", ""{imagenUrl}"", {precio}, {valoracionMedia})' style='height: 250px; display: flex; justify-content: center; align-items: center;text-align:center; overflow: hidden; position: relative;'>
-                                    <img src='{imagenUrl}' alt='{nombre}' style='width: auto; height: 100%; object-fit: cover;' />
-                                    <div class='panel-hover'>
-                                        <button class='btn-carro'>Añadir al carro</button>
-                                        <button id='{idBotonDeseos}' class='btn-deseos' style='background: none; border: none; padding: 0; cursor: pointer;'>
-                                            <ion-icon name='heart-outline' style='font-size: 24px; color: #f8f8f8;'></ion-icon>
-                                        </button>
-                                    </div>
-                                </div>
-                                <div class='datos-producto' style='text-align: center; padding-top:10px;'>
-                                    <p class='nombre-producto' style='text-align: center; font-size: 18px;'>{nombre}</p><br/>
-                                    <p>{valoracionEstrellas}</p>
-                                    <p class='precio-valoracion-producto' style='font-size: 16px;'>{precio} €</p>
-                                </div>
-                            </div>";
+                            // Crear el botón dinámico
+                            // Crear el botón dinámico como un botón HTML en lugar de un botón ASP.NET
+                            ImageButton botonListaDeseos = new ImageButton();
+                            botonListaDeseos.CssClass = "btn-deseos"; // Añadir clase CSS
+                            botonListaDeseos.ID = idBotonDeseos;
+                            
+                            if (Session["UsuarioActual"] != null)
+                            {
+                                if (comprobarListaDeseados(nombre) == true)
+                                {
+                                    botonListaDeseos.ImageUrl = "~/imagenes/corazonLleno.png";
+                                }
+                                else
+                                {
+                                    botonListaDeseos.ImageUrl = "~/imagenes/corazonVacio.png";
+                                }
+                            }
+                            else
+                            {
+                                botonListaDeseos.ImageUrl = "~/imagenes/corazonVacio.png";
+                            }
 
-                            // Agregar el producto generado dinámicamente al contenedor 'productosDisponibles'
-                            productosDisponibles.Controls.Add(new LiteralControl(productoHtml));
+
+
+                            botonListaDeseos.CommandArgument = nombre;
+                            botonListaDeseos.Click += new ImageClickEventHandler(AgregarAListaDeseos_Click);
+
+                           
+
+
+
+                            // Generar el HTML del producto
+                            string productoHtmlInicio = $@"
+                    <div class='producto'>
+                        <div class='imagen-producto' onclick='mostrarDetalleProducto(""{nombre}"", ""{imagenUrl}"", {precio}, {valoracionMedia})' style='height: 250px; display: flex; justify-content: center; align-items: center; text-align:center; overflow: hidden; position: relative;'>
+                            <img src='{imagenUrl}' alt='{nombre}' style='width: auto; height: 100%; object-fit: cover;' />
+                            <div class='panel-hover' style='align-contents:center'>
+                                <button class='btn-carro'>Añadir al carro</button>
+                    ";
+
+                            string productoHtmlFin = $@"
+                            </div>
+                        </div>
+                        <div class='datos-producto' style='text-align: center; padding-top:10px;'>
+                            <p class='nombre-producto' style='text-align: center; font-size: 18px;'>{nombre}</p><br/>
+                            <p>{valoracionEstrellas}</p>
+                            <p class='precio-valoracion-producto' style='font-size: 16px;'>{precio} €</p>
+                        </div>
+                    </div>";
+
+                            // Agregar el inicio del HTML del producto al contenedor
+                            productosDisponibles.Controls.Add(new LiteralControl(productoHtmlInicio));
+
+                            // Agregar el botón dinámico al contenedor
+                            productosDisponibles.Controls.Add(botonListaDeseos);
+
+                            // Agregar el fin del HTML del producto al contenedor
+                            productosDisponibles.Controls.Add(new LiteralControl(productoHtmlFin));
                         }
-
                     }
                 }
             }
+
+            // Configurar la subcabecera y colores del filtro si es necesario
             tipoProducto = tipo.ToString();
             cargarSubcabecera();
             resetearColoresFiltro();
@@ -283,7 +329,7 @@ namespace tfg.Paginas
         <img src='{imagenUrl}' alt='{nombre}' style='width: auto; height: 100%; object-fit: cover;' />
         <div class='panel-hover'>
             <button class='btn-carro'>Añadir al carro</button>
-            <button id='{idBotonDeseos}' class='btn-deseos' style='background: none; border: none; padding: 0; cursor: pointer;'>
+            <button id='{idBotonDeseos}' class='btn-deseos'>
                 <ion-icon name='heart-outline' style='font-size: 24px; color: #f8f8f8;'></ion-icon>
             </button>
         </div>
@@ -298,7 +344,7 @@ namespace tfg.Paginas
                             // Agregar el producto generado dinámicamente al contenedor 'productosDisponibles'
                             productosDisponibles.Controls.Add(new LiteralControl(productoHtml));
 
-                            
+
                         }
                     }
                 }
@@ -364,7 +410,11 @@ namespace tfg.Paginas
         {
             // Obtener el ID del cliente y el ID del producto
             int idCliente = ObtenerIdCliente();
-            int idProducto = ObtenerIdProducto(sender.ToString());
+            ImageButton clickedButton = (ImageButton)sender;
+            string commandArgument = clickedButton.CommandArgument;
+
+            // Convertir el CommandArgument a entero y usarlo para obtener el ID del producto
+            int idProducto = ObtenerIdProducto(commandArgument);
 
             // Agregar el producto a la lista de deseos del cliente en la base de datos
             AgregarProductoAListaDeseos(idCliente, idProducto);
@@ -373,6 +423,14 @@ namespace tfg.Paginas
 
         protected int ObtenerIdCliente()
         {
+            // Verificar si la sesión del usuario está activa
+            if (Session["UsuarioActual"] == null)
+            {
+                // Redirigir al usuario a la página de registro si no hay sesión activa
+                Response.Redirect("Registro.aspx");
+                return 0; // Devolver 0 para detener la ejecución del método
+            }
+
             int id_cliente = 0; // Inicializamos el ID del cliente como 0
 
             string connectionString = "Server=sql.bsite.net\\MSSQL2016;Database=proyectopasteleriainbay_;Uid=proyectopasteleriainbay_;Pwd=proyectopasteleriainbay_;";
@@ -395,6 +453,7 @@ namespace tfg.Paginas
 
             return id_cliente;
         }
+
 
         protected int ObtenerIdProducto(string nombreProducto)
         {
@@ -421,21 +480,51 @@ namespace tfg.Paginas
         }
 
         protected void AgregarProductoAListaDeseos(int idCliente, int idProducto)
-{
-    string connectionString = "Server=sql.bsite.net\\MSSQL2016;Database=proyectopasteleriainbay_;Uid=proyectopasteleriainbay_;Pwd=proyectopasteleriainbay_;";
-    string query = "INSERT INTO lista_deseos_cliente (id_cliente, id_producto) VALUES (@idCliente, @idProducto)"; // Consulta para insertar un producto en la lista de deseos del cliente
+        {
+            string connectionString = "Server=sql.bsite.net\\MSSQL2016;Database=proyectopasteleriainbay_;Uid=proyectopasteleriainbay_;Pwd=proyectopasteleriainbay_;";
+            string query = "INSERT INTO lista_deseos_cliente (id_cliente, id_producto) VALUES (@idCliente, @idProducto)"; // Consulta para insertar un producto en la lista de deseos del cliente
 
-    using (SqlConnection conexion = new SqlConnection(connectionString))
-    {
-        SqlCommand comando = new SqlCommand(query, conexion);
-        comando.Parameters.AddWithValue("@idCliente", idCliente); // Agregar el parámetro del ID del cliente
-        comando.Parameters.AddWithValue("@idProducto", idProducto); // Agregar el parámetro del ID del producto
-        conexion.Open();
+            using (SqlConnection conexion = new SqlConnection(connectionString))
+            {
+                SqlCommand comando = new SqlCommand(query, conexion);
+                comando.Parameters.AddWithValue("@idCliente", idCliente); // Agregar el parámetro del ID del cliente
+                comando.Parameters.AddWithValue("@idProducto", idProducto); // Agregar el parámetro del ID del producto
+                conexion.Open();
 
-        comando.ExecuteNonQuery(); // Ejecutar la consulta para insertar el producto en la lista de deseos del cliente
-    }
-}
+                comando.ExecuteNonQuery(); // Ejecutar la consulta para insertar el producto en la lista de deseos del cliente
+            }
+        }
+        protected bool comprobarListaDeseados(string nombreProducto)
+        {
 
+            int idCliente = ObtenerIdCliente();
+            int idProducto = ObtenerIdProducto(nombreProducto);
+
+            string connectionString = "Server=sql.bsite.net\\MSSQL2016;Database=proyectopasteleriainbay_;Uid=proyectopasteleriainbay_;Pwd=proyectopasteleriainbay_;";
+            string query = "SELECT 1 FROM lista_deseos_cliente WHERE id_cliente = @idCliente AND id_producto = @idProducto";
+
+            using (SqlConnection conexion = new SqlConnection(connectionString))
+            {
+                SqlCommand comando = new SqlCommand(query, conexion);
+                comando.Parameters.AddWithValue("@idCliente", idCliente); // Agregar el parámetro del ID del cliente
+                comando.Parameters.AddWithValue("@idProducto", idProducto); // Agregar el parámetro del ID del producto
+
+                conexion.Open();
+
+                using (SqlDataReader reader = comando.ExecuteReader())
+                {
+                    // Verificar si hay algún resultado
+                    if (reader.Read())
+                    {
+                        return true; // Si hay un resultado, el producto está en la lista de deseos
+                    }
+                    else
+                    {
+                        return false; // Si no hay resultados, el producto no está en la lista de deseos
+                    }
+                }
+            }
+        }
 
     }
 }

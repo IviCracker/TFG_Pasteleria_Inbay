@@ -88,3 +88,5 @@ F:\TFG\tfg\tfg\obj\Release\tfg.csproj.CoreCompileInputs.cache
 F:\TFG\tfg\tfg\obj\Release\tfg.csproj.CopyComplete
 F:\TFG\tfg\tfg\obj\Release\tfg.dll
 F:\TFG\tfg\tfg\obj\Release\tfg.pdb
+F:\TFG\tfg\tfg\bin\Newtonsoft.Json.dll
+F:\TFG\tfg\tfg\bin\Newtonsoft.Json.xml

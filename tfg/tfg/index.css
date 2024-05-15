@@ -275,10 +275,6 @@ header label {
     bottom: 0; /* Muestra el panel al hacer hover */
     
 }
-btn-deseos ion-icon {
-    /* Estilos al pasar el mouse por encima */
-    color: red; /* Color del ícono cuando se encuentra en estado de hover */
-}
 
 
 /* Media query para dispositivos en orientación portrait */
@@ -807,3 +803,8 @@ btn-deseos ion-icon {
         background-color: #ff7e5f; /* Cambio de color de fondo al pasar el ratón */
     }
 
+
+.btn-deseos {
+  
+    height: 25px;
+}

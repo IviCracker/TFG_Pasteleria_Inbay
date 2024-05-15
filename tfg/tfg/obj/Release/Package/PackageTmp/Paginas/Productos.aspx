@@ -10,8 +10,20 @@
 
     <link rel="stylesheet" href="../index.css" />
     <link rel="stylesheet" href="../Estilos/Footer.css" />
-    <link rel="stylesheet" href="../Estilos/DetalleProducto.css" />
+    
     <script src="../index.js"></script>
+    <script>
+        document.querySelectorAll('.imagen-producto').forEach(function (producto) {
+            producto.addEventListener('click', function () {
+                var enlace = this.querySelector('a');
+                if (enlace) {
+                    window.location.href = enlace.getAttribute('data-url');
+                }
+            });
+        });
+    </script>
+     
+
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
@@ -47,7 +59,7 @@
 
 <body>
     <form id="form1" runat="server">
-
+        
 
         <div class="usuario">
             <ul>

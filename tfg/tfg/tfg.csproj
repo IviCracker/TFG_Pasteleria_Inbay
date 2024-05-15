@@ -135,6 +135,8 @@
     <Content Include="fonts\icomoon\fonts\icomoon.svg" />
     <Content Include="fonts\icomoon\Read Me.txt" />
     <Content Include="fonts\icomoon\style.css" />
+    <Content Include="imagenes\corazonLleno.png" />
+    <Content Include="imagenes\corazonVacio.png" />
     <Content Include="imagenesProductos\Tarta de Bombon.png" />
     <Content Include="imagenesProductos\donuts.png" />
     <Content Include="imagenesProductos\nata y trufa.png" />
