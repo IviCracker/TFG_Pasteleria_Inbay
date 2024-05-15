@@ -115,7 +115,7 @@
 
 
 
-
+                
                 <div class="ubicacion-horario">
                     <img src="imagenes/horario.png" />
                 </div>
