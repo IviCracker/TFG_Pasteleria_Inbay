@@ -210,8 +210,10 @@ header label {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); /* Tamaño mínimo de 250px para las columnas */
     grid-gap: 20px; /* Espacio entre los productos */
-    margin-top: 10%;
-    margin-bottom: 10%;
+    margin-bottom:10%;
+    margin-right:5%;
+    margin-left:5%;
+    margin-top:5%;
 
 }
 
@@ -274,10 +276,6 @@ header label {
 .producto:hover .panel-hover {
     bottom: 0; /* Muestra el panel al hacer hover */
     
-}
-btn-deseos ion-icon {
-    /* Estilos al pasar el mouse por encima */
-    color: red; /* Color del ícono cuando se encuentra en estado de hover */
 }
 
 
@@ -345,8 +343,8 @@ btn-deseos ion-icon {
         text-align: center;
     }
     .producto img {
-        height: 250px;
-        width: 60%;
+        
+        width: 90%;
         object-fit: cover;
         transition: transform 0.3s; /* Transición para el cambio de tamaño */
     }
@@ -611,37 +609,42 @@ btn-deseos ion-icon {
             padding-left: 0px;
             
         }
-
-        #menuVerticalArticulos ol {
-            list-style-type: square;
-            padding-top: 20px;
-            padding-left: 20px;
-        }
-
-        #menuVerticalArticulos li {
-            margin-bottom: 10px;
-        }
-
-        #menuVerticalArticulos a {
-            color: black;
-            text-decoration: none;
-            font-size: 22px;
-            transition: color 0.3s ease;
-        }
-
-            #menuVerticalArticulos a:hover {
-                color: #ff7e5f;
+        @media (orientation: portrait) {
+            #menuVerticalArticulos h2 {
+                font-size: 10px;
             }
-
-        #menuVerticalArticulos h2::after {
-            content: "";
-            bottom: -8px;
-            width: 120px;
-            height: 1px;
-            display: block;
-            background: url(./imagenes/lineaSubmenu.png) no-repeat;
-            left: 0;
         }
+
+    #menuVerticalArticulos ol {
+        list-style-type: square;
+        padding-top: 20px;
+        padding-left: 20px;
+    }
+
+    #menuVerticalArticulos li {
+        margin-bottom: 10px;
+    }
+
+    #menuVerticalArticulos a {
+        color: black;
+        text-decoration: none;
+        font-size: 22px;
+        transition: color 0.3s ease;
+    }
+
+        #menuVerticalArticulos a:hover {
+            color: #ff7e5f;
+        }
+
+    #menuVerticalArticulos h2::after {
+        content: "";
+        bottom: -8px;
+        width: 120px;
+        height: 1px;
+        display: block;
+        background: url(./imagenes/lineaSubmenu.png) no-repeat;
+        left: 0;
+    }
 
     #filtrosProductos {
         grid-area: 1 / 2 / 2 / 3;
@@ -670,7 +673,6 @@ btn-deseos ion-icon {
 
         .boton-filtro:hover {
             border: 1px solid transparent; /* Quita el borde al pasar el cursor sobre el botón */
-
         }
 
 
@@ -786,44 +788,28 @@ btn-deseos ion-icon {
         display: block; /* Hacer que el Label sea un elemento de bloque para que ocupe toda la anchura disponible */
     }
 
-.botonIniciarSesion, #btnRegistrarse {
-    background-color: #94604f; /* Color de fondo verde */
-    color: #fff2db; /* Color del texto blanco */
-    padding: 10px 20px; /* Espacio interno del botón */
-    border: none; /* Sin borde */
-    border-radius: 4px; /* Borde redondeado */
-    cursor: pointer; /* Cursor de puntero al pasar por encima */
-    text-align: center; /* Alinear el texto al centro */
-    text-decoration: none; /* Sin decoración de texto */
-    display: inline-block; /* Hacer que el botón sea un elemento en línea */
-    font-size: 16px; /* Tamaño de fuente */
-    margin-top: 10px; /* Margen superior */
-    margin-left: auto; /* Centrar horizontalmente */
-    margin-right: auto; /* Centrar horizontalmente */
-    display: block; /* Hacer que el botón sea un elemento de bloque para que ocupe toda la anchura disponible */
-}
-
-    .botonIniciarSesion:hover, #btnRegistrarse:hover {
-        background-color: #ff7e5f; /* Cambio de color de fondo al pasar el ratón */
+    .botonIniciarSesion, #btnRegistrarse {
+        background-color: #94604f; /* Color de fondo verde */
+        color: #fff2db; /* Color del texto blanco */
+        padding: 10px 20px; /* Espacio interno del botón */
+        border: none; /* Sin borde */
+        border-radius: 4px; /* Borde redondeado */
+        cursor: pointer; /* Cursor de puntero al pasar por encima */
+        text-align: center; /* Alinear el texto al centro */
+        text-decoration: none; /* Sin decoración de texto */
+        display: inline-block; /* Hacer que el botón sea un elemento en línea */
+        font-size: 16px; /* Tamaño de fuente */
+        margin-top: 10px; /* Margen superior */
+        margin-left: auto; /* Centrar horizontalmente */
+        margin-right: auto; /* Centrar horizontalmente */
+        display: block; /* Hacer que el botón sea un elemento de bloque para que ocupe toda la anchura disponible */
     }
 
-.btn-deseos {
-    background: none;
-    border: none;
-    padding: 0;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color:none;
-}
+        .botonIniciarSesion:hover, #btnRegistrarse:hover {
+            background-color: #ff7e5f; /* Cambio de color de fondo al pasar el ratón */
+        }
 
-    .btn-deseos ion-icon {
-       
-        color: #f8f8f8;
-        font-size:20px;
-    }
 
-    .btn-deseos:hover ion-icon {
-        color: red; /* Color del ícono cuando se encuentra en estado de hover */
+    .btn-deseos {
+        height: 25px;
     }

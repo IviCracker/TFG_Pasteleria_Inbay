@@ -22,63 +22,95 @@ namespace tfg.Paginas
         {
             if (!IsPostBack)
             {
-                CargarProductos("Tartas");
+                // Establecer el tipo de producto en la primera carga de la página
+                Session["TipoProducto"] = "Tartas";
+                CargarProductos(Session["TipoProducto"].ToString());
+                Session["TipoOrden"] = "nombre";
+
             }
             else
             {
-                // Vuelve a cargar productos en cada postback
-                CargarProductos(ViewState["ProductoTipo"].ToString());
+                if(variable == 1) {
+                    CargarProductos(Session["TipoProducto"].ToString());
+                }
+                else
+                {
+                    CargarProductosOrden(Session["TipoOrden"].ToString());
+                    
+                }
+
+                variable = 0;
             }
         }
 
 
-
+        static int variable = 0;
 
 
         protected void TipoProductoPanes_Click(object sender, EventArgs e)
         {
-            CargarProductos("pan");
+            variable = 1;
+            Session["TipoProducto"] = "pan";
+            ScriptManager.RegisterStartupScript(this, GetType(), "PostBackScript", "__doPostBack('', '');", true);
+            
+
         }
         protected void TipoProductoBollos_Click(object sender, EventArgs e)
         {
-            CargarProductos("Bollos");
+            variable = 1;
+            Session["TipoProducto"] = "Bollos";
+            ScriptManager.RegisterStartupScript(this, GetType(), "PostBackScript", "__doPostBack('', '');", true);
+            
         }
         protected void TipoProductoPasteles_Click(object sender, EventArgs e)
         {
-            CargarProductos("pastel");
+            variable = 1;
+            Session["TipoProducto"] = "pastel";
+            ScriptManager.RegisterStartupScript(this, GetType(), "PostBackScript", "__doPostBack('', '');", true);
+            
         }
         protected void TipoProductoTartas_Click(object sender, EventArgs e)
         {
-            CargarProductos("Tartas");
+            variable = 1;
+            Session["TipoProducto"] = "Tartas";
+            ScriptManager.RegisterStartupScript(this, GetType(), "PostBackScript", "__doPostBack('', '');", true);
         }
 
         public void OrdenarPorNombre_Click(object sender, EventArgs e)
         {
-            CargarProductosOrden("nombre");
-
+            variable = 2;
+            Session["TipoOrden"] = "nombre";
+            ScriptManager.RegisterStartupScript(this, GetType(), "PostBackScript", "__doPostBack('', '');", true);
         }
 
         public void OrdenarPorPrecioBajo_Click(object sender, EventArgs e)
         {
-            CargarProductosOrden("precioBajo");
+            variable = 2;
+            Session["TipoOrden"] = "precioBajo";
+            
+            ScriptManager.RegisterStartupScript(this, GetType(), "PostBackScript", "__doPostBack('', '');", true);
         }
 
         public void OrdenarPorPrecioAlto_Click(object sender, EventArgs e)
         {
-            CargarProductosOrden("precioAlto");
+            variable = 2;
+            Session["TipoOrden"] = "precioAlto";
+            ScriptManager.RegisterStartupScript(this, GetType(), "PostBackScript", "__doPostBack('', '');", true);
 
         }
 
         public void OrdenarPorMejorValorado_Click(object sender, EventArgs e)
         {
-            CargarProductosOrden("valoracion");
+            variable = 2;
+            Session["TipoOrden"] = "valoracion";
+            ScriptManager.RegisterStartupScript(this, GetType(), "PostBackScript", "__doPostBack('', '');", true);
 
         }
 
 
 
 
-        static string tipoProducto;
+
 
         protected void cargarSubcabecera()
         {
@@ -86,9 +118,9 @@ namespace tfg.Paginas
 
             string productoHtml;
 
-            if (tipoProducto != null)
+            if (ViewState["ProductoTipo"].ToString() != null)
             {
-                productoHtml = $"<p><a href='../default.aspx'>Inicio</a> / <a href='productos.aspx'>Productos</a> / {tipoProducto}</p>";
+                productoHtml = $"<p><a href='../default.aspx'>Inicio</a> / <a href='productos.aspx'>Productos</a> / {ViewState["ProductoTipo"].ToString()}</p>";
             }
             else
             {
@@ -108,12 +140,27 @@ namespace tfg.Paginas
 
             // Seleccionar los productos de acuerdo al tipo especificado
             string connectionString = "Server=sql.bsite.net\\MSSQL2016;Database=proyectopasteleriainbay_;Uid=proyectopasteleriainbay_;Pwd=proyectopasteleriainbay_;";
-            string query = "SELECT p.Nombre, p.Descripcion, p.Precio, p.Stock, ISNULL(AVG(vp.valoracion), 0) AS ValoracionMedia " +
-                "FROM producto p " +
-                "LEFT JOIN valoracion_producto vp ON p.id_producto = vp.id_producto " +
-                "WHERE p.Tipo = @Tipo " +
-                "GROUP BY p.id_producto, p.Nombre, p.Descripcion, p.Precio, p.Stock " +
-                "ORDER BY p.Precio ASC";
+            string query = @"
+        SELECT 
+            p.Nombre, 
+            p.Descripcion, 
+            p.Precio, 
+            p.Stock, 
+            ISNULL(AVG(vp.valoracion), 0) AS ValoracionMedia 
+        FROM 
+            producto p 
+        LEFT JOIN 
+            valoracion_producto vp ON p.id_producto = vp.id_producto 
+        WHERE 
+            p.Tipo = @Tipo 
+        GROUP BY 
+            p.id_producto, 
+            p.Nombre, 
+            p.Descripcion, 
+            p.Precio, 
+            p.Stock 
+        ORDER BY 
+            p.Precio ASC";
 
             // Crear la conexión y el comando SQL
             using (SqlConnection conexion = new SqlConnection(connectionString))
@@ -132,20 +179,22 @@ namespace tfg.Paginas
                         while (reader.Read())
                         {
                             string nombre = reader["Nombre"].ToString();
+                            string descripcion = reader["Descripcion"].ToString();
                             decimal precio = Convert.ToDecimal(reader["Precio"]);
-                            double valoracionMedia = reader["ValoracionMedia"] == DBNull.Value ? 0 : Convert.ToDouble(reader["ValoracionMedia"]);
+                            int stock = Convert.ToInt32(reader["Stock"]);
+                            double valoracion = Convert.ToDouble(reader["ValoracionMedia"]);
 
                             // Convertir la valoración a estrellas
                             string valoracionEstrellas;
 
-                            if (valoracionMedia == 0)
+                            if (valoracion == 0)
                             {
                                 double notaCero = 5.05;
                                 valoracionEstrellas = ConvertirValoracionAEstrellas(notaCero);
                             }
                             else
                             {
-                                valoracionEstrellas = ConvertirValoracionAEstrellas(valoracionMedia);
+                                valoracionEstrellas = ConvertirValoracionAEstrellas(valoracion);
                             }
 
                             // Obtener la ruta de la imagen del producto
@@ -159,7 +208,7 @@ namespace tfg.Paginas
                             ImageButton botonListaDeseos = new ImageButton();
                             botonListaDeseos.CssClass = "btn-deseos"; // Añadir clase CSS
                             botonListaDeseos.ID = idBotonDeseos;
-                            
+
                             if (Session["UsuarioActual"] != null)
                             {
                                 if (comprobarListaDeseados(nombre) == true)
@@ -181,15 +230,15 @@ namespace tfg.Paginas
                             botonListaDeseos.CommandArgument = nombre;
                             botonListaDeseos.Click += new ImageClickEventHandler(AgregarAListaDeseos_Click);
 
-                           
+
 
 
 
                             // Generar el HTML del producto
                             string productoHtmlInicio = $@"
                     <div class='producto'>
-                        <div class='imagen-producto' onclick='mostrarDetalleProducto(""{nombre}"", ""{imagenUrl}"", {precio}, {valoracionMedia})' style='height: 250px; display: flex; justify-content: center; align-items: center; text-align:center; overflow: hidden; position: relative;'>
-                            <img src='{imagenUrl}' alt='{nombre}' style='width: auto; height: 100%; object-fit: cover;' />
+                        <div class='imagen-producto'  style='height: 250px; display: flex; justify-content: center; align-items: center; text-align:center; overflow: hidden; position: relative;'>
+                            <img src='{imagenUrl}' alt='{nombre}' onclick='mostrarDetalleProducto(""{nombre}"", ""{imagenUrl}"", ""{precio}"", ""{valoracion}"")'style='width: auto; height: 100%; object-fit: cover;' />
                             <div class='panel-hover' style='align-contents:center'>
                                 <button class='btn-carro'>Añadir al carro</button>
                     ";
@@ -218,7 +267,7 @@ namespace tfg.Paginas
             }
 
             // Configurar la subcabecera y colores del filtro si es necesario
-            tipoProducto = tipo.ToString();
+            ViewState["ProductoTipo"] = tipo.ToString();
             cargarSubcabecera();
             resetearColoresFiltro();
         }
@@ -234,9 +283,9 @@ namespace tfg.Paginas
 
             string query = "";
 
-            if (tipoProducto == null)
+            if (ViewState["ProductoTipo"].ToString() == null)
             {
-                tipoProducto = "tarta";
+                ViewState["ProductoTipo"] = "tarta";
             }
 
             resetearColoresFiltro();
@@ -246,7 +295,7 @@ namespace tfg.Paginas
                     query = $"SELECT p.Nombre, p.Descripcion, p.Precio, p.Stock, ISNULL(AVG(vp.valoracion), 0) AS ValoracionMedia " +
                             $"FROM producto p " +
                             $"LEFT JOIN valoracion_producto vp ON p.id_producto = vp.id_producto " +
-                            $"WHERE p.Tipo = '{tipoProducto}' " +
+                            $"WHERE p.Tipo = '{ViewState["ProductoTipo"].ToString()}' " +
                             $"GROUP BY p.id_producto, p.Nombre, p.Descripcion, p.Precio, p.Stock " +
                             $"ORDER BY p.Nombre ASC";
                     LinkButtonNombre.Attributes["style"] = "margin: 5px; padding: 8px 16px; border: 1px solid orange; border-radius: 4px; color: #333; text-decoration: none; text-align: center; transition: background-color 0.5s ease, border 0.3s ease; display: block; width: 100%; margin-bottom: 8px;";
@@ -257,7 +306,7 @@ namespace tfg.Paginas
                     query = $"SELECT p.Nombre, p.Descripcion, p.Precio, p.Stock, ISNULL(AVG(vp.valoracion), 0) AS ValoracionMedia " +
                             $"FROM producto p " +
                             $"LEFT JOIN valoracion_producto vp ON p.id_producto = vp.id_producto " +
-                            $"WHERE p.Tipo = '{tipoProducto}' " +
+                            $"WHERE p.Tipo = '{ViewState["ProductoTipo"].ToString()}' " +
                             $"GROUP BY p.id_producto, p.Nombre, p.Descripcion, p.Precio, p.Stock " +
                             $"ORDER BY p.Precio ASC";
                     LinkButtonPrecioBajo.Attributes["style"] = "margin: 5px; padding: 8px 16px; border: 1px solid orange; border-radius: 4px; color: #333; text-decoration: none; text-align: center; transition: background-color 0.5s ease, border 0.3s ease; display: block; width: 100%; margin-bottom: 8px;";
@@ -268,7 +317,7 @@ namespace tfg.Paginas
                     query = $"SELECT p.Nombre, p.Descripcion, p.Precio, p.Stock, ISNULL(AVG(vp.valoracion), 0) AS ValoracionMedia " +
                             $"FROM producto p " +
                             $"LEFT JOIN valoracion_producto vp ON p.id_producto = vp.id_producto " +
-                            $"WHERE p.Tipo = '{tipoProducto}' " +
+                            $"WHERE p.Tipo = '{ViewState["ProductoTipo"].ToString()}' " +
                             $"GROUP BY p.id_producto, p.Nombre, p.Descripcion, p.Precio, p.Stock " +
                             $"ORDER BY p.Precio DESC";
                     LinkButtonPrecioAlto.Attributes["style"] = "margin: 5px; padding: 8px 16px; border: 1px solid orange; border-radius: 4px; color: #333; text-decoration: none; text-align: center; transition: background-color 0.5s ease, border 0.3s ease; display: block; width: 100%; margin-bottom: 8px;";
@@ -276,12 +325,12 @@ namespace tfg.Paginas
                     break;
 
                 case "valoracion":
-                    query = "SELECT p.Nombre, p.Descripcion, p.Precio, p.Stock, ISNULL(AVG(vp.valoracion), 0) AS ValoracionMedia " +
-        "FROM producto p " +
-        "LEFT JOIN valoracion_producto vp ON p.id_producto = vp.id_producto " +
-        "WHERE p.Tipo = @Tipo " +
-        "GROUP BY p.id_producto, p.Nombre, p.Descripcion, p.Precio, p.Stock " +
-        "ORDER BY ValoracionMedia DESC";
+                    query = $"SELECT p.Nombre, p.Descripcion, p.Precio, p.Stock, ISNULL(AVG(vp.valoracion), 0) AS ValoracionMedia " +
+                            $"FROM producto p " +
+                            $"LEFT JOIN valoracion_producto vp ON p.id_producto = vp.id_producto " +
+                            $"WHERE p.Tipo ='{ViewState["ProductoTipo"].ToString()}'" +
+                            $"GROUP BY p.id_producto, p.Nombre, p.Descripcion, p.Precio, p.Stock " +
+                            $"ORDER BY ValoracionMedia DESC";
                     LinkButtonMejorValorado.Attributes["style"] = "margin: 5px; padding: 8px 16px; border: 1px solid orange; border-radius: 4px; color: #333; text-decoration: none; text-align: center; transition: background-color 0.5s ease, border 0.3s ease; display: block; width: 100%; margin-bottom: 8px;";
 
                     break;
@@ -291,7 +340,7 @@ namespace tfg.Paginas
             {
                 using (SqlCommand comando = new SqlCommand(query, conexion))
                 {
-                    comando.Parameters.AddWithValue("@Tipo", tipoProducto);
+                    comando.Parameters.AddWithValue("@Tipo", ViewState["ProductoTipo"].ToString());
                     conexion.Open();
 
                     using (SqlDataReader reader = comando.ExecuteReader())
@@ -302,18 +351,18 @@ namespace tfg.Paginas
                             string descripcion = reader["Descripcion"].ToString();
                             decimal precio = Convert.ToDecimal(reader["Precio"]);
                             int stock = Convert.ToInt32(reader["Stock"]);
-                            double valoracionMedia = Convert.ToDouble(reader["ValoracionMedia"]);
+                            double valoracion = Convert.ToDouble(reader["ValoracionMedia"]);
                             // Convertir la valoración a estrellas
                             string valoracionEstrellas;
 
-                            if (valoracionMedia == 0)
+                            if (valoracion == 0)
                             {
                                 double notaCero = 5.05;
                                 valoracionEstrellas = ConvertirValoracionAEstrellas(notaCero);
                             }
                             else
                             {
-                                valoracionEstrellas = ConvertirValoracionAEstrellas(valoracionMedia);
+                                valoracionEstrellas = ConvertirValoracionAEstrellas(valoracion);
                             }
 
                             // Obtener la ruta de la imagen del producto
@@ -321,30 +370,62 @@ namespace tfg.Paginas
 
                             // Generar un identificador único para el botón basado en el nombre del producto
                             string idBotonDeseos = $"btn-deseos-{nombre.Replace(" ", "-")}";
+                            ImageButton botonListaDeseos = new ImageButton();
+                            botonListaDeseos.CssClass = "btn-deseos"; // Añadir clase CSS
+                            botonListaDeseos.ID = idBotonDeseos;
 
-                            // Crear un elemento <div> con el nombre, el precio y la valoración media del producto
-                            string productoHtml = $@"
-<div class='producto'>
-    <div class='imagen-producto' onclick='mostrarDetalleProducto(""{nombre}"", ""{imagenUrl}"", {precio}, {valoracionMedia})' style='height: 250px; display: flex; justify-content: center; align-items: center;text-align:center; overflow: hidden; position: relative;'>
-        <img src='{imagenUrl}' alt='{nombre}' style='width: auto; height: 100%; object-fit: cover;' />
-        <div class='panel-hover'>
-            <button class='btn-carro'>Añadir al carro</button>
-            <button id='{idBotonDeseos}' class='btn-deseos'>
-                <ion-icon name='heart-outline' style='font-size: 24px; color: #f8f8f8;'></ion-icon>
-            </button>
-        </div>
-    </div>
-    <div class='datos-producto' style='text-align: center; padding-top:10px;'>
-        <p class='nombre-producto' style='text-align: center; font-size: 18px;'>{nombre}</p><br/>
-        <p>{valoracionEstrellas}</p>
-        <p class='precio-valoracion-producto' style='font-size: 16px;'>{precio} €</p>
-    </div>
-</div>";
-
-                            // Agregar el producto generado dinámicamente al contenedor 'productosDisponibles'
-                            productosDisponibles.Controls.Add(new LiteralControl(productoHtml));
+                            if (Session["UsuarioActual"] != null)
+                            {
+                                if (comprobarListaDeseados(nombre) == true)
+                                {
+                                    botonListaDeseos.ImageUrl = "~/imagenes/corazonLleno.png";
+                                }
+                                else
+                                {
+                                    botonListaDeseos.ImageUrl = "~/imagenes/corazonVacio.png";
+                                }
+                            }
+                            else
+                            {
+                                botonListaDeseos.ImageUrl = "~/imagenes/corazonVacio.png";
+                            }
 
 
+
+                            botonListaDeseos.CommandArgument = nombre;
+                            botonListaDeseos.Click += new ImageClickEventHandler(AgregarAListaDeseos_Click);
+
+
+
+
+
+                            // Generar el HTML del producto
+                            string productoHtmlInicio = $@"
+                    <div class='producto' onclick='mostrarDetalleProducto(""{nombre}"", ""{imagenUrl}"", ""{precio}"", ""{valoracion}"")'>
+                        <div class='imagen-producto'  style='height: 250px; display: flex; justify-content: center; align-items: center; text-align:center; overflow: hidden; position: relative;'>
+                            <img src='{imagenUrl}' alt='{nombre}' style='width: auto; height: 100%; object-fit: cover;' />
+                            <div class='panel-hover' style='align-contents:center'>
+                                <button class='btn-carro'>Añadir al carro</button>
+                    ";
+
+                            string productoHtmlFin = $@"
+                            </div>
+                        </div>
+                        <div class='datos-producto' style='text-align: center; padding-top:10px;'>
+                            <p class='nombre-producto' style='text-align: center; font-size: 18px;'>{nombre}</p><br/>
+                            <p>{valoracionEstrellas}</p>
+                            <p class='precio-valoracion-producto' style='font-size: 16px;'>{precio} €</p>
+                        </div>
+                    </div>";
+
+                            // Agregar el inicio del HTML del producto al contenedor
+                            productosDisponibles.Controls.Add(new LiteralControl(productoHtmlInicio));
+
+                            // Agregar el botón dinámico al contenedor
+                            productosDisponibles.Controls.Add(botonListaDeseos);
+
+                            // Agregar el fin del HTML del producto al contenedor
+                            productosDisponibles.Controls.Add(new LiteralControl(productoHtmlFin));
                         }
                     }
                 }

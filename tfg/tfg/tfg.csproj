@@ -135,6 +135,7 @@
     <Content Include="fonts\icomoon\fonts\icomoon.svg" />
     <Content Include="fonts\icomoon\Read Me.txt" />
     <Content Include="fonts\icomoon\style.css" />
+    <Content Include="imagenesProductos\Palmeritas de Chocolate.png" />
     <Content Include="imagenes\corazonLleno.png" />
     <Content Include="imagenes\corazonVacio.png" />
     <Content Include="imagenesProductos\Tarta de Bombon.png" />
@@ -143,7 +144,7 @@
     <Content Include="imagenesProductos\Tarta de crema sacher.png" />
     <Content Include="imagenesProductos\tarta de naranja.png" />
     <Content Include="imagenes\.jpg" />
-    <Content Include="imagenes\horario.png" />
+    <Content Include="imagenes\horario1.png" />
     <Content Include="imagenes\lineaSubmenu.png" />
     <Content Include="imagenes\logoInbay3.png" />
     <Content Include="imagenes\logoInbay4.png" />
