@@ -117,7 +117,7 @@
 
                 
                 <div class="ubicacion-horario">
-                    <img src="imagenes/horario.png" />
+                    <img src="imagenes/horario1.png" />
                 </div>
 
 
@@ -128,8 +128,8 @@
             </main>
         </div>
         <div id="subfooter" class="subfooter">
-            <p>¡Ven a nuestra pastelería y descubre un mundo de sabores exquisitos! Desde deliciosos croissants recién horneados hasta irresistibles tartas caseras, ¡te esperamos con los brazos abiertos!</p>
-            <p>No te pierdas nuestras ofertas especiales de la semana y eventos exclusivos. ¡Haz tu día más dulce con nosotros!</p>
+            <p>¡Ven a nuestra pastelería y descubre un mundo de sabores exquisitos! Desde deliciosos croissants recién horneados hasta irresistibles tartas caseras.</p>
+            <p>Prueba nuestras creaciones artesanales hechas con amor y los ingredientes más frescos. ¡Haz tu día más dulce con nosotros!</p>
             <a href="/Paginas/Contacto.aspx" class="subfooter-link">¡Contáctanos para más información!</a>
         </div>
 

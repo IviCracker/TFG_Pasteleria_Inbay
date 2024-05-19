@@ -21,6 +21,9 @@
                 }
             });
         });
+
+      
+
     </script>
 
 
@@ -33,7 +36,7 @@
             var encodedImagenUrl = encodeURIComponent(imagenUrl);
             // Convertir el precio a formato de cadena con dos decimales
 
-            var encodedPrecio = encodeURIComponent(precioString);
+            var encodedPrecio = encodeURIComponent(precio);
             var encodedValoracion = encodeURIComponent(valoracion);
 
             // Construir la URL de la página de detalle del producto con los parámetros codificados
@@ -170,7 +173,7 @@
             </asp:UpdatePanel>
         </div>
 
-        </div>
+       
 
         <div id="subfooter" class="subfooter">
             <p>¡Ven a nuestra pastelería y descubre un mundo de sabores exquisitos! Desde deliciosos croissants recién horneados hasta irresistibles tartas caseras, ¡te esperamos con los brazos abiertos!</p>

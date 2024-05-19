@@ -201,6 +201,24 @@ namespace tfg.Paginas
                             string imagenUrl = $"{rutaImagenes}{nombre}.png";
 
                             // Generar un identificador único para el botón basado en el nombre del producto
+                            string idBotonCarrito = $"btn-carrito-{nombre.Replace(" ", "-")}";
+
+                            // Crear el botón dinámico
+                            // Crear el botón dinámico como un botón HTML en lugar de un botón ASP.NET
+                            ImageButton botonCarrito = new ImageButton();
+                            botonCarrito.CssClass = "btn-carrito"; // Añadir clase CSS
+                            botonCarrito.ID = idBotonCarrito;
+
+
+                            
+                               
+
+
+
+                            botonCarrito.CommandArgument = nombre;
+                            botonCarrito.Click += new ImageClickEventHandler(AgregarAListaDeseos_Click); 
+                            
+                            //---------------------------------------
                             string idBotonDeseos = $"btn-deseos-{nombre.Replace(" ", "-")}";
 
                             // Crear el botón dinámico
@@ -229,6 +247,7 @@ namespace tfg.Paginas
 
                             botonListaDeseos.CommandArgument = nombre;
                             botonListaDeseos.Click += new ImageClickEventHandler(AgregarAListaDeseos_Click);
+
 
 
 
