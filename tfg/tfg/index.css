@@ -289,6 +289,8 @@ header label {
     height: 25px;
     
 }
+
+
 /* Media query para dispositivos en orientación portrait */
 @media (orientation: landscape) {
     header ul li a {
@@ -841,3 +843,6 @@ header label {
     .btn-deseos {
         height: 25px;
     }
+.btn-carrito {
+    height: 25px !important;
+}

@@ -136,6 +136,7 @@
     <Content Include="fonts\icomoon\Read Me.txt" />
     <Content Include="fonts\icomoon\style.css" />
     <Content Include="imagenesProductos\Palmeritas de Chocolate.png" />
+    <Content Include="imagenes\carrito.png" />
     <Content Include="imagenes\corazonLleno.png" />
     <Content Include="imagenes\corazonVacio.png" />
     <Content Include="imagenesProductos\Tarta de Bombon.png" />

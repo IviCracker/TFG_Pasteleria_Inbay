@@ -197,34 +197,29 @@ namespace tfg.Paginas
                                 valoracionEstrellas = ConvertirValoracionAEstrellas(valoracion);
                             }
 
-                            // Obtener la ruta de la imagen del producto
+                       
                             string imagenUrl = $"{rutaImagenes}{nombre}.png";
 
-                            // Generar un identificador único para el botón basado en el nombre del producto
+                          
                             string idBotonCarrito = $"btn-carrito-{nombre.Replace(" ", "-")}";
 
-                            // Crear el botón dinámico
-                            // Crear el botón dinámico como un botón HTML en lugar de un botón ASP.NET
+                          
+                           
                             ImageButton botonCarrito = new ImageButton();
-                            botonCarrito.CssClass = "btn-carrito"; // Añadir clase CSS
+                            botonCarrito.CssClass = "btn-carrito";
                             botonCarrito.ID = idBotonCarrito;
-
-
-                            
-                               
-
-
+                            botonCarrito.ImageUrl = "~/imagenes/carrito.png";
 
                             botonCarrito.CommandArgument = nombre;
-                            botonCarrito.Click += new ImageClickEventHandler(AgregarAListaDeseos_Click); 
-                            
+                            botonCarrito.Click += new ImageClickEventHandler(AgregarACarrito_Click);
+
                             //---------------------------------------
                             string idBotonDeseos = $"btn-deseos-{nombre.Replace(" ", "-")}";
 
-                            // Crear el botón dinámico
-                            // Crear el botón dinámico como un botón HTML en lugar de un botón ASP.NET
+                       
+                            
                             ImageButton botonListaDeseos = new ImageButton();
-                            botonListaDeseos.CssClass = "btn-deseos"; // Añadir clase CSS
+                            botonListaDeseos.CssClass = "btn-deseos";
                             botonListaDeseos.ID = idBotonDeseos;
 
                             if (Session["UsuarioActual"] != null)
@@ -258,8 +253,8 @@ namespace tfg.Paginas
                     <div class='producto'>
                         <div class='imagen-producto'  style='height: 250px; display: flex; justify-content: center; align-items: center; text-align:center; overflow: hidden; position: relative;'>
                             <img src='{imagenUrl}' alt='{nombre}' onclick='mostrarDetalleProducto(""{nombre}"", ""{imagenUrl}"", ""{precio}"", ""{valoracion}"")'style='width: auto; height: 100%; object-fit: cover;' />
-                            <div class='panel-hover' style='align-contents:center'>
-                                <button class='btn-carro'>Añadir al carro</button>
+                            <div class='panel-hover'>
+                                
                     ";
 
                             string productoHtmlFin = $@"
@@ -275,8 +270,12 @@ namespace tfg.Paginas
                             // Agregar el inicio del HTML del producto al contenedor
                             productosDisponibles.Controls.Add(new LiteralControl(productoHtmlInicio));
 
+
+                            productosDisponibles.Controls.Add(botonCarrito);
+
                             // Agregar el botón dinámico al contenedor
                             productosDisponibles.Controls.Add(botonListaDeseos);
+                           
 
                             // Agregar el fin del HTML del producto al contenedor
                             productosDisponibles.Controls.Add(new LiteralControl(productoHtmlFin));
@@ -387,6 +386,18 @@ namespace tfg.Paginas
                             // Obtener la ruta de la imagen del producto
                             string imagenUrl = $"{rutaImagenes}{nombre}.png";
 
+                            string idBotonCarrito = $"btn-carrito-{nombre.Replace(" ", "-")}";
+
+                            // Crear el botón dinámico
+                            // Crear el botón dinámico como un botón HTML en lugar de un botón ASP.NET
+                            ImageButton botonCarrito = new ImageButton();
+                            botonCarrito.CssClass = "btn-carrito"; // Añadir clase CSS
+                            botonCarrito.ID = idBotonCarrito;
+                            botonCarrito.ImageUrl = "~/imagenes/carrito.png";
+
+                            botonCarrito.CommandArgument = nombre;
+                            botonCarrito.Click += new ImageClickEventHandler(AgregarACarrito_Click);
+
                             // Generar un identificador único para el botón basado en el nombre del producto
                             string idBotonDeseos = $"btn-deseos-{nombre.Replace(" ", "-")}";
                             ImageButton botonListaDeseos = new ImageButton();
@@ -420,11 +431,11 @@ namespace tfg.Paginas
 
                             // Generar el HTML del producto
                             string productoHtmlInicio = $@"
-                    <div class='producto' onclick='mostrarDetalleProducto(""{nombre}"", ""{imagenUrl}"", ""{precio}"", ""{valoracion}"")'>
+                    <div class='producto'>
                         <div class='imagen-producto'  style='height: 250px; display: flex; justify-content: center; align-items: center; text-align:center; overflow: hidden; position: relative;'>
-                            <img src='{imagenUrl}' alt='{nombre}' style='width: auto; height: 100%; object-fit: cover;' />
-                            <div class='panel-hover' style='align-contents:center'>
-                                <button class='btn-carro'>Añadir al carro</button>
+                            <img src='{imagenUrl}' alt='{nombre}' onclick='mostrarDetalleProducto(""{nombre}"", ""{imagenUrl}"", ""{precio}"", ""{valoracion}"")'style='width: auto; height: 100%; object-fit: cover;' />
+                            <div class='panel-hover'>
+                                
                     ";
 
                             string productoHtmlFin = $@"
@@ -440,8 +451,12 @@ namespace tfg.Paginas
                             // Agregar el inicio del HTML del producto al contenedor
                             productosDisponibles.Controls.Add(new LiteralControl(productoHtmlInicio));
 
+
+                            productosDisponibles.Controls.Add(botonCarrito);
+
                             // Agregar el botón dinámico al contenedor
                             productosDisponibles.Controls.Add(botonListaDeseos);
+
 
                             // Agregar el fin del HTML del producto al contenedor
                             productosDisponibles.Controls.Add(new LiteralControl(productoHtmlFin));
@@ -506,19 +521,7 @@ namespace tfg.Paginas
         }
 
 
-        protected void AgregarAListaDeseos_Click(object sender, EventArgs e)
-        {
-            // Obtener el ID del cliente y el ID del producto
-            int idCliente = ObtenerIdCliente();
-            ImageButton clickedButton = (ImageButton)sender;
-            string commandArgument = clickedButton.CommandArgument;
-
-            // Convertir el CommandArgument a entero y usarlo para obtener el ID del producto
-            int idProducto = ObtenerIdProducto(commandArgument);
-
-            // Agregar el producto a la lista de deseos del cliente en la base de datos
-            AgregarProductoAListaDeseos(idCliente, idProducto);
-        }
+        
 
 
         protected int ObtenerIdCliente()
@@ -622,6 +625,76 @@ namespace tfg.Paginas
                     {
                         return false; // Si no hay resultados, el producto no está en la lista de deseos
                     }
+                }
+            }
+        }
+        protected void AgregarAListaDeseos_Click(object sender, EventArgs e)
+        {
+            // Obtener el ID del cliente y el ID del producto
+            int idCliente = ObtenerIdCliente();
+            ImageButton clickedButton = (ImageButton)sender;
+            string commandArgument = clickedButton.CommandArgument;
+
+            // Convertir el CommandArgument a entero y usarlo para obtener el ID del producto
+            int idProducto = ObtenerIdProducto(commandArgument);
+
+            // Agregar el producto a la lista de deseos del cliente en la base de datos
+            AgregarProductoAListaDeseos(idCliente, idProducto);
+        }
+        protected void AgregarACarrito_Click(object sender, EventArgs e)
+        {
+            // Obtener el ID del cliente y el ID del producto
+            int idCliente = ObtenerIdCliente();
+            ImageButton clickedButton = (ImageButton)sender;
+            string commandArgument = clickedButton.CommandArgument;
+
+            // Convertir el CommandArgument a entero y usarlo para obtener el ID del producto
+            int idProducto = ObtenerIdProducto(commandArgument);
+
+            // Agregar el producto a la lista de deseos del cliente en la base de datos
+            AgregarProductoACarrito(idCliente, idProducto);
+        }
+
+
+        protected void AgregarProductoACarrito(int idCliente, int idProducto)
+        {
+            string connectionString = "Server=sql.bsite.net\\MSSQL2016;Database=proyectopasteleriainbay_;Uid=proyectopasteleriainbay_;Pwd=proyectopasteleriainbay_;";
+
+            // Consulta para verificar la existencia del producto en el carrito
+            string queryCheck = "SELECT cantidad FROM carrito WHERE id_cliente = @idCliente AND id_producto = @idProducto";
+
+            // Consulta para insertar el producto si no existe
+            string queryInsert = "INSERT INTO carrito (id_cliente, id_producto, cantidad) VALUES (@idCliente, @idProducto, @cantidad)";
+
+            // Consulta para actualizar la cantidad del producto si ya existe
+            string queryUpdate = "UPDATE carrito SET cantidad = cantidad + 1 WHERE id_cliente = @idCliente AND id_producto = @idProducto";
+
+            using (SqlConnection conexion = new SqlConnection(connectionString))
+            {
+                SqlCommand comandoCheck = new SqlCommand(queryCheck, conexion);
+                comandoCheck.Parameters.AddWithValue("@idCliente", idCliente);
+                comandoCheck.Parameters.AddWithValue("@idProducto", idProducto);
+
+                conexion.Open();
+
+                var cantidad = comandoCheck.ExecuteScalar();
+
+                if (cantidad == null) // El producto no existe en el carrito
+                {
+                    SqlCommand comandoInsert = new SqlCommand(queryInsert, conexion);
+                    comandoInsert.Parameters.AddWithValue("@idCliente", idCliente);
+                    comandoInsert.Parameters.AddWithValue("@idProducto", idProducto);
+                    comandoInsert.Parameters.AddWithValue("@cantidad", 1);
+
+                    comandoInsert.ExecuteNonQuery(); // Insertar el producto en el carrito con cantidad = 1
+                }
+                else // El producto ya existe en el carrito
+                {
+                    SqlCommand comandoUpdate = new SqlCommand(queryUpdate, conexion);
+                    comandoUpdate.Parameters.AddWithValue("@idCliente", idCliente);
+                    comandoUpdate.Parameters.AddWithValue("@idProducto", idProducto);
+
+                    comandoUpdate.ExecuteNonQuery(); // Incrementar la cantidad del producto en el carrito
                 }
             }
         }
