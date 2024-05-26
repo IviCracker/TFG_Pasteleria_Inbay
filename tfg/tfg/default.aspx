@@ -12,6 +12,19 @@
     <link rel="stylesheet" href="/Estilos/Footer.css" />
 
     <script src="index.js"></script>
+    <script>
+        document.querySelectorAll('.imagen-producto-carrito').forEach(function (producto) {
+            producto.addEventListener('click', function () {
+                var enlace = this.querySelector('a');
+                if (enlace) {
+                    window.location.href = enlace.getAttribute('data-url');
+                }
+            });
+        });
+
+
+
+    </script>
 
     <link rel="stylesheet" href="fonts/icomoon/style.css" />
     <link rel="stylesheet" href="css/owl.carousel.min.css" />
@@ -86,12 +99,20 @@
                         <ion-icon name="cart"></ion-icon>
                     </div>
                     <div class="cart-panel" id="cartPanel">
-                        <button class="close-btn" id="closeCartPanel">&times;</button>
+                        <button type="button" class="close-btn" id="closeCartPanel">&times;</button>
+
                         <h2>Carrito de compra</h2>
                         <div id="productosCarritoContainer" runat="server" class="productos-carrito">
                             <!-- Aquí se cargarán dinámicamente los productos desde el servidor -->
                         </div>
+                        <!--quiero que aqui llames a un codigo en c# que muestre un div con la informacion del total (precio total a pagar, de cada producto por la cantidad de veces), y 1 boton que sea, ver carro, que lleve a una pagina que se llama compra.aspx-->
+                        <div id="cartInfoContainer" runat="server">
+
+                        </div>
+                        <!-- Aquí se mostrará la información del carrito -->
+                        <asp:Button ID="verCarritoBtn" runat="server" Text="Realizar pago" OnClick="VerCarritoBtn_Click" />
                     </div>
+
 
 
 

@@ -22,7 +22,8 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
     closeCartPanel.addEventListener('click', function () {
-        cartPanel.classList.remove('show');
+        cartPanel.classList.remove('show'); // Quita la clase 'show' para cerrar el panel
     });
 });
+
 
