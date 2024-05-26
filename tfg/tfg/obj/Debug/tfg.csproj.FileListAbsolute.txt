@@ -90,3 +90,12 @@ F:\TFG\tfg\tfg\obj\Debug\tfg.dll
 F:\TFG\tfg\tfg\obj\Debug\tfg.pdb
 F:\TFG\tfg\tfg\bin\Newtonsoft.Json.dll
 F:\TFG\tfg\tfg\bin\Newtonsoft.Json.xml
+F:\TFG\tfg\tfg\bin\System.Net.Http.Formatting.dll
+F:\TFG\tfg\tfg\bin\System.Web.Http.dll
+F:\TFG\tfg\tfg\bin\System.Web.Http.WebHost.dll
+F:\TFG\tfg\tfg\bin\System.Net.Http.Formatting.xml
+F:\TFG\tfg\tfg\bin\System.Web.Http.xml
+F:\TFG\tfg\tfg\bin\System.Web.Http.WebHost.xml
+F:\TFG\tfg\tfg\bin\es\System.Net.Http.Formatting.resources.dll
+F:\TFG\tfg\tfg\bin\es\System.Web.Http.resources.dll
+F:\TFG\tfg\tfg\bin\es\System.Web.Http.WebHost.resources.dll

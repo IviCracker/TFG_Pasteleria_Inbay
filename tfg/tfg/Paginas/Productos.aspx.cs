@@ -208,7 +208,7 @@ namespace tfg.Paginas
                             ImageButton botonCarrito = new ImageButton();
                             botonCarrito.CssClass = "btn-carrito";
                             botonCarrito.ID = idBotonCarrito;
-                            botonCarrito.ImageUrl = "~/imagenes/carrito.png";
+                            botonCarrito.ImageUrl = "~/imagenes/carrito1.png";
 
                             botonCarrito.CommandArgument = nombre;
                             botonCarrito.Click += new ImageClickEventHandler(AgregarACarrito_Click);
@@ -393,7 +393,7 @@ namespace tfg.Paginas
                             ImageButton botonCarrito = new ImageButton();
                             botonCarrito.CssClass = "btn-carrito"; // Añadir clase CSS
                             botonCarrito.ID = idBotonCarrito;
-                            botonCarrito.ImageUrl = "~/imagenes/carrito.png";
+                            botonCarrito.ImageUrl = "~/imagenes/carrito1.png";
 
                             botonCarrito.CommandArgument = nombre;
                             botonCarrito.Click += new ImageClickEventHandler(AgregarACarrito_Click);

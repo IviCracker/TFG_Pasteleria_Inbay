@@ -51,9 +51,9 @@
                             <img src="imagenes/logoInbay4.png" width="150" /></a>
                     </div>
                     <input type="checkbox" id="menu-bar" />
-                    
+
                     <label for="menu-bar">Menu</label>
-                        
+
                     <nav class="navbar">
                         <ul>
                             <li><a href="default.aspx">Inicio</a></li>
@@ -82,18 +82,19 @@
                         </div>
 
                     </div>
-                    <div class="cart-icon">
+                    <div class="cart-icon" id="cartIcon">
                         <ion-icon name="cart"></ion-icon>
                     </div>
-                    <div class="cart-panel">
+                    <div class="cart-panel" id="cartPanel">
+                        <button class="close-btn" id="closeCartPanel">&times;</button>
                         <h2>Carrito de compra</h2>
-                        <h2>Carrito de compra</h2>
-                        <ul>
-                            <li>Producto 1</li>
-                            <li>Producto 2</li>
-                            <li>Producto 3</li>
-                        </ul>
+                        <div id="productosCarritoContainer" runat="server" class="productos-carrito">
+                            <!-- Aquí se cargarán dinámicamente los productos desde el servidor -->
+                        </div>
                     </div>
+
+
+
 
                 </header>
                 <div style="text-align: center">
@@ -115,7 +116,7 @@
 
 
 
-                
+
                 <div class="ubicacion-horario">
                     <img src="imagenes/horario1.png" />
                 </div>

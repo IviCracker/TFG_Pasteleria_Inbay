@@ -11,3 +11,18 @@
     // Redirigir a la página de detalle del producto
     window.location.href = url;
 }
+
+document.addEventListener('DOMContentLoaded', function () {
+    const cartIcon = document.getElementById('cartIcon');
+    const cartPanel = document.getElementById('cartPanel');
+    const closeCartPanel = document.getElementById('closeCartPanel');
+
+    cartIcon.addEventListener('click', function () {
+        cartPanel.classList.toggle('show');
+    });
+
+    closeCartPanel.addEventListener('click', function () {
+        cartPanel.classList.remove('show');
+    });
+});
+
