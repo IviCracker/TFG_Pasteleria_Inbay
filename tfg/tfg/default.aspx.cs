@@ -192,11 +192,14 @@ namespace tfg
 
         protected void VerCarritoBtn_Click(object sender, EventArgs e)
         {
-            Response.Redirect("pago.aspx");
+            Response.Redirect("Paginas/pago.aspx");
         }
 
-        // Métodos para obtener el precio total y los productos
-        // Método para obtener el precio total
+     
+
+
+
+
         private void ObtenerPrecioTotal()
         {
             string precioTotal = "0.00"; // Valor inicial del precio total

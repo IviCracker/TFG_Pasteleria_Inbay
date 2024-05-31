@@ -91,7 +91,8 @@
                     <div class="search-cart-container">
                         <div class="search-container">
                             <input type="text" placeholder="Buscar..." class="search-input" />
-                            <button type="submit" class="search-button">Buscar</button>
+                            <asp:Button ID="searchButton" runat="server" Text="Buscar" CssClass="search-button" />
+
                         </div>
 
                     </div>
@@ -102,6 +103,10 @@
                         <button type="button" class="close-btn" id="closeCartPanel">&times;</button>
 
                         <h2>Carrito de compra</h2>
+                        <% if (Session["UsuarioActual"] == null) { %>
+                            <p>Inicia sesión antes de ver tu carrito</p>
+                        <% } %>
+                             
                         <div id="productosCarritoContainer" runat="server" class="productos-carrito">
                             <!-- Aquí se cargarán dinámicamente los productos desde el servidor -->
                         </div>
@@ -110,7 +115,10 @@
 
                         </div>
                         <!-- Aquí se mostrará la información del carrito -->
-                        <asp:Button ID="verCarritoBtn" runat="server" Text="Realizar pago" OnClick="VerCarritoBtn_Click" />
+                        <% if (Session["UsuarioActual"] != null) { %>
+                                <asp:Button ID="verCarritoBtn" runat="server" Text="Realizar pago" OnClick="VerCarritoBtn_Click" CssClass="ver-carrito-btn" />
+
+                            <% } %>
                     </div>
 
 

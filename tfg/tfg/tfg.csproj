@@ -187,6 +187,7 @@
     <Content Include="Paginas\listaDeseos.aspx" />
     <Content Include="Paginas\MiCuenta.aspx" />
     <Content Include="Paginas\Nosotros.aspx" />
+    <Content Include="Paginas\Pago.aspx" />
     <Content Include="Paginas\Productos.aspx" />
     <Content Include="Paginas\Registro.aspx" />
     <Content Include="Web.config" />
@@ -254,6 +255,13 @@
     </Compile>
     <Compile Include="Paginas\Nosotros.aspx.designer.cs">
       <DependentUpon>Nosotros.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Paginas\Pago.aspx.cs">
+      <DependentUpon>Pago.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Paginas\Pago.aspx.designer.cs">
+      <DependentUpon>Pago.aspx</DependentUpon>
     </Compile>
     <Compile Include="Paginas\Productos.aspx.cs">
       <DependentUpon>Productos.aspx</DependentUpon>

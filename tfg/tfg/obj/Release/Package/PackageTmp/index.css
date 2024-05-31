@@ -23,73 +23,73 @@ header {
     justify-content: space-between;
     width: 100%;
     padding: 0 5%;
-    border-bottom: 2px solid ;
+    border-bottom: 2px solid;
     padding-bottom: 10px;
 }
 
-header > div:nth-child(1),
-header > nav {
-    display: inline-block;
-}
+    header > div:nth-child(1),
+    header > nav {
+        display: inline-block;
+    }
 
-header > div:nth-child(3) {
-    display: flex;
-    align-items: center;
-    margin-left: auto;
-}
+    header > div:nth-child(3) {
+        display: flex;
+        align-items: center;
+        margin-left: auto;
+    }
 
-header ul li {
-    display: inline-block;
-    list-style: none;
-    margin: 0 30px;
-}
+    header ul li {
+        display: inline-block;
+        list-style: none;
+        margin: 0 30px;
+    }
 
-header ul li a {
-    text-decoration: none;
-    color: black;
-    padding: 22px 0;
-    display: inline-block;
-    transition: all ease 0.2s;
-    font-size: 18px;
-}
+        header ul li a {
+            text-decoration: none;
+            color: black;
+            padding: 22px 0;
+            display: inline-block;
+            transition: all ease 0.2s;
+            font-size: 18px;
+        }
 
-header ul li a:hover {
-    color: #FF8C00;
-}
+            header ul li a:hover {
+                color: #FF8C00;
+            }
 
-/* Submenu style */
-header ul .submenu {
-    position: absolute;
-    width: 200px;
-    background-color: #ffffff;
-    box-shadow: 0 20px 45px #00000020;
-    margin-top: -50px;
-    opacity: 0;
-    z-index: -999;
-    transition: all ease 0s;
-}
+    /* Submenu style */
+    header ul .submenu {
+        position: absolute;
+        width: 200px;
+        background-color: #ffffff;
+        box-shadow: 0 20px 45px #00000020;
+        margin-top: -50px;
+        opacity: 0;
+        z-index: -999;
+        transition: all ease 0s;
+    }
 
-header ul li:hover .submenu {
-    z-index: 100;
-}
+    header ul li:hover .submenu {
+        z-index: 100;
+    }
 
-header ul li:hover .submenu {
-    z-index: 100000;
-    opacity: 1;
-    margin-top: 0;
-    transition: all ease 0.5s;
-}
+    header ul li:hover .submenu {
+        z-index: 100000;
+        opacity: 1;
+        margin-top: 0;
+        transition: all ease 0.5s;
+    }
 
-header ul .submenu li {
-    margin: 0;
-    width: 100%;
-}
+    header ul .submenu li {
+        margin: 0;
+        width: 100%;
+    }
 
-header ul .submenu li a {
-    padding: 15px 20px;
-    display: inline-block;
-    width: 100%;
-}
+        header ul .submenu li a {
+            padding: 15px 20px;
+            display: inline-block;
+            width: 100%;
+        }
 
 header, .usuario {
     background-color: #fff2db;
@@ -99,27 +99,24 @@ header, .usuario {
     text-align: right;
 }
 
-.usuario li {
-    display: inline-block;
-    list-style: none;
-    margin: 0 30px;
-    margin-right: 5%;
-}
+    .usuario li {
+        display: inline-block;
+        list-style: none;
+        margin: 0 30px;
+        margin-right: 5%;
+    }
 
-.usuario li a {
-    text-decoration: none;
-    color: black;
-    padding: 22px 0;
-    display: inline-block;
-    transition: all ease 0.3s;
-    
+        .usuario li a {
+            text-decoration: none;
+            color: black;
+            padding: 22px 0;
+            display: inline-block;
+            transition: all ease 0.3s;
+        }
 
-    
-}
-
-.usuario li a:hover {
-    color: #FF8C00;
-}
+            .usuario li a:hover {
+                color: #FF8C00;
+            }
 
 .search-container {
     display: flex;
@@ -128,53 +125,178 @@ header, .usuario {
     border-radius: 50px; /* Bordes redondos */
 }
 
-.search-container .search-input {
-    border: none;
-    outline: none;
-    padding: 10px;
-    border-radius: 20px; /* Bordes redondos */
-    background-color: #fff2db;
-}
-
-.search-container .search-button {
-    border: none;
-    outline: none;
-    background-color: #94604f;
-    color: #fff;
-    border-radius: 20px; /* Bordes redondos */
-    cursor: pointer;
-    padding: 10px 20px;
-    color: #fff;
-    border: none;
-    cursor: pointer;
-}
-    .search-container .search-button:hover {
-        background-color: #ff7e5f;
+    .search-container .search-input {
+        border: none;
+        outline: none;
+        padding: 10px;
+        border-radius: 20px; /* Bordes redondos */
+        background-color: #fff2db;
     }
 
-    .cart {
+    .search-container .search-button {
+        border: none;
+        outline: none;
+        background-color: #94604f;
+        color: #fff;
+        border-radius: 20px; /* Bordes redondos */
         cursor: pointer;
-        position: relative;
-        margin-left: 20px;
+        padding: 10px 20px;
+        color: #fff;
+        border: none;
+        cursor: pointer;
     }
-.cart-icon ion-icon {
-    font-size: 35px; 
+
+        .search-container .search-button:hover {
+            background-color: #ff7e5f;
+        }
+
+.cart {
+    cursor: pointer;
+    position: relative;
+    margin-left: 20px;
+    cursor: pointer;
 }
+
+.cart-icon ion-icon {
+    font-size: 35px;
+    cursor: pointer;
+    transition: font-size 0.3s ease;
+}
+
+.cart-icon ion-icon:hover{
+    font-size: 40px;
+}
+
 .cart-panel {
     position: fixed;
-    top: 100px;
-    right: -300px;
-    width: 300px;
-    height: calc(100% - 100px);
-    background-color: #fff;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
-    transition: all 0.3s ease;
-    z-index: 999;
+    right: 0;
+    bottom: -100%; /* Panel inicialmente oculto fuera de la vista */
+    width: 100%;
+    max-width: 300px; /* Ancho máximo del panel */
+    height: 70%; /* Altura del panel */
+    background-color: #f4f4f4;
+    border-top: 1px solid #ccc; /* Cambiado a border-top */
+    padding: 20px;
+    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.2); /* Cambiado para la sombra en la parte superior */
+    overflow-y: auto;
+    transition: bottom 0.3s ease; /* Animación de transición cambiada a bottom */
+    z-index: 1000;
 }
 
-.cart-panel.active {
-    right: 0;
+    .cart-panel.show {
+        bottom: 0; /* El panel se desliza hacia arriba para mostrarse */
+    }
+
+
+
+.close-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
 }
+
+.ver-carrito-btn {
+    background-color: #8b5340; /* Color de fondo verde */
+    color: white; /* Color del texto blanco */
+    border: none; /* Sin borde */
+    padding: 8px 16px; /* Relleno */
+    text-align: left; /* Alineación del texto */
+    text-decoration: none; /* Sin subrayado */
+    display: inline-block; /* Mostrar como un bloque en línea */
+    font-size: 20px; /* Tamaño de fuente */
+    margin: 4px 2px; /* Márgenes */
+    cursor: pointer; /* Cursor de puntero */
+    border-radius: 8px; /* Bordes redondeados */
+    transition: background-color 0.3s ease, transform 0.3s ease; /* Transiciones suaves */
+}
+
+    .ver-carrito-btn:hover {
+        background-color: #ff7e5f; /* Color de fondo verde oscuro al pasar el ratón */
+        transform: scale(1.05); /* Aumenta ligeramente el tamaño al pasar el ratón */
+    }
+#cartInfoContainer {
+    font-size: 20px;
+    padding-top: 50px;
+    padding-bottom: 25px;
+    width: 100%; /* Ajusta según sea necesario */
+    text-align: left;
+   
+}
+
+@media (orientation: portrait) {
+    .cart-panel {
+        right: 0;
+        bottom: -100%; /* Panel inicialmente oculto fuera de la vista */
+        width: 100%;
+        max-width: 100%; /* Ancho máximo del panel */
+        height: 60%; /* Altura del panel */
+        transition: bottom 0.3s ease; /* Animación de transición cambiada a bottom */
+    }
+
+    .cart-panel h2{
+        font-size:40px;
+    }
+
+    
+    .productoCarrito {
+        display: flex;
+        align-items: center;
+        border-bottom: 1px solid #ddd;
+        padding: 20px;
+    }
+
+    .imagen-producto-carrito {
+        flex: 0 0 30%; /* La imagen ocupa el 30% del espacio */
+        padding-right: 10px; /* Espacio entre la imagen y los datos del producto */
+    }
+
+        .imagen-producto-carrito img {
+            width: 100%;
+            border-radius: 8px;
+        }
+
+    .datos-producto-carrito {
+        flex: 1; /* Los datos del producto ocupan el resto del espacio disponible */
+        text-align: left; /* Alineación del texto a la izquierda para mejorar la legibilidad */
+        margin-top: 10px;
+        padding-left:60px
+    }
+
+    .nombre-producto-carrito,
+    .precio-producto-carrito,
+    .cantidad-producto-carrito {
+        font-size: 40px !important; /* Reducción del tamaño de fuente para mejorar la legibilidad */
+        margin: 5px 0;
+    }
+
+
+    .close-btn {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        background: none;
+        border: none;
+        font-size: 50px;
+        cursor: pointer;
+    }
+    #cartInfoContainer {
+        font-size: 60px;
+        padding-top: 100px;
+        padding-bottom: 50px;
+        width: 100%; /* Ajusta según sea necesario */
+        text-align: center;
+    }
+    .ver-carrito-btn {
+        font-size: 50px;
+    }
+
+}
+
+
 
 main {
     width: 100%;
@@ -182,11 +304,11 @@ main {
     margin-right: 0;
 }
 
-.ubicacion-horario{
-    text-align:center;
-    margin:50px;
-    
+.ubicacion-horario {
+    text-align: center;
+    margin: 50px;
 }
+
     .ubicacion-horario img {
         width: 30%;
     }
@@ -200,9 +322,6 @@ header label {
     color: #333;
     cursor: pointer;
     display: none;
-
-
-
 }
 /* Estilos para el contenedor de productos */
 /* Estilos para el contenedor de productos */
@@ -210,11 +329,10 @@ header label {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); /* Tamaño mínimo de 250px para las columnas */
     grid-gap: 20px; /* Espacio entre los productos */
-    margin-bottom:10%;
-    margin-right:5%;
-    margin-left:5%;
-    margin-top:5%;
-
+    margin-bottom: 10%;
+    margin-right: 5%;
+    margin-left: 5%;
+    margin-top: 5%;
 }
 
 /* Estilos para cada cuadro de producto */
@@ -235,22 +353,20 @@ header label {
     align-items: center;
     border-bottom: solid 1px;
     border-color: #cccccc;
-    padding-bottom:10px;
+    padding-bottom: 10px;
 }
 
 /* Estilos para la imagen de cada producto */
 .producto img {
     height: 100%; /* Ajustar la imagen a la altura del contenedor */
-    
+
     object-fit: cover;
     transition: transform 0.3s; /* Transición para el cambio de tamaño */
 }
 
 /* Cambiar el cursor al hacer hover */
 .producto:hover {
-    
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); /* Agrega una sombra alrededor del contenedor */
-    
 }
 
     /* Cambiar el tamaño de la imagen al hacer hover */
@@ -271,13 +387,11 @@ header label {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between; /* Espacio uniforme entre los elementos */
-    align-content:center;
-
+    align-content: center;
 }
 
 .producto:hover .panel-hover {
     bottom: 0; /* Muestra el panel al hacer hover */
-    
 }
 
 .btn-deseos {
@@ -287,15 +401,16 @@ header label {
     z-index: 10;
     pointer-events: auto; /* Hacer clicable */
     height: 25px;
-    
 }
+
+
 /* Media query para dispositivos en orientación portrait */
 @media (orientation: landscape) {
     header ul li a {
-        
         font-size: 20px;
     }
 }
+
 @media (orientation: portrait) {
     header label {
         display: flex;
@@ -350,494 +465,546 @@ header label {
         height: auto;
         text-align: center;
     }
+
     .producto img {
-        
         width: 90%;
         object-fit: cover;
         transition: transform 0.3s; /* Transición para el cambio de tamaño */
     }
-        
 }
-    /* Media Query para pantallas de tamaño menor o igual a 768px (Tablets y teléfonos) */
-    @media (orientation: portrait), (max-width: 1200px) {
-        header label {
-            display: flex;
-        }
-
-        header .navbar {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: #fff;
-            border-top: 1px solid rgba(0, 0, 0, .1);
-            display: none;
-            z-index: 9999;
-        }
-
-            header .navbar ul li {
-                width: 100%;
-            }
-
-                header .navbar ul li:hover {
-                    background-color: antiquewhite;
-                }
-
-                header .navbar ul li ul {
-                    width: 100%;
-                    right: -15%;
-                }
-
-        #menu-bar:checked ~ .navbar {
-            display: initial;
-        }
-
-        #subfooter p {
-            margin: 10px 0;
-            font-size: 9px;
-            line-height: 1.6;
-            font-family: Georgia, 'Times New Roman', Times, serif;
-            color: #55281b;
-        }
-
-        
+/* Media Query para pantallas de tamaño menor o igual a 768px (Tablets y teléfonos) */
+@media (orientation: portrait), (max-width: 1200px) {
+    header label {
+        display: flex;
     }
 
-
-
-    @media (orientation: portrait) {
-        header {
-            flex-direction: row; /* Cambia la dirección de flexión para horizontal */
-            align-items: center; /* Alinea los elementos verticalmente */
-            justify-content: space-between; /* Espacio uniforme entre los elementos */
-            height: 20vh;
-            display: grid;
-            grid-template-columns: repeat(7, 1fr);
-            grid-template-rows: repeat(4, 1fr);
-            grid-column-gap: 0px;
-            grid-row-gap: 0px;
-            text-align: center
-        }
-
-            header > div:nth-child(1) {
-                order: 1; /* Cambia el orden del logo */
-            }
-
-            header > nav {
-                order: 2; /* Cambia el orden del menú */
-                position: static; /* Restablece la posición */
-                margin: 0; /* Elimina el margen */
-                text-align: left; /* Alinea el texto del menú a la izquierda */
-            }
-
-        .usuario {
-            order: 3; /* Cambia el orden del .usuario */
-            margin: 0; /* Elimina el margen */
-            text-align: right; /* Alinea el texto del .usuario a la derecha */
-            height: 10vh;
-            align-content: center;
-            font-size: 40px;
-        }
-
-
-        .logo {
-            grid-area: 1 / 1 / 4 / 8;
-            width: 100%;
-            align-items: center;
-            padding-bottom: 20px;
-        }
-
-            .logo img {
-                width: 60%;
-            }
-
-        #menu-bar {
-            grid-area: 4 / 2 / 5 / 3;
-        }
-
-        .search-cart-container {
-            grid-area: 4 / 3 / 5 / 6;
-        }
-
-        .cart-icon {
-            grid-area: 4 / 7 / 5 / 8;
-        }
-
-            .cart-icon ion-icon {
-                font-size: 70px; /* Puedes ajustar el valor según lo necesites */
-            }
-
-        .search-container {
-            display: flex;
-            align-items: center;
-            border: 3px solid black;
-            border-radius: 50px; /* Bordes redondos */
-        }
-
-            .search-container .search-input {
-                margin-left: 5px;
-                border: none;
-                outline: none;
-                padding: 10px;
-                border-radius: 20px; /* Bordes redondos */
-                background-color: #fff2db;
-                font-size: 23px
-            }
-
-            .search-container .search-button {
-                border: none;
-                outline: none;
-                background-color: #94604f;
-                color: #fff;
-                border-radius: 100px; /* Bordes redondos */
-                cursor: pointer;
-                font-size: 23px;
-                color: #fff;
-                border: none;
-                cursor: pointer;
-                margin-left: auto; /* Alinea el botón a la derecha */
-            }
-
-        .usuario li a {
-            text-decoration: none;
-            color: black;
-            padding: 22px 0;
-            display: inline-block;
-            transition: all ease 0.3s;
-            font-size: 30px;
-        }
-
-        .ubicacion-horario img {
-            width: 80%;
-        }
-    }
-
-
-
-
-
-   
-
-    /* Estilos para el overlay */
-    .overlay {
-        position: absolute;
+    header .navbar {
+        position: fixed;
         top: 0;
         left: 0;
-        width: 100%;
-        height: 100%;
-        background-color: rgba(0, 0, 0, 0.5); /* Color de fondo semi-transparente */
-        color: white;
-        opacity: 0; /* Ocultar overlay por defecto */
-        transition: opacity 0.3s ease; /* Transición suave para la animación */
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        text-align: center;
+        right: 0;
+        bottom: 0;
+        background: #fff;
+        border-top: 1px solid rgba(0, 0, 0, .1);
+        display: none;
+        z-index: 9999;
     }
 
-    /* Estilos para el texto dentro del overlay */
-    .overlay-text {
-        margin-top: 20px;
-    }
-
-    /* Mostrar overlay al hacer hover */
-    .producto:hover .overlay {
-        opacity: 1;
-    }
-
-    .nombre-producto {
-        color: black;
-        text-align: center;
-    }
-
-    .container {
-        display: flex;
-        flex-wrap: wrap;
-    }
-
-    .product-image {
-        width: 200px;
-        height: 200px;
-        margin: 10px;
-        cursor: pointer;
-    }
-
-
-    h2 {
-        font-size: 24px;
-        margin-bottom: 10px;
-    }
-
-    p {
-        margin-bottom: 10px;
-        
-        color: black;
-        font-weight: bold;
-        font-style: normal;
-        text-decoration: none !important;
-    }
-
-
-    #filtrosProductos button {
-        padding: 10px 20px;
-        background-color: #ff7e5f;
-        color: #fff;
-        border: none;
-        border-radius: 5px;
-        cursor: pointer;
-        transition: background-color 0.3s;
-    }
-
-        #filtrosProductos button:hover {
-            background-color: #ff5a36;
+        header .navbar ul li {
+            width: 100%;
         }
 
+            header .navbar ul li:hover {
+                background-color: antiquewhite;
+            }
 
-    #contenedor {
+            header .navbar ul li ul {
+                width: 100%;
+                right: -15%;
+            }
+
+    #menu-bar:checked ~ .navbar {
+        display: initial;
+    }
+
+    #subfooter p {
+        margin: 10px 0;
+        font-size: 9px;
+        line-height: 1.6;
+        font-family: Georgia, 'Times New Roman', Times, serif;
+        color: #55281b;
+    }
+}
+
+
+
+@media (orientation: portrait) {
+    header {
+        flex-direction: row; /* Cambia la dirección de flexión para horizontal */
+        align-items: center; /* Alinea los elementos verticalmente */
+        justify-content: space-between; /* Espacio uniforme entre los elementos */
+        height: 20vh;
         display: grid;
-        grid-template-columns: 25% 75%;
-        grid-template-rows: 30px 1fr;
+        grid-template-columns: repeat(7, 1fr);
+        grid-template-rows: repeat(4, 1fr);
         grid-column-gap: 0px;
         grid-row-gap: 0px;
-        padding-top: 50px;
+        text-align: center
     }
 
-    #menuVerticalArticulos {
-        grid-area: 1 / 1 / 3 / 2;
-        text-align: left;
-        justify-content: center; /* Contenido justificado horizontalmente */
-        padding-left: 20%;
-        padding-left: 20%;
-    }
-
-        #menuVerticalArticulos h2 {
-            color: #333;
-            font-size: 24px;
-            padding-left: 0px;
-            
+        header > div:nth-child(1) {
+            order: 1; /* Cambia el orden del logo */
         }
+
+        header > nav {
+            order: 2; /* Cambia el orden del menú */
+            position: static; /* Restablece la posición */
+            margin: 0; /* Elimina el margen */
+            text-align: left; /* Alinea el texto del menú a la izquierda */
+        }
+
+    .usuario {
+        order: 3; /* Cambia el orden del .usuario */
+        margin: 0; /* Elimina el margen */
+        text-align: right; /* Alinea el texto del .usuario a la derecha */
+        height: 10vh;
+        align-content: center;
+        font-size: 40px;
+    }
+
+
+    .logo {
+        grid-area: 1 / 1 / 4 / 8;
+        width: 100%;
+        align-items: center;
+        padding-bottom: 20px;
+    }
+
+        .logo img {
+            width: 60%;
+        }
+
+    #menu-bar {
+        grid-area: 4 / 2 / 5 / 3;
+    }
+
+    .search-cart-container {
+        grid-area: 4 / 3 / 5 / 6;
+    }
+
+    .cart-icon {
+        grid-area: 4 / 7 / 5 / 8;
+    }
+
+        .cart-icon ion-icon {
+            font-size: 70px; /* Puedes ajustar el valor según lo necesites */
+        }
+
+    .search-container {
+        display: flex;
+        align-items: center;
+        border: 3px solid black;
+        border-radius: 50px; /* Bordes redondos */
+    }
+
+        .search-container .search-input {
+            margin-left: 5px;
+            border: none;
+            outline: none;
+            padding: 10px;
+            border-radius: 20px; /* Bordes redondos */
+            background-color: #fff2db;
+            font-size: 23px
+        }
+
+        .search-container .search-button {
+            border: none;
+            outline: none;
+            background-color: #94604f;
+            color: #fff;
+            border-radius: 100px; /* Bordes redondos */
+            cursor: pointer;
+            font-size: 23px;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            margin-left: auto; /* Alinea el botón a la derecha */
+        }
+
+    .usuario li a {
+        text-decoration: none;
+        color: black;
+        padding: 22px 0;
+        display: inline-block;
+        transition: all ease 0.3s;
+        font-size: 30px;
+    }
+
+    .ubicacion-horario img {
+        width: 80%;
+    }
+}
+
+
+
+
+
+
+
+/* Estilos para el overlay */
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Color de fondo semi-transparente */
+    color: white;
+    opacity: 0; /* Ocultar overlay por defecto */
+    transition: opacity 0.3s ease; /* Transición suave para la animación */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+/* Estilos para el texto dentro del overlay */
+.overlay-text {
+    margin-top: 20px;
+}
+
+/* Mostrar overlay al hacer hover */
+.producto:hover .overlay {
+    opacity: 1;
+}
+
+.nombre-producto {
+    color: black;
+    text-align: center;
+}
+
+.container {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.product-image {
+    width: 200px;
+    height: 200px;
+    margin: 10px;
+    cursor: pointer;
+}
+
+
+h2 {
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+p {
+    margin-bottom: 10px;
+    color: black;
+    font-weight: bold;
+    font-style: normal;
+    text-decoration: none !important;
+}
+
+
+#filtrosProductos button {
+    padding: 10px 20px;
+    background-color: #ff7e5f;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+    #filtrosProductos button:hover {
+        background-color: #ff5a36;
+    }
+
+
+#contenedor {
+    display: grid;
+    grid-template-columns: 25% 75%;
+    grid-template-rows: 30px 1fr;
+    grid-column-gap: 0px;
+    grid-row-gap: 0px;
+    padding-top: 50px;
+}
+
+#menuVerticalArticulos {
+    grid-area: 1 / 1 / 3 / 2;
+    text-align: left;
+    justify-content: center; /* Contenido justificado horizontalmente */
+    padding-left: 20%;
+    padding-left: 20%;
+}
+
+    #menuVerticalArticulos h2 {
+        color: #333;
+        font-size: 24px;
+        padding-left: 0px;
+    }
+
 @media (orientation: portrait) {
     #contenedor {
         display: grid;
-        grid-template-columns: 1fr 2fr; /* Cambiado para que la primera columna ocupe menos espacio */
-        grid-template-rows: 1fr 2fr; /* Cambiado para que la primera fila ocupe menos espacio */
-        grid-column-gap: 0px;
-        grid-row-gap: 0px;
+        grid-template-columns: 1fr;
+        grid-template-rows: auto 1fr auto; /* La primera y la tercera fila serán de altura automática */
+        grid-gap: 10px; /* Espacio entre las filas */
+        width: 100%;
+        height: 100vh; /* Opcional: asegura que el contenedor ocupe toda la altura de la pantalla */
     }
+
     #menuVerticalArticulos {
-        grid-area: 1 / 1 / 2 / 2;
-    }
-    #menuVerticalArticulos h2 {
+        grid-row: 1; /* Comienza en la primera fila */
+        width: 100%;
         
-        font-size: 10px;
     }
 
     #filtrosProductos {
-        grid-area: 1 / 2 / 2 / 3;
-
+        grid-row: 3; /* Comienza en la tercera fila */
+        width: 100%;
+        
     }
+
     #productosDisponibles {
-        grid-area: 2 / 1 / 3 / 3;
+        grid-row: 2; /* Comienza en la segunda fila */
+        grid-column: 1 / 3; /* Ocupa desde la primera hasta la tercera columna */
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(calc(50% - 5px), 1fr)); /* Ajuste para que se distribuyan de 2 en 2 */
+        grid-gap: 10px; /* Espacio entre productos */
+       
+    }
+
+
+    
+}
+
+#menuVerticalArticulos ol {
+    list-style-type: square;
+    padding-top: 20px;
+    padding-left: 20px;
+}
+
+#menuVerticalArticulos li {
+    margin-bottom: 10px;
+}
+
+#menuVerticalArticulos a {
+    color: black;
+    text-decoration: none;
+    font-size: 22px;
+    transition: color 0.3s ease;
+}
+
+    #menuVerticalArticulos a:hover {
+        color: #ff7e5f;
+    }
+
+#menuVerticalArticulos h2::after {
+    content: "";
+    bottom: -8px;
+    width: 120px;
+    height: 1px;
+    display: block;
+    background: url(./imagenes/lineaSubmenu.png) no-repeat;
+    left: 0;
+}
+
+#filtrosProductos {
+    grid-area: 1 / 2 / 2 / 3;
+    padding: 10px;
+    display: flex;
+    justify-content: center; /* Contenido justificado horizontalmente */
+    align-items: center; /* Contenido centrado verticalmente */
+    width: 100%;
+}
+
+
+
+.boton-filtro {
+    margin: 5px;
+    padding: 8px 16px;
+    border: 1px solid #000000;
+    border-radius: 4px;
+    color: #333;
+    text-decoration: none;
+    text-align: center;
+    transition: background-color 0.5s ease, border 0.3s ease; /* Transición de color de fondo y borde */
+    display: block;
+    width: 100%;
+    margin-bottom: 8px; /* Separación entre botones */
+}
+
+    .boton-filtro:hover {
+        border: 1px solid transparent; /* Quita el borde al pasar el cursor sobre el botón */
+    }
+
+
+
+
+#subcabecera {
+    font-size: 16px;
+    text-align: center;
+    padding-top: 35px;
+    padding-bottom: 10px;
+    border-bottom: solid 1px;
+    border-color: #e5e5e5;
+    text-decoration: none; /* Elimina el subrayado predeterminado */
+    color: #6d6d75;
+    font-family: Arial;
+}
+
+    #subcabecera a {
+        color: #6d6d75;
+    }
+
+        #subcabecera a:hover {
+            color: #FF8C00;
+        }
+
+
+
+
+
+
+#textoCrearCuenta, #textoIniciarSesion {
+    width: 90%;
+    max-width: 700px;
+    margin: 20px auto;
+    padding: 30px;
+    background-color: #ffffff;
+    border-radius: 20px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    margin-bottom: 50px;
+}
+
+.input-container {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+    .input-container i {
+        margin-right: 10px;
+        width: 20px;
+    }
+
+.textbox {
+    width: 100%;
+    padding: 10px;
+    font-size: 1.2em;
+    border: none;
+    border-bottom: 2px solid #000000; /* Borde solo en la parte inferior */
+    transition: border-color 0.3s ease; /* Transición para el color del borde */
+}
+
+    .textbox:focus {
+        outline: none; /* Elimina el contorno de enfoque predeterminado */
+        border-color: #FF8C00; /* Cambia el color del borde al naranja al enfocar */
+    }
+
+
+#registro h2 {
+    font-size: 2em; /* Tamaño de fuente más grande */
+    margin-bottom: 20px; /* Añade más espacio debajo del título */
+}
+
+#registro input[type="text"],
+#registro input[type="email"],
+#registro input[type="tel"],
+#registro input[type="password"],
+#registro button {
+    width: 100%; /* Los campos y botón ocupan todo el ancho disponible */
+    padding: 10px; /* Añade espacio interior */
+    margin-bottom: 15px; /* Añade espacio entre elementos */
+    font-size: 1.2em; /* Tamaño de fuente más grande */
+}
+
+@media (max-width: 600px) {
+    #registro {
+        /* Utiliza el 90% del ancho disponible en dispositivos móviles */
+        max-width: none; /* Elimina el máximo de ancho */
+        width: 100%;
     }
 }
 
-    #menuVerticalArticulos ol {
-        list-style-type: square;
-        padding-top: 20px;
-        padding-left: 20px;
+.tituloRegistroInicio {
+    text-align: center;
+    padding-bottom: 5%;
+}
+
+#lnkMostrarRegistro, #lnkIniciarSesion {
+    text-decoration: none !important;
+    color: #bf7a01;
+}
+
+    #lnkMostrarRegistro:hover, #lnkIniciarSesion:hover {
+        color: #FFA686;
     }
 
-    #menuVerticalArticulos li {
-        margin-bottom: 10px;
-    }
+#txtNombreUsuario, #txtContraseñaInicioSesion {
+}
 
-    #menuVerticalArticulos a {
-        color: black;
-        text-decoration: none;
-        font-size: 22px;
-        transition: color 0.3s ease;
-    }
+#lblErrorInicioSesion {
+    color: red; /* Color rojo para los mensajes de error */
+    font-size: 14px; /* Tamaño de fuente */
+    margin-top: 5px; /* Margen superior para separar el mensaje de los campos de entrada */
+    display: block; /* Hacer que el Label sea un elemento de bloque para que ocupe toda la anchura disponible */
+}
 
-        #menuVerticalArticulos a:hover {
-            color: #ff7e5f;
-        }
+.botonIniciarSesion, #btnRegistrarse {
+    background-color: #94604f; /* Color de fondo verde */
+    color: #fff2db; /* Color del texto blanco */
+    padding: 10px 20px; /* Espacio interno del botón */
+    border: none; /* Sin borde */
+    border-radius: 4px; /* Borde redondeado */
+    cursor: pointer; /* Cursor de puntero al pasar por encima */
+    text-align: center; /* Alinear el texto al centro */
+    text-decoration: none; /* Sin decoración de texto */
+    display: inline-block; /* Hacer que el botón sea un elemento en línea */
+    font-size: 16px; /* Tamaño de fuente */
+    margin-top: 10px; /* Margen superior */
+    margin-left: auto; /* Centrar horizontalmente */
+    margin-right: auto; /* Centrar horizontalmente */
+    display: block; /* Hacer que el botón sea un elemento de bloque para que ocupe toda la anchura disponible */
+}
 
-    #menuVerticalArticulos h2::after {
-        content: "";
-        bottom: -8px;
-        width: 120px;
-        height: 1px;
-        display: block;
-        background: url(./imagenes/lineaSubmenu.png) no-repeat;
-        left: 0;
-    }
-
-    #filtrosProductos {
-        grid-area: 1 / 2 / 2 / 3;
-        padding: 10px;
-        display: flex;
-        justify-content: center; /* Contenido justificado horizontalmente */
-        align-items: center; /* Contenido centrado verticalmente */
-        width: 100%;
+    .botonIniciarSesion:hover, #btnRegistrarse:hover {
+        background-color: #ff7e5f; /* Cambio de color de fondo al pasar el ratón */
     }
 
 
+.btn-deseos {
+    height: 25px;
+}
 
-    .boton-filtro {
-        margin: 5px;
-        padding: 8px 16px;
-        border: 1px solid #000000;
-        border-radius: 4px;
-        color: #333;
-        text-decoration: none;
-        text-align: center;
-        transition: background-color 0.5s ease, border 0.3s ease; /* Transición de color de fondo y borde */
-        display: block;
-        width: 100%;
-        margin-bottom: 8px; /* Separación entre botones */
+.btn-carrito {
+    height: 25px !important;
+}
+
+.productoCarrito {
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid #ddd;
+}
+
+
+
+.imagen-producto-carrito {
+    flex: 0 0 30%; /* La imagen ocupa el 30% del espacio */
+    padding-right: 10px; /* Espacio entre la imagen y los datos del producto */
+}
+
+    .imagen-producto-carrito img {
+        max-width: 100%;
+        height: auto;
+        border-radius: 8px;
     }
 
-        .boton-filtro:hover {
-            border: 1px solid transparent; /* Quita el borde al pasar el cursor sobre el botón */
-        }
+.datos-producto-carrito {
+    flex: 1; /* Los datos del producto ocupan el resto del espacio disponible */
+    text-align: center;
+    margin-top: 10px;
+}
 
+.nombre-producto-carrito {
+    font-size: 24px;
+    margin: 10px 0;
+}
 
+.precio-producto-carrito {
+    font-size: 20px;
+    margin: 5px 0;
+    color: #888; /* Color verde para el precio */
+}
 
-
-    #subcabecera {
-        font-size: 16px;
-        text-align: center;
-        padding-top: 35px;
-        padding-bottom: 10px;
-        border-bottom: solid 1px;
-        border-color: #e5e5e5;
-        text-decoration: none; /* Elimina el subrayado predeterminado */
-        color: #6d6d75;
-        font-family: Arial;
-    }
-
-        #subcabecera a {
-            color: #6d6d75;
-        }
-
-            #subcabecera a:hover {
-                color: #FF8C00;
-            }
-
-
-
-
-
-
-    #textoCrearCuenta, #textoIniciarSesion {
-        width: 90%;
-        max-width: 700px;
-        margin: 20px auto;
-        padding: 30px;
-        background-color: #ffffff;
-        border-radius: 20px;
-        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-        margin-bottom: 50px;
-    }
-
-    .input-container {
-        display: flex;
-        align-items: center;
-        margin-bottom: 15px;
-    }
-
-        .input-container i {
-            margin-right: 10px;
-            width: 20px;
-        }
-
-    .textbox {
-        width: 100%;
-        padding: 10px;
-        font-size: 1.2em;
-        border: none;
-        border-bottom: 2px solid #000000; /* Borde solo en la parte inferior */
-        transition: border-color 0.3s ease; /* Transición para el color del borde */
-    }
-
-        .textbox:focus {
-            outline: none; /* Elimina el contorno de enfoque predeterminado */
-            border-color: #FF8C00; /* Cambia el color del borde al naranja al enfocar */
-        }
-
-
-    #registro h2 {
-        font-size: 2em; /* Tamaño de fuente más grande */
-        margin-bottom: 20px; /* Añade más espacio debajo del título */
-    }
-
-    #registro input[type="text"],
-    #registro input[type="email"],
-    #registro input[type="tel"],
-    #registro input[type="password"],
-    #registro button {
-        width: 100%; /* Los campos y botón ocupan todo el ancho disponible */
-        padding: 10px; /* Añade espacio interior */
-        margin-bottom: 15px; /* Añade espacio entre elementos */
-        font-size: 1.2em; /* Tamaño de fuente más grande */
-    }
-
-    @media (max-width: 600px) {
-        #registro {
-            /* Utiliza el 90% del ancho disponible en dispositivos móviles */
-            max-width: none; /* Elimina el máximo de ancho */
-            width: 100%;
-        }
-    }
-
-    .tituloRegistroInicio {
-        text-align: center;
-        padding-bottom: 5%;
-    }
-
-    #lnkMostrarRegistro, #lnkIniciarSesion {
-        text-decoration: none !important;
-        color: #bf7a01;
-    }
-
-        #lnkMostrarRegistro:hover, #lnkIniciarSesion:hover {
-            color: #FFA686;
-        }
-
-    #txtNombreUsuario, #txtContraseñaInicioSesion {
-    }
-
-    #lblErrorInicioSesion {
-        color: red; /* Color rojo para los mensajes de error */
-        font-size: 14px; /* Tamaño de fuente */
-        margin-top: 5px; /* Margen superior para separar el mensaje de los campos de entrada */
-        display: block; /* Hacer que el Label sea un elemento de bloque para que ocupe toda la anchura disponible */
-    }
-
-    .botonIniciarSesion, #btnRegistrarse {
-        background-color: #94604f; /* Color de fondo verde */
-        color: #fff2db; /* Color del texto blanco */
-        padding: 10px 20px; /* Espacio interno del botón */
-        border: none; /* Sin borde */
-        border-radius: 4px; /* Borde redondeado */
-        cursor: pointer; /* Cursor de puntero al pasar por encima */
-        text-align: center; /* Alinear el texto al centro */
-        text-decoration: none; /* Sin decoración de texto */
-        display: inline-block; /* Hacer que el botón sea un elemento en línea */
-        font-size: 16px; /* Tamaño de fuente */
-        margin-top: 10px; /* Margen superior */
-        margin-left: auto; /* Centrar horizontalmente */
-        margin-right: auto; /* Centrar horizontalmente */
-        display: block; /* Hacer que el botón sea un elemento de bloque para que ocupe toda la anchura disponible */
-    }
-
-        .botonIniciarSesion:hover, #btnRegistrarse:hover {
-            background-color: #ff7e5f; /* Cambio de color de fondo al pasar el ratón */
-        }
-
-
-    .btn-deseos {
-        height: 25px;
-    }
+.cantidad-producto-carrito {
+    font-size: 14px;
+    margin: 5px 0;
+    color: #888; /* Color gris para la información de stock */
+}

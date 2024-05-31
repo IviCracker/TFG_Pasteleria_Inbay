@@ -12,6 +12,19 @@
     <link rel="stylesheet" href="/Estilos/Footer.css" />
 
     <script src="index.js"></script>
+    <script>
+        document.querySelectorAll('.imagen-producto-carrito').forEach(function (producto) {
+            producto.addEventListener('click', function () {
+                var enlace = this.querySelector('a');
+                if (enlace) {
+                    window.location.href = enlace.getAttribute('data-url');
+                }
+            });
+        });
+
+
+
+    </script>
 
     <link rel="stylesheet" href="fonts/icomoon/style.css" />
     <link rel="stylesheet" href="css/owl.carousel.min.css" />
@@ -51,9 +64,9 @@
                             <img src="imagenes/logoInbay4.png" width="150" /></a>
                     </div>
                     <input type="checkbox" id="menu-bar" />
-                    
+
                     <label for="menu-bar">Menu</label>
-                        
+
                     <nav class="navbar">
                         <ul>
                             <li><a href="default.aspx">Inicio</a></li>
@@ -78,22 +91,39 @@
                     <div class="search-cart-container">
                         <div class="search-container">
                             <input type="text" placeholder="Buscar..." class="search-input" />
-                            <button type="submit" class="search-button">Buscar</button>
+                            <asp:Button ID="searchButton" runat="server" Text="Buscar" CssClass="search-button" />
+
                         </div>
 
                     </div>
-                    <div class="cart-icon">
+                    <div class="cart-icon" id="cartIcon">
                         <ion-icon name="cart"></ion-icon>
                     </div>
-                    <div class="cart-panel">
+                    <div class="cart-panel" id="cartPanel">
+                        <button type="button" class="close-btn" id="closeCartPanel">&times;</button>
+
                         <h2>Carrito de compra</h2>
-                        <h2>Carrito de compra</h2>
-                        <ul>
-                            <li>Producto 1</li>
-                            <li>Producto 2</li>
-                            <li>Producto 3</li>
-                        </ul>
+                        <% if (Session["UsuarioActual"] == null) { %>
+                            <p>Inicia sesión antes de ver tu carrito</p>
+                        <% } %>
+                             
+                        <div id="productosCarritoContainer" runat="server" class="productos-carrito">
+                            <!-- Aquí se cargarán dinámicamente los productos desde el servidor -->
+                        </div>
+                        <!--quiero que aqui llames a un codigo en c# que muestre un div con la informacion del total (precio total a pagar, de cada producto por la cantidad de veces), y 1 boton que sea, ver carro, que lleve a una pagina que se llama compra.aspx-->
+                        <div id="cartInfoContainer" runat="server">
+
+                        </div>
+                        <!-- Aquí se mostrará la información del carrito -->
+                        <% if (Session["UsuarioActual"] != null) { %>
+                                <asp:Button ID="verCarritoBtn" runat="server" Text="Realizar pago" OnClick="VerCarritoBtn_Click" CssClass="ver-carrito-btn" />
+
+                            <% } %>
                     </div>
+
+
+
+
 
                 </header>
                 <div style="text-align: center">
@@ -115,7 +145,7 @@
 
 
 
-                
+
                 <div class="ubicacion-horario">
                     <img src="imagenes/horario1.png" />
                 </div>
