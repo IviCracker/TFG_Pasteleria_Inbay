@@ -181,11 +181,11 @@
     <Content Include="js\main.js" />
     <Content Include="js\owl.carousel.min.js" />
     <Content Include="js\popper.min.js" />
+    <Content Include="Paginas\cerrarSesion.aspx" />
     <Content Include="Paginas\Contacto.aspx" />
     <Content Include="Paginas\DatosCuenta.aspx" />
     <Content Include="Paginas\DatosTarjeta.aspx" />
     <Content Include="Paginas\DetalleProducto.aspx" />
-    <Content Include="Paginas\HacerPedido.aspx" />
     <Content Include="Paginas\listaDeseos.aspx" />
     <Content Include="Paginas\MiCuenta.aspx" />
     <Content Include="Paginas\Nosotros.aspx" />
@@ -201,6 +201,13 @@
     </Compile>
     <Compile Include="default.aspx.designer.cs">
       <DependentUpon>default.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Paginas\cerrarSesion.aspx.cs">
+      <DependentUpon>cerrarSesion.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Paginas\cerrarSesion.aspx.designer.cs">
+      <DependentUpon>cerrarSesion.aspx</DependentUpon>
     </Compile>
     <Compile Include="Paginas\Contacto.aspx.cs">
       <DependentUpon>Contacto.aspx</DependentUpon>
@@ -229,13 +236,6 @@
     </Compile>
     <Compile Include="Paginas\DetalleProducto.aspx.designer.cs">
       <DependentUpon>DetalleProducto.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Paginas\HacerPedido.aspx.cs">
-      <DependentUpon>HacerPedido.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Paginas\HacerPedido.aspx.designer.cs">
-      <DependentUpon>HacerPedido.aspx</DependentUpon>
     </Compile>
     <Compile Include="Paginas\listaDeseos.aspx.cs">
       <DependentUpon>listaDeseos.aspx</DependentUpon>

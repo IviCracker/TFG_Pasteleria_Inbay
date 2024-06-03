@@ -35,6 +35,8 @@
         font-family: Arial, Helvetica, sans-serif;
     }
 
+
+
         /* Estilos cuando un textbox está enfocado */
         .datosTarjeta .grupo input[type="text"]:focus,
         .datosTarjeta .grupo select:focus {
@@ -58,3 +60,33 @@
     .datosTarjeta .btnGuardar:hover {
         background-color: #55281b;
     }
+#mesExpiracion {
+    margin-left: 11%;
+}
+
+@media screen and (orientation: portrait) {
+    .tarjetaCredito {
+        max-width: 100%;
+    }
+
+    .datosTarjeta .grupo {
+        align-items: stretch; /* Ajustamos el ancho de los elementos al máximo */
+    }
+
+        .datosTarjeta .grupo span {
+            margin-bottom: 10px; /* Aumentamos el espacio entre la etiqueta y el campo de entrada */
+            font-size: 40px;
+        }
+
+        .datosTarjeta .grupo input[type="text"],
+        .datosTarjeta .grupo select {
+            width: calc(100% - 20px); /* Restamos el espacio del margen derecho */
+            font-size:40px;
+        }
+        #mesExpiracion{
+            margin-left: 5.5%;
+        }
+    .datosTarjeta .btnGuardar {
+        font-size:40px;
+    }
+}

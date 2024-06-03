@@ -55,3 +55,34 @@
         .campo .btnEditar:hover {
             background-color: #55281b;
         }
+
+@media screen and (orientation: portrait) {
+    .infoCuenta {
+        max-width: 100%;
+    }
+
+    .campo {
+        flex-direction: column;
+        align-items: stretch; /* Ajustamos el ancho de los elementos al máximo */
+    }
+
+        .campo span {
+            flex: none; /* No ocupar espacio adicional */
+            font-size: 50px; /* Tamaño de texto más grande */
+            margin-bottom: 10px; /* Espacio entre el texto y el campo de entrada */
+        }
+
+        .campo input[type="text"],
+        .campo input[type="email"],
+        .campo input[type="tel"],
+        .campo input[type="password"] {
+            
+            margin-right: 0;
+            font-size: 40px; /* Tamaño de texto más grande */
+        }
+
+        .campo .btnEditar {
+            margin-top: 10px; /* Espacio entre los campos de entrada y los botones */
+            font-size: 50px;
+        }
+}
