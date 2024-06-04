@@ -29,9 +29,15 @@
             });
         });
 
-
+        
 
     </script>
+    <style>
+        .producto:hover .panel-hover {
+    bottom: 0;
+    padding-bottom: 31px;
+}
+    </style>
 </head>
 <body>
     <form id="form1" runat="server">

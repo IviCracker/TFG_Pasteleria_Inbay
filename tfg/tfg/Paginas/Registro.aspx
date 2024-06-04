@@ -10,6 +10,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Oswald&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="../index.css" />
     <link rel="stylesheet" href="../Estilos/Footer.css" />
+    <link rel="stylesheet" href="../Estilos/Registro.css" />
     <script src="https://kit.fontawesome.com/24693b33fa.js" crossorigin="anonymous"></script>
 
     <script src="../index.js"></script>

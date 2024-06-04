@@ -139,6 +139,7 @@
     <Content Include="Estilos\DetalleProducto.css" />
     <Content Include="Estilos\Footer.css" />
     <Content Include="Estilos\MiCuenta.css" />
+    <Content Include="Estilos\Registro.css" />
     <Content Include="fonts\icomoon\demo-files\demo.css" />
     <Content Include="fonts\icomoon\demo-files\demo.js" />
     <Content Include="fonts\icomoon\demo.html" />
@@ -290,7 +291,6 @@
     <Content Include="fonts\icomoon\fonts\icomoon.woff" />
     <Content Include="fonts\icomoon\selection.json" />
     <Content Include="images\.DS_Store" />
-    <Content Include="obtener_producto.php" />
     <None Include="packages.config" />
     <Content Include="scss\.DS_Store" />
     <Content Include="scss\bootstrap\bootstrap-grid.scss" />

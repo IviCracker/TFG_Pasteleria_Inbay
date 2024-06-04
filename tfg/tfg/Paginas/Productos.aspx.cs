@@ -24,14 +24,19 @@ namespace tfg.Paginas
             {
                 // Establecer el tipo de producto en la primera carga de la página
                 Session["TipoProducto"] = "Tartas";
-                CargarProductos(Session["TipoProducto"].ToString());
                 Session["TipoOrden"] = "nombre";
+
+                CargarProductos(Session["TipoProducto"].ToString());
+
+
             }
             else
             {
                 if (variable == 1)
                 {
+                    
                     CargarProductos(Session["TipoProducto"].ToString());
+
                 }
                 else
                 {
@@ -56,7 +61,7 @@ namespace tfg.Paginas
             variable = 1;
             Session["TipoProducto"] = "pan";
             ScriptManager.RegisterStartupScript(this, GetType(), "PostBackScript", "__doPostBack('', '');", true);
-            
+
 
         }
         protected void TipoProductoBollos_Click(object sender, EventArgs e)
@@ -64,14 +69,14 @@ namespace tfg.Paginas
             variable = 1;
             Session["TipoProducto"] = "Bollos";
             ScriptManager.RegisterStartupScript(this, GetType(), "PostBackScript", "__doPostBack('', '');", true);
-            
+
         }
         protected void TipoProductoPasteles_Click(object sender, EventArgs e)
         {
             variable = 1;
             Session["TipoProducto"] = "pastel";
             ScriptManager.RegisterStartupScript(this, GetType(), "PostBackScript", "__doPostBack('', '');", true);
-            
+
         }
         protected void TipoProductoTartas_Click(object sender, EventArgs e)
         {
@@ -91,7 +96,7 @@ namespace tfg.Paginas
         {
             variable = 2;
             Session["TipoOrden"] = "precioBajo";
-            
+
             ScriptManager.RegisterStartupScript(this, GetType(), "PostBackScript", "__doPostBack('', '');", true);
         }
 
@@ -164,7 +169,7 @@ namespace tfg.Paginas
             p.Precio, 
             p.Stock 
         ORDER BY 
-            p.Precio ASC";
+            p.Nombre ASC";
 
             // Crear la conexión y el comando SQL
             using (SqlConnection conexion = new SqlConnection(connectionString))
@@ -201,14 +206,14 @@ namespace tfg.Paginas
                                 valoracionEstrellas = ConvertirValoracionAEstrellas(valoracion);
                             }
 
-                       
+
                             string imagenUrl = $"{rutaImagenes}{nombre}.png";
 
-                          
+
                             string idBotonCarrito = $"btn-carrito-{nombre.Replace(" ", "-")}";
 
-                          
-                           
+
+
                             ImageButton botonCarrito = new ImageButton();
                             botonCarrito.CssClass = "btn-carrito";
                             botonCarrito.ID = idBotonCarrito;
@@ -220,8 +225,8 @@ namespace tfg.Paginas
                             //---------------------------------------
                             string idBotonDeseos = $"btn-deseos-{nombre.Replace(" ", "-")}";
 
-                       
-                            
+
+
                             ImageButton botonListaDeseos = new ImageButton();
                             botonListaDeseos.CssClass = "btn-deseos";
                             botonListaDeseos.ID = idBotonDeseos;
@@ -279,10 +284,12 @@ namespace tfg.Paginas
 
                             // Agregar el botón dinámico al contenedor
                             productosDisponibles.Controls.Add(botonListaDeseos);
-                           
+
 
                             // Agregar el fin del HTML del producto al contenedor
                             productosDisponibles.Controls.Add(new LiteralControl(productoHtmlFin));
+
+
                         }
                     }
                 }
@@ -292,6 +299,7 @@ namespace tfg.Paginas
             ViewState["ProductoTipo"] = tipo.ToString();
             cargarSubcabecera();
             resetearColoresFiltro();
+            LinkButtonNombre.Attributes["style"] = "margin: 5px; padding: 8px 16px; border: 1px solid orange; border-radius: 4px; color: #333; text-decoration: none; text-align: center; transition: background-color 0.5s ease, border 0.3s ease; display: block; width: 100%; margin-bottom: 8px;";
         }
 
 
@@ -525,7 +533,7 @@ namespace tfg.Paginas
         }
 
 
-        
+
 
 
         protected int ObtenerIdCliente()
@@ -637,13 +645,25 @@ namespace tfg.Paginas
             // Obtener el ID del cliente y el ID del producto
             int idCliente = ObtenerIdCliente();
             ImageButton clickedButton = (ImageButton)sender;
-            string commandArgument = clickedButton.CommandArgument;
+            string nombreProducto = clickedButton.CommandArgument;
 
             // Convertir el CommandArgument a entero y usarlo para obtener el ID del producto
-            int idProducto = ObtenerIdProducto(commandArgument);
+            int idProducto = ObtenerIdProducto(nombreProducto);
 
-            // Agregar el producto a la lista de deseos del cliente en la base de datos
-            AgregarProductoAListaDeseos(idCliente, idProducto);
+            // Verificar si el producto ya está en la lista de deseos del cliente
+            if (comprobarListaDeseados(nombreProducto))
+            {
+                // Si el producto ya está en la lista, eliminarlo
+                EliminarProductoDeListaDeseos(idCliente, idProducto);
+            }
+            else
+            {
+                // Si el producto no está en la lista, agregarlo
+                AgregarProductoAListaDeseos(idCliente, idProducto);
+            }
+            ScriptManager.RegisterStartupScript(this, GetType(), "PostBackScript", "__doPostBack('', '');", true);
+            // Actualizar la vista, si es necesario
+            //CargarProductosCarrito(); // O cualquier otra lógica de actualización de la interfaz de usuario
         }
         protected void AgregarACarrito_Click(object sender, EventArgs e)
         {
@@ -657,6 +677,8 @@ namespace tfg.Paginas
 
             // Agregar el producto a la lista de deseos del cliente en la base de datos
             AgregarProductoACarrito(idCliente, idProducto);
+
+            
         }
 
 
@@ -702,7 +724,28 @@ namespace tfg.Paginas
                 }
             }
         }
+        private void EliminarProductoDeListaDeseos(int idCliente, int idProducto)
+        {
+            string connectionString = "Server=sql.bsite.net\\MSSQL2016;Database=proyectopasteleriainbay_;Uid=proyectopasteleriainbay_;Pwd=proyectopasteleriainbay_;";
 
+            string query = "DELETE FROM lista_deseos_cliente WHERE id_cliente = @idCliente AND id_producto = @idProducto";
+
+            try
+            {
+                using (SqlConnection conexion = new SqlConnection(connectionString))
+                {
+                    SqlCommand comando = new SqlCommand(query, conexion);
+                    comando.Parameters.AddWithValue("@idCliente", idCliente);
+                    comando.Parameters.AddWithValue("@idProducto", idProducto);
+                    conexion.Open();
+                    comando.ExecuteNonQuery();
+                }
+            }
+            catch (Exception ex)
+            {
+                // Manejar la excepción aquí
+            }
+        }
         protected void CargarProductosCarrito()
         {
             string rutaImagenes = "../imagenesProductos/";
@@ -780,7 +823,7 @@ namespace tfg.Paginas
             }
         }
 
-        
+
 
         protected void VerCarritoBtn_Click(object sender, EventArgs e)
         {
