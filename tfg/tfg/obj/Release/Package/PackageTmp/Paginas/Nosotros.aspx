@@ -125,20 +125,15 @@
                     <ul>
                         <li><a href="../default.aspx">Inicio</a></li>
                         <li><a href="Productos.aspx">Productos</a>
-                            <ul class="submenu" id="productos">
-                                <li><a href="---------------------">Panes</a></li>
-                                <li><a href="---------------------">Bollería</a></li>
-                                <li><a href="---------------------">Pastelería</a></li>
-                                <li><a href="---------------------">Tartas</a></li>
-                            </ul>
+                            
                         </li>
                         <li><a href="Nosotros.aspx">Nosotros</a></li>
                         <li><a href="Contacto.aspx">Contacto</a>
                             <ul class="submenu" id="contacto">
-                                <li><a href="---------------------">Dónde estamos</a></li>
+                                    
                             </ul>
                         </li>
-                        <li><a href="HacerPedido.aspx">Hacer Pedido</a></li>
+                        
                     </ul>
                 </nav>
 

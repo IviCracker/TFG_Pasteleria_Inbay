@@ -20,7 +20,19 @@
 
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
     <script src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+    <script>
+    document.querySelectorAll('.imagen-producto').forEach(function (producto) {
+        producto.addEventListener('click', function () {
+            var enlace = this.querySelector('a');
+            if (enlace) {
+                window.location.href = enlace.getAttribute('data-url');
+            }
+        });
+    });
 
+
+
+    </script>
 </head>
 <body>
     <form id="form1" runat="server">
@@ -56,20 +68,13 @@
                 <ul>
                     <li><a href="../default.aspx">Inicio</a></li>
                     <li><a href="/Productos.aspx">Productos</a>
-                        <ul class="submenu" id="productos">
-                            <li><a href="---------------------">Panes</a></li>
-                            <li><a href="---------------------">Bollería</a></li>
-                            <li><a href="---------------------">Pastelería</a></li>
-                            <li><a href="---------------------">Tartas</a></li>
-                        </ul>
+                        
                     </li>
                     <li><a href="Nosotros.aspx">Nosotros</a></li>
                     <li><a href="Contacto.aspx">Contacto</a>
-                        <ul class="submenu" id="contacto">
-                            <li><a href="---------------------">Dónde estamos</a></li>
-                        </ul>
+                        
                     </li>
-                    <li><a href="HacerPedido.aspx">Hacer Pedido</a></li>
+                    
                 </ul>
             </nav>
 
@@ -80,17 +85,32 @@
                 </div>
 
             </div>
-            <div class="cart-icon">
-                <ion-icon name="cart"></ion-icon>
-            </div>
-            <div class="cart-panel">
-                <h2>Carrito de compra</h2>
-                <ul>
-                    <li>Producto 1</li>
-                    <li>Producto 2</li>
-                    <li>Producto 3</li>
-                </ul>
-            </div>
+           <div class="cart-icon" id="cartIcon">
+    <ion-icon name="cart"></ion-icon>
+</div>
+<div class="cart-panel" id="cartPanel">
+    <button type="button" class="close-btn" id="closeCartPanel">&times;</button>
+
+    <h2>Carrito de compra</h2>
+    <% if (Session["UsuarioActual"] == null)
+        { %>
+    <p>Inicia sesión antes de ver tu carrito</p>
+    <% } %>
+
+    <div id="productosCarritoContainer" runat="server" class="productos-carrito">
+        <!-- Aquí se cargarán dinámicamente los productos desde el servidor -->
+    </div>
+    <!--quiero que aqui llames a un codigo en c# que muestre un div con la informacion del total (precio total a pagar, de cada producto por la cantidad de veces), y 1 boton que sea, ver carro, que lleve a una pagina que se llama compra.aspx-->
+    <div id="cartInfoContainer" runat="server">
+    </div>
+    <!-- Aquí se mostrará la información del carrito -->
+    <% if (Session["UsuarioActual"] != null)
+        { %>
+    <asp:Button ID="verCarritoBtn" runat="server" Text="Realizar pago" OnClick="VerCarritoBtn_Click" CssClass="ver-carrito-btn" />
+
+    <% } %>
+</div>
+           
 
         </header>
 

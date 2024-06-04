@@ -5,7 +5,7 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
 <Project>
   <PropertyGroup>
     <_PublishTargetUrl>C:\Users\ivial\Desktop\publishtfg</_PublishTargetUrl>
-    <History>True|2024-06-02T22:32:29.7092149Z;True|2024-05-29T00:41:29.1512997+02:00;True|2024-05-27T00:14:05.7456736+02:00;True|2024-05-17T00:50:39.9641508+02:00;True|2024-05-16T00:37:33.3931011+02:00;True|2024-05-15T14:45:17.1679122+02:00;True|2024-05-13T00:35:38.0597645+02:00;True|2024-05-12T02:53:03.7649412+02:00;True|2024-05-10T00:32:02.6500005+02:00;True|2024-05-08T23:46:33.7647412+02:00;False|2024-05-08T23:45:50.5717977+02:00;False|2024-05-08T23:45:45.8000044+02:00;False|2024-05-08T23:45:05.2333388+02:00;</History>
+    <History>True|2024-06-03T22:28:21.1202923Z;True|2024-06-03T00:32:29.7092149+02:00;True|2024-05-29T00:41:29.1512997+02:00;True|2024-05-27T00:14:05.7456736+02:00;True|2024-05-17T00:50:39.9641508+02:00;True|2024-05-16T00:37:33.3931011+02:00;True|2024-05-15T14:45:17.1679122+02:00;True|2024-05-13T00:35:38.0597645+02:00;True|2024-05-12T02:53:03.7649412+02:00;True|2024-05-10T00:32:02.6500005+02:00;True|2024-05-08T23:46:33.7647412+02:00;False|2024-05-08T23:45:50.5717977+02:00;False|2024-05-08T23:45:45.8000044+02:00;False|2024-05-08T23:45:05.2333388+02:00;</History>
     <LastFailureDetails />
   </PropertyGroup>
   <ItemGroup>
@@ -229,10 +229,10 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>05/27/2022 23:41:54</publishTime>
     </File>
     <File Include="bin/tfg.dll">
-      <publishTime>06/03/2024 00:32:25</publishTime>
+      <publishTime>06/04/2024 00:28:15</publishTime>
     </File>
     <File Include="bin/tfg.pdb">
-      <publishTime>06/03/2024 00:32:25</publishTime>
+      <publishTime>06/04/2024 00:28:15</publishTime>
     </File>
     <File Include="bin/ZstdSharp.dll">
       <publishTime>04/06/2023 14:25:30</publishTime>
@@ -253,22 +253,22 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>05/11/2024 14:04:41</publishTime>
     </File>
     <File Include="default.aspx">
-      <publishTime>05/27/2024 19:16:43</publishTime>
+      <publishTime>06/03/2024 23:22:49</publishTime>
     </File>
     <File Include="Estilos/DatosCuenta.css">
-      <publishTime>05/02/2024 19:10:24</publishTime>
+      <publishTime>06/03/2024 23:36:27</publishTime>
     </File>
     <File Include="Estilos/DatosTarjeta.css">
-      <publishTime>05/04/2024 17:25:59</publishTime>
+      <publishTime>06/04/2024 00:04:50</publishTime>
     </File>
     <File Include="Estilos/DetalleProducto.css">
       <publishTime>05/13/2024 00:42:38</publishTime>
     </File>
     <File Include="Estilos/Footer.css">
-      <publishTime>05/11/2024 15:05:46</publishTime>
+      <publishTime>06/04/2024 00:25:22</publishTime>
     </File>
     <File Include="Estilos/MiCuenta.css">
-      <publishTime>05/01/2024 13:38:47</publishTime>
+      <publishTime>06/03/2024 23:29:13</publishTime>
     </File>
     <File Include="fonts/.DS_Store">
       <publishTime>03/17/2024 21:18:59</publishTime>
@@ -394,7 +394,7 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>03/17/2024 21:18:59</publishTime>
     </File>
     <File Include="index.css">
-      <publishTime>05/31/2024 20:17:58</publishTime>
+      <publishTime>06/04/2024 00:25:05</publishTime>
     </File>
     <File Include="index.js">
       <publishTime>05/26/2024 23:25:57</publishTime>
@@ -417,14 +417,17 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
     <File Include="obtener_producto.php">
       <publishTime>03/31/2024 18:24:14</publishTime>
     </File>
+    <File Include="Paginas/cerrarSesion.aspx">
+      <publishTime>06/04/2024 00:22:01</publishTime>
+    </File>
     <File Include="Paginas/Contacto.aspx">
-      <publishTime>06/03/2024 00:30:44</publishTime>
+      <publishTime>06/04/2024 00:10:59</publishTime>
     </File>
     <File Include="Paginas/DatosCuenta.aspx">
-      <publishTime>05/12/2024 02:51:36</publishTime>
+      <publishTime>06/04/2024 00:15:11</publishTime>
     </File>
     <File Include="Paginas/DatosTarjeta.aspx">
-      <publishTime>05/12/2024 02:51:36</publishTime>
+      <publishTime>06/04/2024 00:13:13</publishTime>
     </File>
     <File Include="Paginas/DetalleProducto.aspx">
       <publishTime>05/16/2024 18:55:29</publishTime>
@@ -433,22 +436,22 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>05/15/2024 12:41:46</publishTime>
     </File>
     <File Include="Paginas/listaDeseos.aspx">
-      <publishTime>05/31/2024 20:17:58</publishTime>
+      <publishTime>06/04/2024 00:07:11</publishTime>
     </File>
     <File Include="Paginas/MiCuenta.aspx">
-      <publishTime>05/12/2024 02:51:36</publishTime>
+      <publishTime>06/04/2024 00:21:47</publishTime>
     </File>
     <File Include="Paginas/Nosotros.aspx">
-      <publishTime>05/31/2024 20:17:58</publishTime>
+      <publishTime>06/04/2024 00:10:34</publishTime>
     </File>
     <File Include="Paginas/Pago.aspx">
       <publishTime>05/27/2024 22:55:54</publishTime>
     </File>
     <File Include="Paginas/Productos.aspx">
-      <publishTime>05/29/2024 00:34:49</publishTime>
+      <publishTime>06/04/2024 00:10:29</publishTime>
     </File>
     <File Include="Paginas/Registro.aspx">
-      <publishTime>05/12/2024 02:51:36</publishTime>
+      <publishTime>06/04/2024 00:11:26</publishTime>
     </File>
     <File Include="scss/.DS_Store">
       <publishTime>03/17/2024 21:18:59</publishTime>
@@ -724,7 +727,7 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>03/17/2024 21:18:59</publishTime>
     </File>
     <File Include="Web.config">
-      <publishTime>05/27/2024 00:14:01</publishTime>
+      <publishTime>06/04/2024 00:28:16</publishTime>
     </File>
   </ItemGroup>
 </Project>

@@ -46,16 +46,30 @@
         font-size: min(24px, 5vw);
     }
 
-/* Media query para dispositivos móviles */
-@media screen and (max-width: 768px) {
+/* Media query para dispositivos móviles en modo retrato */
+@media screen and (orientation: portrait) {
     .parentMiCuenta {
+        display: grid;
         grid-template-columns: 1fr;
         grid-template-rows: repeat(4, auto);
         grid-column-gap: 20px;
         grid-row-gap: 20px;
+        margin: 5%;
+        text-align: center;
     }
 
         .parentMiCuenta > a {
             max-width: 100%; /* El enlace ocupa todo el ancho disponible */
+            height: 300px;
+        }
+        .parentMiCuenta i {
+            font-size: 100px;
+        }
+        .parentMiCuenta span {
+            display: block;
+            font-size:50px;
+        }
+        .parentMiCuenta ion-icon {
+            font-size: 100px;
         }
 }

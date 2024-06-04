@@ -72,19 +72,14 @@
                             <li><a href="default.aspx">Inicio</a></li>
                             <li><a href="Paginas/Productos.aspx">Productos</a>
                                 <ul class="submenu" id="productos">
-                                    <li><a href="#">Panes</a></li>
-                                    <li><a href="#">Bollería</a></li>
-                                    <li><a href="#">Pastelería</a></li>
-                                    <li><a href="#">Tartas</a></li>
                                 </ul>
                             </li>
                             <li><a href="Paginas/Nosotros.aspx">Nosotros</a></li>
                             <li><a href="Paginas/Contacto.aspx">Contacto</a>
                                 <ul class="submenu" id="contacto">
-                                    <li><a href="#">Dónde estamos</a></li>
                                 </ul>
                             </li>
-                            <li><a href="Paginas/HacerPedido.aspx">Hacer Pedido</a></li>
+
                         </ul>
                     </nav>
 
@@ -103,22 +98,23 @@
                         <button type="button" class="close-btn" id="closeCartPanel">&times;</button>
 
                         <h2>Carrito de compra</h2>
-                        <% if (Session["UsuarioActual"] == null) { %>
-                            <p>Inicia sesión antes de ver tu carrito</p>
+                        <% if (Session["UsuarioActual"] == null)
+                            { %>
+                        <p>Inicia sesión antes de ver tu carrito</p>
                         <% } %>
-                             
+
                         <div id="productosCarritoContainer" runat="server" class="productos-carrito">
                             <!-- Aquí se cargarán dinámicamente los productos desde el servidor -->
                         </div>
                         <!--quiero que aqui llames a un codigo en c# que muestre un div con la informacion del total (precio total a pagar, de cada producto por la cantidad de veces), y 1 boton que sea, ver carro, que lleve a una pagina que se llama compra.aspx-->
                         <div id="cartInfoContainer" runat="server">
-
                         </div>
                         <!-- Aquí se mostrará la información del carrito -->
-                        <% if (Session["UsuarioActual"] != null) { %>
-                                <asp:Button ID="verCarritoBtn" runat="server" Text="Realizar pago" OnClick="VerCarritoBtn_Click" CssClass="ver-carrito-btn" />
+                        <% if (Session["UsuarioActual"] != null)
+                            { %>
+                        <asp:Button ID="verCarritoBtn" runat="server" Text="Realizar pago" OnClick="VerCarritoBtn_Click" CssClass="ver-carrito-btn" />
 
-                            <% } %>
+                        <% } %>
                     </div>
 
 
