@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="DatosTarjeta.aspx.cs" Inherits="tfg.Paginas.DatosTarjeta" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="DetallesPedidos.aspx.cs" Inherits="tfg.Paginas.DetallesPedidos" %>
 
 
 <!DOCTYPE html>
@@ -16,7 +16,7 @@
     </script>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 
-    <title>Datos de la tarjeta</title>
+    <title>Lista de productos deseados</title>
 
     <link rel="stylesheet" href="../default.css" />
     <link rel="stylesheet" href="../Estilos/Footer.css" />
@@ -42,6 +42,51 @@
 
 
     </script>
+    <style>
+        .pedidos-container {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .pedido {
+            border: 1px solid #ccc;
+            width: 90%;
+            padding: 15px;
+            border-radius: 8px;
+            background-color: #f9f9f9;
+            transition: box-shadow 0.3s ease;
+            
+            margin: 20px auto;
+        }
+
+            .pedido:hover {
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            }
+
+        .detalles-pedido {
+            margin-top: 10px;
+            padding-left: 20px;
+        }
+
+        .detalle-pedido {
+            border-top: 1px solid #eee;
+            padding-top: 10px;
+            margin-top: 10px;
+        }
+
+            .detalle-pedido:first-child {
+                border-top: none;
+                padding-top: 0;
+                margin-top: 0;
+            }
+
+        .precio-total-pedido {
+            font-weight: bold;
+            text-align: right;
+            margin-top: 10px;
+        }
+    </style>
 </head>
 <body>
     <form id="form1" runat="server">
@@ -76,12 +121,14 @@
             <nav class="navbar">
                 <ul>
                     <li><a href="../default.aspx">Inicio</a></li>
-                    <li><a href="/Productos.aspx">Productos</a>
-
+                    <li><a href="Productos.aspx">Productos</a>
+                        <ul class="submenu" id="productos">
+                        </ul>
                     </li>
                     <li><a href="Nosotros.aspx">Nosotros</a></li>
                     <li><a href="Contacto.aspx">Contacto</a>
-
+                        <ul class="submenu" id="contacto">
+                        </ul>
                     </li>
 
                 </ul>
@@ -106,19 +153,13 @@
                 <p>Inicia sesión antes de ver tu carrito</p>
                 <% } %>
 
-                <asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>
-                <asp:UpdatePanel ID="UpdatePanel2" runat="server">
-                    <ContentTemplate>
-                        <div id="productosCarritoContainer" runat="server" class="productos-carrito"></div>
-                    </ContentTemplate>
-
-                </asp:UpdatePanel>
-
-
-
+                <div id="productosCarritoContainer" runat="server" class="productos-carrito">
+                    <!-- Aquí se cargarán dinámicamente los productos desde el servidor -->
+                </div>
+                <!--quiero que aqui llames a un codigo en c# que muestre un div con la informacion del total (precio total a pagar, de cada producto por la cantidad de veces), y 1 boton que sea, ver carro, que lleve a una pagina que se llama compra.aspx-->
                 <div id="cartInfoContainer" runat="server">
                 </div>
-
+                <!-- Aquí se mostrará la información del carrito -->
                 <% 
                     if (Session["UsuarioActual"] != null)
                     {
@@ -134,58 +175,13 @@
                 %>
             </div>
 
-
         </header>
 
         <%-- Datos Tarjeta --%>
 
-        <div class="tarjetaCredito">
-            <div class="datosTarjeta">
-                <div class="grupo">
-                    <span for="numeroTarjeta">Número de Tarjeta:</span>
-                    <asp:TextBox ID="txtNumeroTarjeta" runat="server" placeholder="Número de Tarjeta" MaxLength="16"></asp:TextBox>
-                </div>
-                <div class="grupo">
-                    <span for="nombreTarjeta">Nombre en la Tarjeta:</span>
-                    <asp:TextBox ID="txtNombreTarjeta" runat="server" placeholder="Nombre en la Tarjeta"></asp:TextBox>
-                </div>
-                <div class="grupo">
-                    <span for="fechaExpiracion">Fecha de Expiración:</span>
-                    <asp:DropDownList ID="mesExpiracion" runat="server">
-                        <asp:ListItem Text="Mes" Value="" />
-                        <asp:ListItem Text="Enero" Value="01" />
-                        <asp:ListItem Text="Febrero" Value="02" />
-                        <asp:ListItem Text="Marzo" Value="03" />
-                        <asp:ListItem Text="Abril" Value="04" />
-                        <asp:ListItem Text="Mayo" Value="05" />
-                        <asp:ListItem Text="Junio" Value="06" />
-                        <asp:ListItem Text="Julio" Value="07" />
-                        <asp:ListItem Text="Agosto" Value="08" />
-                        <asp:ListItem Text="Septiembre" Value="09" />
-                        <asp:ListItem Text="Octubre" Value="10" />
-                        <asp:ListItem Text="Noviembre" Value="11" />
-                        <asp:ListItem Text="Diciembre" Value="12" />
-                    </asp:DropDownList>
-                    <asp:DropDownList ID="anioExpiracion" runat="server">
-                        <asp:ListItem Text="Año" Value="" />
-                        <asp:ListItem Text="2024" Value="01" />
-                        <asp:ListItem Text="2025" Value="02" />
-                        <asp:ListItem Text="2026" Value="03" />
-                        <asp:ListItem Text="2027" Value="04" />
-                        <asp:ListItem Text="2028" Value="05" />
-                        <asp:ListItem Text="2029" Value="06" />
-                        <asp:ListItem Text="2030" Value="07" />
-                        <asp:ListItem Text="2031" Value="08" />
-                        <asp:ListItem Text="2032" Value="09" />
-                        <asp:ListItem Text="2033" Value="10" />
-                        <asp:ListItem Text="2034" Value="11" />
-                    </asp:DropDownList>
-                </div>
-                <div class="grupo">
-                    <span for="cvv">CVV:</span>
-                    <asp:TextBox ID="txtCVV" runat="server" placeholder="CVV" MaxLength="3"></asp:TextBox>
-                </div>
-                <asp:Button ID="btnGuardarDatosTarjeta" runat="server" Text="Guardar Datos" OnClick="BtnGuardarDatosTarjeta_Click" CssClass="btnGuardar" />
+        <div class="pedidos">
+            <h2 style="text-align: center; font-size: 26px; padding-top: 50px;">Pedidos realizados</h2>
+            <div id="pedidosContainer" runat="server" class="pedidos-container">
             </div>
         </div>
 

@@ -180,6 +180,7 @@
     <Content Include="Paginas\DatosCuenta.aspx" />
     <Content Include="Paginas\DatosTarjeta.aspx" />
     <Content Include="Paginas\DetalleProducto.aspx" />
+    <Content Include="Paginas\DetallesPedidos.aspx" />
     <Content Include="Paginas\listaDeseos.aspx" />
     <Content Include="Paginas\MiCuenta.aspx" />
     <Content Include="Paginas\Nosotros.aspx" />
@@ -230,6 +231,13 @@
     </Compile>
     <Compile Include="Paginas\DetalleProducto.aspx.designer.cs">
       <DependentUpon>DetalleProducto.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Paginas\DetallesPedidos.aspx.cs">
+      <DependentUpon>DetallesPedidos.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Paginas\DetallesPedidos.aspx.designer.cs">
+      <DependentUpon>DetallesPedidos.aspx</DependentUpon>
     </Compile>
     <Compile Include="Paginas\listaDeseos.aspx.cs">
       <DependentUpon>listaDeseos.aspx</DependentUpon>

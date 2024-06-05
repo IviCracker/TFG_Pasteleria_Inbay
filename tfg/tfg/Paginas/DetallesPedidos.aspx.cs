@@ -8,16 +8,98 @@ using System.Web.UI.WebControls;
 
 namespace tfg.Paginas
 {
-    public partial class Nosotros : System.Web.UI.Page
+    public partial class DetallesPedidos : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (Session["UsuarioActual"] != null)
+            if (!IsPostBack)
             {
+                CargarPedidos();
                 CargarProductosCarrito();
                 ObtenerPrecioTotal();
             }
         }
+        private void CargarPedidos()
+        {
+            string connectionString = "Server=sql.bsite.net\\MSSQL2016;Database=proyectopasteleriainbay_;Uid=proyectopasteleriainbay_;Pwd=proyectopasteleriainbay_;";
+            int idCliente = ObtenerIdCliente();
+
+            string query = @"
+        SELECT p.id_pedido, p.Fecha_pedido, p.Estado_pedido, dp.id_producto, dp.cantidad, (dp.cantidad * dp.precio_unitario) AS precio_total_producto, pr.Nombre,
+               (SELECT SUM(dp2.cantidad * dp2.precio_unitario)
+                FROM detalle_pedido dp2
+                WHERE dp2.id_pedido = p.id_pedido) AS precio_total_pedido
+        FROM pedido p
+        JOIN detalle_pedido dp ON p.id_pedido = dp.id_pedido
+        JOIN producto pr ON dp.id_producto = pr.id_producto
+        WHERE p.id_cliente = @id_cliente
+        ORDER BY p.Fecha_pedido DESC";
+
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+                    using (SqlCommand command = new SqlCommand(query, connection))
+                    {
+                        command.Parameters.AddWithValue("@id_cliente", idCliente);
+                        connection.Open();
+
+                        using (SqlDataReader reader = command.ExecuteReader())
+                        {
+                            Dictionary<int, List<string>> pedidos = new Dictionary<int, List<string>>();
+                            Dictionary<int, decimal> preciosTotales = new Dictionary<int, decimal>();
+
+                            while (reader.Read())
+                            {
+                                int idPedido = Convert.ToInt32(reader["id_pedido"]);
+                                DateTime fechaPedido = Convert.ToDateTime(reader["Fecha_pedido"]);
+                                string estadoPedido = reader["Estado_pedido"].ToString();
+                                string nombreProducto = reader["Nombre"].ToString();
+                                int cantidad = Convert.ToInt32(reader["cantidad"]);
+                                decimal precioTotalProducto = Convert.ToDecimal(reader["precio_total_producto"]);
+                                decimal precioTotalPedido = Convert.ToDecimal(reader["precio_total_pedido"]);
+
+                                string detalleHtml = $@"
+                            <div class='detalle-pedido'>
+                                <p>Producto: {nombreProducto}</p>
+                                <p>Cantidad: {cantidad}</p>
+                                <p>Precio Total Producto: {precioTotalProducto:C}</p>
+                            </div>";
+
+                                if (!pedidos.ContainsKey(idPedido))
+                                {
+                                    pedidos[idPedido] = new List<string>
+                            {
+                                $"<div class='pedido'><h3>Pedido #{idPedido} - {fechaPedido:dd/MM/yyyy} - Estado: {estadoPedido}</h3><div class='detalles-pedido'>"
+                            };
+                                }
+
+                                pedidos[idPedido].Add(detalleHtml);
+                                preciosTotales[idPedido] = precioTotalPedido;
+                            }
+
+                            pedidosContainer.Controls.Clear();
+
+                            foreach (var pedido in pedidos)
+                            {
+                                // Añadir el precio total del pedido al final
+                                string precioTotalHtml = $"<p class='precio-total-pedido'>Precio Total Pedido: {preciosTotales[pedido.Key]:C}</p>";
+                                pedido.Value.Add(precioTotalHtml);
+                                pedido.Value.Add("</div></div>"); // Cerrar los divs de detalles y pedido
+                                string pedidoHtml = string.Join("\n", pedido.Value);
+                                pedidosContainer.Controls.Add(new LiteralControl(pedidoHtml));
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                // Manejar la excepción aquí
+                Console.WriteLine("Error: " + ex.Message);
+            }
+        }
+
         protected int comprobarCarrito(int idCliente)
         {
             int totalRegistros = 0;
@@ -53,6 +135,40 @@ namespace tfg.Paginas
 
             return totalRegistros;
         }
+        protected int ObtenerIdCliente()
+        {
+            // Verificar si la sesión del usuario está activa
+            if (Session["UsuarioActual"] == null)
+            {
+                // Redirigir al usuario a la página de registro si no hay sesión activa
+                Response.Redirect("Registro.aspx");
+                return 0; // Devolver 0 para detener la ejecución del método
+            }
+
+            int id_cliente = 0; // Inicializamos el ID del cliente como 0
+
+            string connectionString = "Server=sql.bsite.net\\MSSQL2016;Database=proyectopasteleriainbay_;Uid=proyectopasteleriainbay_;Pwd=proyectopasteleriainbay_;";
+            string query = "SELECT id_cliente FROM cliente WHERE Nombre = @nombre"; // Consulta para obtener el ID del cliente basado en el nombre
+
+            string nombreUsuario = Session["UsuarioActual"].ToString();
+            using (SqlConnection conexion = new SqlConnection(connectionString))
+            {
+                SqlCommand comando = new SqlCommand(query, conexion);
+                comando.Parameters.AddWithValue("@nombre", nombreUsuario); // Agregar el parámetro del nombre de usuario
+                conexion.Open();
+
+                object result = comando.ExecuteScalar(); // Ejecutar la consulta y obtener el resultado
+
+                if (result != null) // Si se encuentra el ID del cliente
+                {
+                    id_cliente = Convert.ToInt32(result); // Convertir el resultado a entero y asignarlo a id_cliente
+                }
+            }
+
+            return id_cliente;
+        }
+
+
         protected void CargarProductosCarrito()
         {
             string rutaImagenes = "../imagenesProductos/";
@@ -136,38 +252,7 @@ namespace tfg.Paginas
         }
 
 
-        protected int ObtenerIdCliente()
-        {
-            // Verificar si la sesión del usuario está activa
-            if (Session["UsuarioActual"] == null)
-            {
-                // Redirigir al usuario a la página de registro si no hay sesión activa
-                Response.Redirect("Registro.aspx");
-                return 0; // Devolver 0 para detener la ejecución del método
-            }
 
-            int id_cliente = 0; // Inicializamos el ID del cliente como 0
-
-            string connectionString = "Server=sql.bsite.net\\MSSQL2016;Database=proyectopasteleriainbay_;Uid=proyectopasteleriainbay_;Pwd=proyectopasteleriainbay_;";
-            string query = "SELECT id_cliente FROM cliente WHERE Nombre = @nombre"; // Consulta para obtener el ID del cliente basado en el nombre
-
-            string nombreUsuario = Session["UsuarioActual"].ToString();
-            using (SqlConnection conexion = new SqlConnection(connectionString))
-            {
-                SqlCommand comando = new SqlCommand(query, conexion);
-                comando.Parameters.AddWithValue("@nombre", nombreUsuario); // Agregar el parámetro del nombre de usuario
-                conexion.Open();
-
-                object result = comando.ExecuteScalar(); // Ejecutar la consulta y obtener el resultado
-
-                if (result != null) // Si se encuentra el ID del cliente
-                {
-                    id_cliente = Convert.ToInt32(result); // Convertir el resultado a entero y asignarlo a id_cliente
-                }
-            }
-
-            return id_cliente;
-        }
 
 
 

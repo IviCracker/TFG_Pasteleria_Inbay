@@ -5,14 +5,14 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-JBGTE8PV6Y"></script>
-<script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag() { dataLayer.push(arguments); }
-    gtag('js', new Date());
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-JBGTE8PV6Y"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
 
-    gtag('config', 'G-JBGTE8PV6Y');
-</script>
+        gtag('config', 'G-JBGTE8PV6Y');
+    </script>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>Productos</title>
 
@@ -135,12 +135,12 @@
                     <p>Inicia sesión antes de ver tu carrito</p>
                     <% } %>
 
-                   <asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager> 
+                    <asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>
                     <asp:UpdatePanel ID="UpdatePanel2" runat="server">
                         <ContentTemplate>
                             <div id="productosCarritoContainer" runat="server" class="productos-carrito"></div>
                         </ContentTemplate>
-                        
+
                     </asp:UpdatePanel>
 
 
@@ -148,16 +148,24 @@
                     <div id="cartInfoContainer" runat="server">
                     </div>
 
-                    <% if (Session["UsuarioActual"] != null)
-                        { %>
-                    <asp:Button ID="verCarritoBtn" runat="server" Text="Realizar pago" OnClick="VerCarritoBtn_Click" CssClass="ver-carrito-btn" />
+                     <% 
+     if (Session["UsuarioActual"] != null)
+     {
+         int idCliente = ObtenerIdCliente(); // Supongamos que tienes una función para obtener el ID del cliente
 
-                    <% } %>
+         if (comprobarCarrito(idCliente) > 0)
+         {
+             %>
+             <asp:Button ID="verCarritoBtn" runat="server" Text="Realizar pago" OnClick="VerCarritoBtn_Click" CssClass="ver-carrito-btn" />
+             <% 
+         }
+     }
+ %>
                 </div>
 
 
             </header>
-            
+
             <asp:UpdatePanel ID="UpdatePanel1" runat="server">
                 <ContentTemplate>
                     <div id="subcabecera" runat="server">

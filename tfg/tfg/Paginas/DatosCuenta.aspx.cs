@@ -30,8 +30,42 @@ namespace tfg.Paginas
             }
         }
 
-      
 
+        protected int comprobarCarrito(int idCliente)
+        {
+            int totalRegistros = 0;
+
+            string connectionString = "Server=sql.bsite.net\\MSSQL2016;Database=proyectopasteleriainbay_;Uid=proyectopasteleriainbay_;Pwd=proyectopasteleriainbay_;";
+            string query = "SELECT COUNT(*) AS TotalRegistros FROM carrito WHERE id_cliente = @id_cliente";
+
+
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+                    using (SqlCommand command = new SqlCommand(query, connection))
+                    {
+                        command.Parameters.AddWithValue("@id_cliente", idCliente);
+
+                        connection.Open();
+                        object result = command.ExecuteScalar();
+
+                        // Si el resultado no es nulo, conviértelo a int
+                        if (result != null)
+                        {
+                            totalRegistros = Convert.ToInt32(result);
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                // Manejar la excepción aquí
+                Console.WriteLine("Error: " + ex.Message);
+            }
+
+            return totalRegistros;
+        }
         protected void btnEditarNombre_Click(object sender, EventArgs e)
         {
             btnActualizar();
