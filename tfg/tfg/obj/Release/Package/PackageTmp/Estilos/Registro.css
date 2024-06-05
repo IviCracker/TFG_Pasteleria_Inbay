@@ -1,0 +1,73 @@
+﻿/* Estilos para cuando la pantalla está en modo portrait */
+@media screen and (orientation: portrait) {
+    /* Estilos para el contenedor del texto de iniciar sesión y crear cuenta */
+    #textoCrearCuenta,
+    #textoIniciarSesion {
+        width: 100%;
+         /* Cambia el ancho máximo para que se ajuste mejor en pantallas pequeñas */
+        margin: 20px auto;
+        padding: 20px; /* Reduce el espacio interior */
+        background-color: #ffffff;
+        border-radius: 10px; /* Reduce el radio del borde */
+        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        margin-bottom: 30px; /* Reduce el espacio inferior */
+        text-align:center;
+    }
+    .tituloRegistroInicio{
+        font-size:50px;
+    }
+    p{
+        font-size:40px;
+    }
+    /* Estilos para los elementos dentro del contenedor */
+    .input-container {
+        display: flex;
+        align-items: center;
+        margin-bottom: 10px; /* Reduce el espacio entre los elementos */
+        font-size: 40px;
+    }
+
+        .input-container i {
+            margin-right: 5px; /* Reduce el espacio entre el ícono y el texto */
+            width: 15px; /* Reduce el tamaño del ícono */
+        }
+
+    .textbox {
+        width:100%; /* Reduce el ancho del textbox para dar espacio al ícono */
+        padding: 8px; /* Reduce el espacio interior */
+        font-size: 40px !important; /* Reduce el tamaño de fuente */
+        border: none;
+        border-bottom: 1px solid #000000; /* Reduce el grosor del borde inferior */
+        transition: border-color 0.3s ease;
+        margin:40px
+    }
+
+        .textbox:focus {
+            outline: none;
+            border-color: #FF8C00;
+        }
+
+    #registro h1 {
+        font-size: 1.5em; /* Reduce el tamaño de fuente */
+        margin-bottom: 15px; /* Reduce el espacio inferior */
+    }
+
+    #registro input[type="text"],
+    #registro input[type="email"],
+    #registro input[type="tel"],
+    #registro input[type="password"],
+    #registro button {
+        width: 100%;
+        padding: 8px;
+        margin-bottom: 10px; /* Reduce el espacio entre elementos */
+        
+    }
+
+    #registro button {
+        font-size: 16px; /* Aumenta ligeramente el tamaño de fuente del botón */
+    }
+    .botonIniciarSesion, #btnRegistrarse {
+        font-size: 40px;
+    }
+
+}

@@ -4,18 +4,27 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
+    <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-JBGTE8PV6Y"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+
+    gtag('config', 'G-JBGTE8PV6Y');
+</script>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 
-    <title>Mi cuenta</title>
+    <title>Lista de productos deseados</title>
 
-    <link rel="stylesheet" href="../index.css" />
+    <link rel="stylesheet" href="../default.css" />
     <link rel="stylesheet" href="../Estilos/Footer.css" />
     <link rel="stylesheet" href="../Estilos/DatosTarjeta.css" />
 
 
     <script src="https://kit.fontawesome.com/24693b33fa.js" crossorigin="anonymous"></script>
 
-    <script src="../index.js"></script>
+    <script src="../default.js"></script>
 
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
     <script src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>

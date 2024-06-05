@@ -4,14 +4,23 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
+    <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-JBGTE8PV6Y"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+
+    gtag('config', 'G-JBGTE8PV6Y');
+</script>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>Productos</title>
 
 
-    <link rel="stylesheet" href="../index.css" />
+    <link rel="stylesheet" href="../default.css" />
     <link rel="stylesheet" href="../Estilos/Footer.css" />
 
-    <script src="../index.js"></script>
+    <script src="../default.js"></script>
     <script>
         document.querySelectorAll('.imagen-producto').forEach(function (producto) {
             producto.addEventListener('click', function () {
@@ -22,7 +31,7 @@
             });
         });
 
-      
+
 
     </script>
 
@@ -97,13 +106,13 @@
                     <ul>
                         <li><a href="../default.aspx">Inicio</a></li>
                         <li><a href="Productos.aspx">Productos</a>
-                            
+
                         </li>
                         <li><a href="Nosotros.aspx">Nosotros</a></li>
                         <li><a href="Contacto.aspx">Contacto</a>
-                            
+
                         </li>
-                        
+
                     </ul>
                 </nav>
 
@@ -115,33 +124,40 @@
 
                 </div>
                 <div class="cart-icon" id="cartIcon">
-    <ion-icon name="cart"></ion-icon>
-</div>
-<div class="cart-panel" id="cartPanel">
-    <button type="button" class="close-btn" id="closeCartPanel">&times;</button>
+                    <ion-icon name="cart"></ion-icon>
+                </div>
+                <div class="cart-panel" id="cartPanel">
+                    <button type="button" class="close-btn" id="closeCartPanel">&times;</button>
 
-    <h2>Carrito de compra</h2>
-    <% if (Session["UsuarioActual"] == null) { %>
-        <p>Inicia sesión antes de ver tu carrito</p>
-    <% } %>
-         
-    <div id="productosCarritoContainer" runat="server" class="productos-carrito">
-        <!-- Aquí se cargarán dinámicamente los productos desde el servidor -->
-    </div>
-    <!--quiero que aqui llames a un codigo en c# que muestre un div con la informacion del total (precio total a pagar, de cada producto por la cantidad de veces), y 1 boton que sea, ver carro, que lleve a una pagina que se llama compra.aspx-->
-    <div id="cartInfoContainer" runat="server">
+                    <h2>Carrito de compra</h2>
+                    <% if (Session["UsuarioActual"] == null)
+                        { %>
+                    <p>Inicia sesión antes de ver tu carrito</p>
+                    <% } %>
 
-    </div>
-    <!-- Aquí se mostrará la información del carrito -->
-    <% if (Session["UsuarioActual"] != null) { %>
-            <asp:Button ID="verCarritoBtn" runat="server" Text="Realizar pago" OnClick="VerCarritoBtn_Click" CssClass="ver-carrito-btn" />
+                   <asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager> 
+                    <asp:UpdatePanel ID="UpdatePanel2" runat="server">
+                        <ContentTemplate>
+                            <div id="productosCarritoContainer" runat="server" class="productos-carrito"></div>
+                        </ContentTemplate>
+                        
+                    </asp:UpdatePanel>
 
-        <% } %>
-</div>
+
+
+                    <div id="cartInfoContainer" runat="server">
+                    </div>
+
+                    <% if (Session["UsuarioActual"] != null)
+                        { %>
+                    <asp:Button ID="verCarritoBtn" runat="server" Text="Realizar pago" OnClick="VerCarritoBtn_Click" CssClass="ver-carrito-btn" />
+
+                    <% } %>
+                </div>
 
 
             </header>
-            <asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>
+            
             <asp:UpdatePanel ID="UpdatePanel1" runat="server">
                 <ContentTemplate>
                     <div id="subcabecera" runat="server">
@@ -180,7 +196,7 @@
             </asp:UpdatePanel>
         </div>
 
-       
+
 
         <div id="subfooter" class="subfooter">
             <p>¡Ven a nuestra pastelería y descubre un mundo de sabores exquisitos! Desde deliciosos croissants recién horneados hasta irresistibles tartas caseras, ¡te esperamos con los brazos abiertos!</p>

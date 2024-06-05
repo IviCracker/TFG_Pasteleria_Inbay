@@ -4,14 +4,23 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
+    <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-JBGTE8PV6Y"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+
+    gtag('config', 'G-JBGTE8PV6Y');
+</script>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>Productos</title>
 
 
-    <link rel="stylesheet" href="../index.css" />
+    <link rel="stylesheet" href="../default.css" />
     <link rel="stylesheet" href="../Estilos/Footer.css" />
 
-    <script src="../index.js"></script>
+    <script src="../default.js"></script>
     <script>
         document.querySelectorAll('.imagen-producto').forEach(function (producto) {
             producto.addEventListener('click', function () {
