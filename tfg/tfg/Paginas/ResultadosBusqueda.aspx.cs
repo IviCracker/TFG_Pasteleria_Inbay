@@ -12,12 +12,29 @@ namespace tfg.Paginas
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            string searchQuery = Request.QueryString["query"];
+            Session["query"] = searchQuery;
             if (!IsPostBack)
             {
-                string searchQuery = Request.QueryString["query"];
+                
+                if (Session["UsuarioActual"] != null)
+                {
+                    CargarProductosCarrito();
+                    ObtenerPrecioTotal();
+                }
+                
                 if (!string.IsNullOrEmpty(searchQuery))
                 {
                     CargarResultadosDeBusqueda(searchQuery);
+                }
+            }
+            else
+            {
+                CargarResultadosDeBusqueda(searchQuery);
+                if (Session["UsuarioActual"] != null)
+                {
+                    CargarProductosCarrito();
+                    ObtenerPrecioTotal();
                 }
             }
         }
@@ -29,6 +46,57 @@ namespace tfg.Paginas
                 // Redirigir a la página de resultados de búsqueda con la consulta de búsqueda como un parámetro de consulta
                 Response.Redirect($"ResultadosBusqueda.aspx?query={Server.UrlEncode(searchQuery)}");
             }
+        }
+
+        private void ObtenerPrecioTotal()
+        {
+            string precioTotal = "0.00"; // Valor inicial del precio total
+
+            // Obtener el id_cliente
+            int id_cliente = ObtenerIdCliente();
+
+            // Verificar si se obtuvo un id_cliente válido
+            if (id_cliente != 0)
+            {
+                string connectionString = "Server=sql.bsite.net\\MSSQL2016;Database=proyectopasteleriainbay_;Uid=proyectopasteleriainbay_;Pwd=proyectopasteleriainbay_;";
+
+                string query = @"
+            SELECT SUM(p.Precio * ca.Cantidad) AS PrecioTotal
+            FROM carrito ca
+            JOIN producto p ON ca.id_producto = p.id_producto
+            WHERE ca.id_cliente = @id_cliente";
+
+                try
+                {
+                    using (SqlConnection conexion = new SqlConnection(connectionString))
+                    {
+                        SqlCommand comando = new SqlCommand(query, conexion);
+                        comando.Parameters.AddWithValue("@id_cliente", id_cliente); // Agregar el parámetro del id_cliente
+                        conexion.Open();
+
+                        object result = comando.ExecuteScalar(); // Ejecutar la consulta y obtener el resultado
+
+                        if (result != null) // Si se obtiene un resultado válido
+                        {
+                            precioTotal = Convert.ToDecimal(result).ToString("C"); // Convertir el resultado a decimal y formatearlo como moneda
+                        }
+                    }
+
+                    precioTotal = "Total a pagar: " + precioTotal;
+                }
+                catch (Exception ex)
+                {
+                    // Manejar la excepción aquí (por ejemplo, registrándola, mostrando un mensaje de error, etc.)
+                    // Aquí puedes personalizar la forma en que deseas manejar la excepción
+                    // Por ejemplo:
+                    // Console.WriteLine("Error: " + ex.Message);
+                    // Log.Error("Error al calcular el precio total", ex);
+                    // MostrarMensajeError("Error al calcular el precio total. Por favor, inténtalo de nuevo más tarde.");
+                }
+            }
+
+            cartInfoContainer.Controls.Add(new LiteralControl(precioTotal));
+
         }
         private void CargarResultadosDeBusqueda(string searchQuery)
         {
@@ -145,43 +213,59 @@ namespace tfg.Paginas
         }
         protected void AgregarACarrito_Click(object sender, EventArgs e)
         {
-            // Obtener el ID del cliente y el ID del producto
-            int idCliente = ObtenerIdCliente();
-            ImageButton clickedButton = (ImageButton)sender;
-            string commandArgument = clickedButton.CommandArgument;
-
-            // Convertir el CommandArgument a entero y usarlo para obtener el ID del producto
-            int idProducto = ObtenerIdProducto(commandArgument);
-
-            // Agregar el producto a la lista de deseos del cliente en la base de datos
-            AgregarProductoACarrito(idCliente, idProducto);
-            ScriptManager.RegisterStartupScript(this, GetType(), "PostBackScript", "__doPostBack('', '');", true);
-
-        }
-        protected void AgregarAListaDeseos_Click(object sender, EventArgs e)
-        {
-            // Obtener el ID del cliente y el ID del producto
-            int idCliente = ObtenerIdCliente();
-            ImageButton clickedButton = (ImageButton)sender;
-            string nombreProducto = clickedButton.CommandArgument;
-
-            // Convertir el CommandArgument a entero y usarlo para obtener el ID del producto
-            int idProducto = ObtenerIdProducto(nombreProducto);
-
-            // Verificar si el producto ya está en la lista de deseos del cliente
-            if (comprobarListaDeseados(nombreProducto))
+            if (Session["UsuarioActual"] != null)
             {
-                // Si el producto ya está en la lista, eliminarlo
-                EliminarProductoDeListaDeseos(idCliente, idProducto);
+                // Obtener el ID del cliente y el ID del producto
+                int idCliente = ObtenerIdCliente();
+                ImageButton clickedButton = (ImageButton)sender;
+                string commandArgument = clickedButton.CommandArgument;
+
+                // Convertir el CommandArgument a entero y usarlo para obtener el ID del producto
+                int idProducto = ObtenerIdProducto(commandArgument);
+
+                // Agregar el producto a la lista de deseos del cliente en la base de datos
+                AgregarProductoACarrito(idCliente, idProducto);
+                ScriptManager.RegisterStartupScript(this, GetType(), "PostBackScript", "__doPostBack('', '');", true);
             }
             else
             {
-                // Si el producto no está en la lista, agregarlo
-                AgregarProductoAListaDeseos(idCliente, idProducto);
+                Response.Redirect("Registro.aspx");
             }
-            ScriptManager.RegisterStartupScript(this, GetType(), "PostBackScript", "__doPostBack('', '');", true);
-            // Actualizar la vista, si es necesario
-            //CargarProductosCarrito(); // O cualquier otra lógica de actualización de la interfaz de usuario
+            
+
+        }
+
+        protected void AgregarAListaDeseos_Click(object sender, EventArgs e)
+        {
+            if (Session["UsuarioActual"] != null) {
+                // Obtener el ID del cliente y el ID del producto
+                int idCliente = ObtenerIdCliente();
+                ImageButton clickedButton = (ImageButton)sender;
+                string nombreProducto = clickedButton.CommandArgument;
+
+                // Convertir el CommandArgument a entero y usarlo para obtener el ID del producto
+                int idProducto = ObtenerIdProducto(nombreProducto);
+
+                // Verificar si el producto ya está en la lista de deseos del cliente
+                if (comprobarListaDeseados(nombreProducto))
+                {
+                    // Si el producto ya está en la lista, eliminarlo
+                    EliminarProductoDeListaDeseos(idCliente, idProducto);
+                }
+                else
+                {
+                    // Si el producto no está en la lista, agregarlo
+                    AgregarProductoAListaDeseos(idCliente, idProducto);
+                }
+                ScriptManager.RegisterStartupScript(this, GetType(), "PostBackScript", "__doPostBack('', '');", true);
+                // Actualizar la vista, si es necesario
+                //CargarProductosCarrito(); // O cualquier otra lógica de actualización de la interfaz de usuario
+            }
+            else
+            {
+                Response.Redirect("Registro.aspx");
+            }
+
         }
         protected bool comprobarListaDeseados(string nombreProducto)
         {

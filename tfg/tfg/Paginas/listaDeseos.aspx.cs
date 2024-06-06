@@ -10,12 +10,18 @@ namespace tfg.Paginas
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            
             if (!IsPostBack)
             {
-                CargarProductos();
                 CargarProductosCarrito();
                 ObtenerPrecioTotal();
+                CargarProductos();
             }
+            else
+            {
+                CargarProductos();
+            }
+            
         }
         protected void searchButton_Click(object sender, EventArgs e)
         {
@@ -545,9 +551,11 @@ namespace tfg.Paginas
                 // Si el producto no está en la lista, agregarlo
                 AgregarProductoAListaDeseos(idCliente, idProducto);
             }
-            ScriptManager.RegisterStartupScript(this, GetType(), "PostBackScript", "__doPostBack('', '');", true);
+
             // Actualizar la vista, si es necesario
             //CargarProductosCarrito(); // O cualquier otra lógica de actualización de la interfaz de usuario
+            ScriptManager.RegisterStartupScript(this, GetType(), "PostBackScript", "__doPostBack('', '');", true);
+
         }
         protected void AgregarProductoAListaDeseos(int idCliente, int idProducto)
         {
@@ -703,6 +711,10 @@ namespace tfg.Paginas
             {
                 // Manejar la excepción aquí
             }
+             // Volver a cargar los productos después de la eliminación
+
+
+
         }
 
 

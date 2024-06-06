@@ -232,7 +232,7 @@ namespace tfg
 
             InsertarEstadoPedido(idCliente, idPedido);
             borrarCarrito(idCliente);
-            Response.Redirect("pago.aspx");
+            Response.Redirect("Paginas/pago.aspx");
         }
 
         private void borrarCarrito(int idCliente)
