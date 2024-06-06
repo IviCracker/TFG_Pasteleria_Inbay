@@ -117,10 +117,10 @@
                 </nav>
 
                 <div class="search-cart-container">
-                    <div class="search-container">
-                        <input type="text" placeholder="Buscar..." class="search-input" />
-                        <button type="submit" class="search-button">Buscar</button>
-                    </div>
+                        <div class="search-container">
+                            <asp:TextBox ID="txtSearch" runat="server" CssClass="search-input" Placeholder="Buscar..." />
+                            <asp:Button ID="searchButton" runat="server" Text="Buscar" CssClass="search-button" OnClick="searchButton_Click" />
+                        </div>
 
                 </div>
                 <div class="cart-icon" id="cartIcon">
@@ -148,19 +148,19 @@
                     <div id="cartInfoContainer" runat="server">
                     </div>
 
-                     <% 
-     if (Session["UsuarioActual"] != null)
-     {
-         int idCliente = ObtenerIdCliente(); // Supongamos que tienes una función para obtener el ID del cliente
+                    <% 
+                        if (Session["UsuarioActual"] != null)
+                        {
+                            int idCliente = ObtenerIdCliente(); // Supongamos que tienes una función para obtener el ID del cliente
 
-         if (comprobarCarrito(idCliente) > 0)
-         {
-             %>
-             <asp:Button ID="verCarritoBtn" runat="server" Text="Realizar pago" OnClick="VerCarritoBtn_Click" CssClass="ver-carrito-btn" />
-             <% 
-         }
-     }
- %>
+                            if (comprobarCarrito(idCliente) > 0)
+                            {
+                    %>
+                    <asp:Button ID="verCarritoBtn" runat="server" Text="Realizar pago" OnClick="VerCarritoBtn_Click" CssClass="ver-carrito-btn" />
+                    <% 
+                            }
+                        }
+                    %>
                 </div>
 
 

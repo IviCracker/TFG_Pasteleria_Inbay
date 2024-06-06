@@ -82,11 +82,10 @@
             </nav>
 
             <div class="search-cart-container">
-                <div class="search-container">
-                    <input type="text" placeholder="Buscar..." class="search-input" />
-                    <asp:Button ID="searchButton" runat="server" Text="Buscar" CssClass="search-button" />
-
-                </div>
+                        <div class="search-container">
+                            <asp:TextBox ID="txtSearch" runat="server" CssClass="search-input" Placeholder="Buscar..." />
+                            <asp:Button ID="searchButton" runat="server" Text="Buscar" CssClass="search-button" OnClick="searchButton_Click" />
+                        </div>
 
             </div>
             <div class="cart-icon" id="cartIcon">

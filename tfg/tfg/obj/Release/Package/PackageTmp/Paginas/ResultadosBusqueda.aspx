@@ -1,5 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="DatosTarjeta.aspx.cs" Inherits="tfg.Paginas.DatosTarjeta" %>
-
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="ResultadosBusqueda.aspx.cs" Inherits="tfg.Paginas.ResultadosBusqueda" %>
 
 <!DOCTYPE html>
 
@@ -16,7 +15,7 @@
     </script>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 
-    <title>Datos de la tarjeta</title>
+    <title>Lista de productos deseados</title>
 
     <link rel="stylesheet" href="../default.css" />
     <link rel="stylesheet" href="../Estilos/Footer.css" />
@@ -42,6 +41,26 @@
 
 
     </script>
+    <script>
+        function mostrarDetalleProducto(nombre, imagenUrl, precio, valoracion) {
+            // Codificar los parámetros de la URL para pasarlos a la página de detalle
+            var encodedNombre = encodeURIComponent(nombre);
+            var encodedImagenUrl = encodeURIComponent(imagenUrl);
+            // Convertir el precio a formato de cadena con dos decimales
+
+            var encodedPrecio = encodeURIComponent(precio);
+            var encodedValoracion = encodeURIComponent(valoracion);
+
+            // Construir la URL de la página de detalle del producto con los parámetros codificados
+            var url = "DetalleProducto.aspx?nombre=" + encodedNombre + "&imagenUrl=" + encodedImagenUrl + "&precio=" + encodedPrecio + "&valoracion=" + encodedValoracion;
+
+            // Redirigir a la página de detalle del producto
+            window.location.href = url;
+        }
+
+
+    </script>
+    
 </head>
 <body>
     <form id="form1" runat="server">
@@ -76,12 +95,14 @@
             <nav class="navbar">
                 <ul>
                     <li><a href="../default.aspx">Inicio</a></li>
-                    <li><a href="/Productos.aspx">Productos</a>
-
+                    <li><a href="Productos.aspx">Productos</a>
+                        <ul class="submenu" id="productos">
+                        </ul>
                     </li>
                     <li><a href="Nosotros.aspx">Nosotros</a></li>
                     <li><a href="Contacto.aspx">Contacto</a>
-
+                        <ul class="submenu" id="contacto">
+                        </ul>
                     </li>
 
                 </ul>
@@ -106,19 +127,13 @@
                 <p>Inicia sesión antes de ver tu carrito</p>
                 <% } %>
 
-                <asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>
-                <asp:UpdatePanel ID="UpdatePanel2" runat="server">
-                    <ContentTemplate>
-                        <div id="productosCarritoContainer" runat="server" class="productos-carrito"></div>
-                    </ContentTemplate>
-
-                </asp:UpdatePanel>
-
-
-
+                <div id="productosCarritoContainer" runat="server" class="productos-carrito">
+                    <!-- Aquí se cargarán dinámicamente los productos desde el servidor -->
+                </div>
+                <!--quiero que aqui llames a un codigo en c# que muestre un div con la informacion del total (precio total a pagar, de cada producto por la cantidad de veces), y 1 boton que sea, ver carro, que lleve a una pagina que se llama compra.aspx-->
                 <div id="cartInfoContainer" runat="server">
                 </div>
-
+                <!-- Aquí se mostrará la información del carrito -->
                 <% 
                     if (Session["UsuarioActual"] != null)
                     {
@@ -134,61 +149,11 @@
                 %>
             </div>
 
-
         </header>
 
         <%-- Datos Tarjeta --%>
 
-        <div class="tarjetaCredito">
-            <div class="datosTarjeta">
-                <div class="grupo">
-                    <span for="numeroTarjeta">Número de Tarjeta:</span>
-                    <asp:TextBox ID="txtNumeroTarjeta" runat="server" placeholder="Número de Tarjeta" MaxLength="16"></asp:TextBox>
-                </div>
-                <div class="grupo">
-                    <span for="nombreTarjeta">Nombre en la Tarjeta:</span>
-                    <asp:TextBox ID="txtNombreTarjeta" runat="server" placeholder="Nombre en la Tarjeta"></asp:TextBox>
-                </div>
-                <div class="grupo">
-                    <span for="fechaExpiracion">Fecha de Expiración:</span>
-                    <asp:DropDownList ID="mesExpiracion" runat="server">
-                        <asp:ListItem Text="Mes" Value="" />
-                        <asp:ListItem Text="Enero" Value="01" />
-                        <asp:ListItem Text="Febrero" Value="02" />
-                        <asp:ListItem Text="Marzo" Value="03" />
-                        <asp:ListItem Text="Abril" Value="04" />
-                        <asp:ListItem Text="Mayo" Value="05" />
-                        <asp:ListItem Text="Junio" Value="06" />
-                        <asp:ListItem Text="Julio" Value="07" />
-                        <asp:ListItem Text="Agosto" Value="08" />
-                        <asp:ListItem Text="Septiembre" Value="09" />
-                        <asp:ListItem Text="Octubre" Value="10" />
-                        <asp:ListItem Text="Noviembre" Value="11" />
-                        <asp:ListItem Text="Diciembre" Value="12" />
-                    </asp:DropDownList>
-                    <asp:DropDownList ID="anioExpiracion" runat="server">
-                        <asp:ListItem Text="Año" Value="" />
-                        <asp:ListItem Text="2024" Value="01" />
-                        <asp:ListItem Text="2025" Value="02" />
-                        <asp:ListItem Text="2026" Value="03" />
-                        <asp:ListItem Text="2027" Value="04" />
-                        <asp:ListItem Text="2028" Value="05" />
-                        <asp:ListItem Text="2029" Value="06" />
-                        <asp:ListItem Text="2030" Value="07" />
-                        <asp:ListItem Text="2031" Value="08" />
-                        <asp:ListItem Text="2032" Value="09" />
-                        <asp:ListItem Text="2033" Value="10" />
-                        <asp:ListItem Text="2034" Value="11" />
-                    </asp:DropDownList>
-                </div>
-                <div class="grupo">
-                    <span for="cvv">CVV:</span>
-                    <asp:TextBox ID="txtCVV" runat="server" placeholder="CVV" MaxLength="3"></asp:TextBox>
-                </div>
-                <asp:Button ID="btnGuardarDatosTarjeta" runat="server" Text="Guardar Datos" OnClick="BtnGuardarDatosTarjeta_Click" CssClass="btnGuardar" />
-            </div>
-        </div>
-
+        <div id="productosBuscador" runat="server" class="productos-container"></div>
 
 
 

@@ -18,6 +18,15 @@ namespace tfg.Paginas
                 ObtenerPrecioTotal();
             }
         }
+        protected void searchButton_Click(object sender, EventArgs e)
+        {
+            string searchQuery = txtSearch.Text.Trim();
+            if (!string.IsNullOrEmpty(searchQuery))
+            {
+                // Redirigir a la página de resultados de búsqueda con la consulta de búsqueda como un parámetro de consulta
+                Response.Redirect($"ResultadosBusqueda.aspx?query={Server.UrlEncode(searchQuery)}");
+            }
+        }
         protected int comprobarCarrito(int idCliente)
         {
             int totalRegistros = 0;
@@ -132,7 +141,154 @@ namespace tfg.Paginas
 
         protected void VerCarritoBtn_Click(object sender, EventArgs e)
         {
-            Response.Redirect("Paginas/pago.aspx");
+            string connectionString = "Server=sql.bsite.net\\MSSQL2016;Database=proyectopasteleriainbay_;Uid=proyectopasteleriainbay_;Pwd=proyectopasteleriainbay_;";
+            int idCliente = ObtenerIdCliente();
+            int idPedido = GenerarIdPedido(); // Supongamos que tienes una función para generar el id_pedido
+
+            string queryCarrito = "SELECT id_producto, cantidad FROM carrito WHERE id_cliente = @id_cliente";
+
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+                    using (SqlCommand commandCarrito = new SqlCommand(queryCarrito, connection))
+                    {
+                        commandCarrito.Parameters.AddWithValue("@id_cliente", idCliente);
+                        connection.Open();
+
+                        using (SqlDataReader reader = commandCarrito.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                int idProducto = Convert.ToInt32(reader["id_producto"]);
+                                int cantidad = Convert.ToInt32(reader["cantidad"]);
+
+                                InsertarDetallePedido(idPedido, idProducto, cantidad);
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                // Manejar la excepción aquí
+                Console.WriteLine("Error: " + ex.Message);
+            }
+
+            InsertarEstadoPedido(idCliente, idPedido);
+            borrarCarrito(idCliente);
+            Response.Redirect("pago.aspx");
+        }
+
+        private void borrarCarrito(int idCliente)
+        {
+            string connectionString = "Server=sql.bsite.net\\MSSQL2016;Database=proyectopasteleriainbay_;Uid=proyectopasteleriainbay_;Pwd=proyectopasteleriainbay_;";
+            string queryDelete = "DELETE FROM carrito WHERE id_cliente = @id_cliente";
+
+
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+                    using (SqlCommand commandDelete = new SqlCommand(queryDelete, connection))
+                    {
+                        commandDelete.Parameters.AddWithValue("@id_cliente", idCliente);
+
+
+                        connection.Open();
+                        commandDelete.ExecuteNonQuery();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                // Manejar la excepción aquí
+                Console.WriteLine("Error: " + ex.Message);
+            }
+        }
+        private void InsertarEstadoPedido(int idCliente, int id_pedido)
+        {
+            string connectionString = "Server=sql.bsite.net\\MSSQL2016;Database=proyectopasteleriainbay_;Uid=proyectopasteleriainbay_;Pwd=proyectopasteleriainbay_;";
+            string queryInsert = "INSERT INTO pedido (id_pedido, id_cliente, Fecha_pedido, Estado_pedido) " +
+                                 "VALUES (@id_pedido, @id_cliente, @fecha_pedido, @estado_pedido)";
+
+            DateTime fechaPedido = DateTime.Now;
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+                    using (SqlCommand commandInsert = new SqlCommand(queryInsert, connection))
+                    {
+                        commandInsert.Parameters.AddWithValue("@id_pedido", id_pedido);
+                        commandInsert.Parameters.AddWithValue("@id_cliente", idCliente);
+                        commandInsert.Parameters.AddWithValue("@fecha_pedido", fechaPedido);
+                        commandInsert.Parameters.AddWithValue("@estado_pedido", "pendiente");
+
+                        connection.Open();
+                        commandInsert.ExecuteNonQuery();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                // Manejar la excepción aquí
+                Console.WriteLine("Error: " + ex.Message);
+            }
+        }
+        private void InsertarDetallePedido(int idPedido, int idProducto, int cantidad)
+        {
+            string connectionString = "Server=sql.bsite.net\\MSSQL2016;Database=proyectopasteleriainbay_;Uid=proyectopasteleriainbay_;Pwd=proyectopasteleriainbay_;";
+            string queryInsert = "INSERT INTO detalle_pedido (id_pedido, id_producto, cantidad, precio_unitario) " +
+                "VALUES (@id_pedido, @id_producto, @cantidad, (SELECT Precio FROM producto WHERE id_producto = @id_producto))";
+
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+                    using (SqlCommand commandInsert = new SqlCommand(queryInsert, connection))
+                    {
+                        commandInsert.Parameters.AddWithValue("@id_pedido", idPedido);
+                        commandInsert.Parameters.AddWithValue("@id_producto", idProducto);
+                        commandInsert.Parameters.AddWithValue("@cantidad", cantidad);
+
+                        connection.Open();
+                        commandInsert.ExecuteNonQuery();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                // Manejar la excepción aquí
+                Console.WriteLine("Error: " + ex.Message);
+            }
+        }
+
+        private int GenerarIdPedido()
+        {
+            string connectionString = "Server=sql.bsite.net\\MSSQL2016;Database=proyectopasteleriainbay_;Uid=proyectopasteleriainbay_;Pwd=proyectopasteleriainbay_;";
+            string query = "SELECT ISNULL(MAX(id_pedido), 0) + 1 AS NextId FROM detalle_pedido";
+
+            int nextId = 0;
+
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+                    using (SqlCommand command = new SqlCommand(query, connection))
+                    {
+                        connection.Open();
+                        object result = command.ExecuteScalar();
+                        nextId = Convert.ToInt32(result);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                // Manejar la excepción aquí
+                Console.WriteLine("Error: " + ex.Message);
+            }
+
+            return nextId;
         }
 
 

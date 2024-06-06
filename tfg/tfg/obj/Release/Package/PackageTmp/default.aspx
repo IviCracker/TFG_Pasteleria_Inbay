@@ -24,7 +24,7 @@
         })(window, document, 'script', 'dataLayer', 'GTM-5XMKPH6Q');</script>
     <!-- End Google Tag Manager -->
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    
+
     <title>Pasteleria Inbay TFG - Ivan Almendros</title>
     <script type="application/ld+json">
     {
@@ -128,9 +128,8 @@
 
                     <div class="search-cart-container">
                         <div class="search-container">
-                            <input type="text" placeholder="Buscar..." class="search-input" />
-                            <asp:Button ID="searchButton" runat="server" Text="Buscar" CssClass="search-button" />
-
+                            <asp:TextBox ID="txtSearch" runat="server" CssClass="search-input" Placeholder="Buscar..." />
+                            <asp:Button ID="searchButton" runat="server" Text="Buscar" CssClass="search-button" OnClick="searchButton_Click" />
                         </div>
 
                     </div>
@@ -153,11 +152,19 @@
                         <div id="cartInfoContainer" runat="server">
                         </div>
                         <!-- Aquí se mostrará la información del carrito -->
-                        <% if (Session["UsuarioActual"] != null)
-                            { %>
-                        <asp:Button ID="verCarritoBtn" runat="server" Text="Realizar pago" OnClick="VerCarritoBtn_Click" CssClass="ver-carrito-btn" />
+                        <% 
+                            if (Session["UsuarioActual"] != null)
+                            {
+                                int idCliente = ObtenerIdCliente(); // Supongamos que tienes una función para obtener el ID del cliente
 
-                        <% } %>
+                                if (comprobarCarrito(idCliente) > 0)
+                                {
+                        %>
+                        <asp:Button ID="verCarritoBtn" runat="server" Text="Realizar pago" OnClick="VerCarritoBtn_Click" CssClass="ver-carrito-btn" />
+                        <% 
+                                }
+                            }
+                        %>
                     </div>
 
 

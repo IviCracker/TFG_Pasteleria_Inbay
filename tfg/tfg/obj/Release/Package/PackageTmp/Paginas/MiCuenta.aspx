@@ -5,14 +5,14 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-JBGTE8PV6Y"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-JBGTE8PV6Y"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
 
-  gtag('config', 'G-JBGTE8PV6Y');
-</script>
+        gtag('config', 'G-JBGTE8PV6Y');
+    </script>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 
     <title>Mi cuenta</title>
@@ -74,17 +74,51 @@
             </nav>
 
             <div class="search-cart-container">
-                <div class="search-container">
-                    <input type="text" placeholder="Buscar..." class="search-input" />
-                    <button type="submit" class="search-button">Buscar</button>
-                </div>
+                        <div class="search-container">
+                            <asp:TextBox ID="txtSearch" runat="server" CssClass="search-input" Placeholder="Buscar..." />
+                            <asp:Button ID="searchButton" runat="server" Text="Buscar" CssClass="search-button" OnClick="searchButton_Click" />
+                        </div>
 
             </div>
-            <div class="cart-icon">
+            <div class="cart-icon" id="cartIcon">
                 <ion-icon name="cart"></ion-icon>
             </div>
+            <div class="cart-panel" id="cartPanel">
+                <button type="button" class="close-btn" id="closeCartPanel">&times;</button>
+
+                <h2>Carrito de compra</h2>
+                <% if (Session["UsuarioActual"] == null)
+                    { %>
+                <p>Inicia sesión antes de ver tu carrito</p>
+                <% } %>
+
+                <asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>
+                <asp:UpdatePanel ID="UpdatePanel2" runat="server">
+                    <ContentTemplate>
+                        <div id="productosCarritoContainer" runat="server" class="productos-carrito"></div>
+                    </ContentTemplate>
+
+                </asp:UpdatePanel>
 
 
+
+                <div id="cartInfoContainer" runat="server">
+                </div>
+
+                <% 
+                    if (Session["UsuarioActual"] != null)
+                    {
+                        int idCliente = ObtenerIdCliente(); // Supongamos que tienes una función para obtener el ID del cliente
+
+                        if (comprobarCarrito(idCliente) > 0)
+                        {
+                %>
+                <asp:Button ID="verCarritoBtn" runat="server" Text="Realizar pago" OnClick="VerCarritoBtn_Click" CssClass="ver-carrito-btn" />
+                <% 
+                        }
+                    }
+                %>
+            </div>
         </header>
 
         <div class="parentMiCuenta">
@@ -104,11 +138,13 @@
                 <ion-icon name="calendar"></ion-icon>
                 <span>Historial y Detalles de mis Pedidos</span>
             </a>
+            <% if (Session["UsuarioActual"] != null)
+                { %>
             <a href="CerrarSesion.aspx" class="div4MiCuenta">
                 <ion-icon name="log-out"></ion-icon>
                 <span>Cerrar Sesión</span>
             </a>
-
+            <% } %>
         </div>
 
 

@@ -5,14 +5,14 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-JBGTE8PV6Y"></script>
-<script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag() { dataLayer.push(arguments); }
-    gtag('js', new Date());
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-JBGTE8PV6Y"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
 
-    gtag('config', 'G-JBGTE8PV6Y');
-</script>
+        gtag('config', 'G-JBGTE8PV6Y');
+    </script>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 
     <title>Datos de mi cuenta</title>
@@ -76,21 +76,21 @@
                 <ul>
                     <li><a href="../default.aspx">Inicio</a></li>
                     <li><a href="Productos.aspx">Productos</a>
-                        
+
                     </li>
                     <li><a href="Nosotros.aspx">Nosotros</a></li>
                     <li><a href="Contacto.aspx">Contacto</a>
-                        
+
                     </li>
-                    
+
                 </ul>
             </nav>
 
             <div class="search-cart-container">
-                <div class="search-container">
-                    <input type="text" placeholder="Buscar..." class="search-input" />
-                    <button type="submit" class="search-button">Buscar</button>
-                </div>
+                        <div class="search-container">
+                            <asp:TextBox ID="txtSearch" runat="server" CssClass="search-input" Placeholder="Buscar..." />
+                            <asp:Button ID="searchButton" runat="server" Text="Buscar" CssClass="search-button" OnClick="searchButton_Click" />
+                        </div>
 
             </div>
             <div class="cart-icon" id="cartIcon">
@@ -105,26 +105,32 @@
                 <p>Inicia sesión antes de ver tu carrito</p>
                 <% } %>
 
-                <div id="productosCarritoContainer" runat="server" class="productos-carrito">
-                    <!-- Aquí se cargarán dinámicamente los productos desde el servidor -->
-                </div>
-                <!--quiero que aqui llames a un codigo en c# que muestre un div con la informacion del total (precio total a pagar, de cada producto por la cantidad de veces), y 1 boton que sea, ver carro, que lleve a una pagina que se llama compra.aspx-->
+                <asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>
+                <asp:UpdatePanel ID="UpdatePanel2" runat="server">
+                    <ContentTemplate>
+                        <div id="productosCarritoContainer" runat="server" class="productos-carrito"></div>
+                    </ContentTemplate>
+
+                </asp:UpdatePanel>
+
+
+
                 <div id="cartInfoContainer" runat="server">
                 </div>
-                <!-- Aquí se mostrará la información del carrito -->
-                <% if (Session["UsuarioActual"] != null)
-                    { %>
-                <asp:Button ID="verCarritoBtn" runat="server" Text="Realizar pago" OnClick="VerCarritoBtn_Click" CssClass="ver-carrito-btn" />
 
-                <% } %>
-            </div>
-            <div class="cart-panel">
-                <h2>Carrito de compra</h2>
-                <ul>
-                    <li>Producto 1</li>
-                    <li>Producto 2</li>
-                    <li>Producto 3</li>
-                </ul>
+                <% 
+                    if (Session["UsuarioActual"] != null)
+                    {
+                        int idCliente = ObtenerIdCliente(); // Supongamos que tienes una función para obtener el ID del cliente
+
+                        if (comprobarCarrito(idCliente) > 0)
+                        {
+                %>
+                <asp:Button ID="verCarritoBtn" runat="server" Text="Realizar pago" OnClick="VerCarritoBtn_Click" CssClass="ver-carrito-btn" />
+                <% 
+                        }
+                    }
+                %>
             </div>
 
         </header>

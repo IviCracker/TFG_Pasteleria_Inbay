@@ -11,7 +11,7 @@ namespace tfg.Paginas
 {
 
 
-    public partial class listaDeseos
+    public partial class ResultadosBusqueda
     {
 
         /// <summary>
@@ -69,12 +69,12 @@ namespace tfg.Paginas
         protected global::System.Web.UI.WebControls.Button verCarritoBtn;
 
         /// <summary>
-        /// Control productosListaDeseosContainer.
+        /// Control productosBuscador.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl productosListaDeseosContainer;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl productosBuscador;
     }
 }

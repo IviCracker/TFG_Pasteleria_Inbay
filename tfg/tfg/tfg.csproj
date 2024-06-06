@@ -187,6 +187,7 @@
     <Content Include="Paginas\Pago.aspx" />
     <Content Include="Paginas\Productos.aspx" />
     <Content Include="Paginas\Registro.aspx" />
+    <Content Include="Paginas\ResultadosBusqueda.aspx" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -280,6 +281,13 @@
     </Compile>
     <Compile Include="Paginas\Registro.aspx.designer.cs">
       <DependentUpon>Registro.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Paginas\ResultadosBusqueda.aspx.cs">
+      <DependentUpon>ResultadosBusqueda.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Paginas\ResultadosBusqueda.aspx.designer.cs">
+      <DependentUpon>ResultadosBusqueda.aspx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

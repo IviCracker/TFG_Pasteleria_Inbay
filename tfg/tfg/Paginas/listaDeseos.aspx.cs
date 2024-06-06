@@ -17,6 +17,16 @@ namespace tfg.Paginas
                 ObtenerPrecioTotal();
             }
         }
+        protected void searchButton_Click(object sender, EventArgs e)
+        {
+            string searchQuery = txtSearch.Text.Trim();
+            if (!string.IsNullOrEmpty(searchQuery))
+            {
+                // Redirigir a la página de resultados de búsqueda con la consulta de búsqueda como un parámetro de consulta
+                Response.Redirect($"ResultadosBusqueda.aspx?query={Server.UrlEncode(searchQuery)}");
+            }
+        }
+
         protected int comprobarCarrito(int idCliente)
         {
             int totalRegistros = 0;

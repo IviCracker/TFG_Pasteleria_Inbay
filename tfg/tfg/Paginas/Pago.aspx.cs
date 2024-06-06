@@ -14,7 +14,15 @@ namespace tfg.Paginas
         {
             
         }
-
+        protected void searchButton_Click(object sender, EventArgs e)
+        {
+            string searchQuery = txtSearch.Text.Trim();
+            if (!string.IsNullOrEmpty(searchQuery))
+            {
+                // Redirigir a la página de resultados de búsqueda con la consulta de búsqueda como un parámetro de consulta
+                Response.Redirect($"ResultadosBusqueda.aspx?query={Server.UrlEncode(searchQuery)}");
+            }
+        }
         protected int comprobarCarrito(int idCliente)
         {
             int totalRegistros = 0;
@@ -119,7 +127,7 @@ namespace tfg.Paginas
                 Console.WriteLine("Error: " + ex.Message);
             }
 
-            InsertarEstadoPedido(idCliente);
+            InsertarEstadoPedido(idCliente, idPedido);
             borrarCarrito(idCliente);
             Response.Redirect("pago.aspx");
         }
@@ -150,12 +158,11 @@ namespace tfg.Paginas
                 Console.WriteLine("Error: " + ex.Message);
             }
         }
-
-        private void InsertarEstadoPedido(int idCliente)
+        private void InsertarEstadoPedido(int idCliente, int id_pedido)
         {
             string connectionString = "Server=sql.bsite.net\\MSSQL2016;Database=proyectopasteleriainbay_;Uid=proyectopasteleriainbay_;Pwd=proyectopasteleriainbay_;";
-            string queryInsert = "INSERT INTO pedido (id_cliente, Fecha_pedido, Estado_pedido) " +
-                                 "VALUES (@id_cliente, @fecha_pedido, @estado_pedido)";
+            string queryInsert = "INSERT INTO pedido (id_pedido, id_cliente, Fecha_pedido, Estado_pedido) " +
+                                 "VALUES (@id_pedido, @id_cliente, @fecha_pedido, @estado_pedido)";
 
             DateTime fechaPedido = DateTime.Now;
             try
@@ -164,6 +171,7 @@ namespace tfg.Paginas
                 {
                     using (SqlCommand commandInsert = new SqlCommand(queryInsert, connection))
                     {
+                        commandInsert.Parameters.AddWithValue("@id_pedido", id_pedido);
                         commandInsert.Parameters.AddWithValue("@id_cliente", idCliente);
                         commandInsert.Parameters.AddWithValue("@fecha_pedido", fechaPedido);
                         commandInsert.Parameters.AddWithValue("@estado_pedido", "pendiente");

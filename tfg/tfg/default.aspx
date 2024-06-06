@@ -128,9 +128,8 @@
 
                     <div class="search-cart-container">
                         <div class="search-container">
-                            <input type="text" placeholder="Buscar..." class="search-input" />
-                            <asp:Button ID="searchButton" runat="server" Text="Buscar" CssClass="search-button" />
-
+                            <asp:TextBox ID="txtSearch" runat="server" CssClass="search-input" Placeholder="Buscar..." />
+                            <asp:Button ID="searchButton" runat="server" Text="Buscar" CssClass="search-button" OnClick="searchButton_Click" />
                         </div>
 
                     </div>
@@ -160,9 +159,9 @@
 
                                 if (comprobarCarrito(idCliente) > 0)
                                 {
-                                    %>
-                                    <asp:Button ID="verCarritoBtn" runat="server" Text="Realizar pago" OnClick="VerCarritoBtn_Click" CssClass="ver-carrito-btn" />
-                                    <% 
+                        %>
+                        <asp:Button ID="verCarritoBtn" runat="server" Text="Realizar pago" OnClick="VerCarritoBtn_Click" CssClass="ver-carrito-btn" />
+                        <% 
                                 }
                             }
                         %>

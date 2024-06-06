@@ -4,8 +4,8 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
 -->
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
-    <_PublishTargetUrl>C:\Users\9ialmendros\Desktop</_PublishTargetUrl>
-    <History>True|2024-06-05T08:24:54.2940978Z;</History>
+    <_PublishTargetUrl>C:\Users\9ialmendros\Desktop\tfg</_PublishTargetUrl>
+    <History>True|2024-06-06T09:06:38.7827299Z;True|2024-06-05T10:24:54.2940978+02:00;</History>
   </PropertyGroup>
   <ItemGroup>
     <File Include="bin/BouncyCastle.Cryptography.dll">
@@ -228,16 +228,16 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>06/03/2024 13:16:16</publishTime>
     </File>
     <File Include="bin/tfg.dll">
-      <publishTime>06/05/2024 10:24:51</publishTime>
+      <publishTime>06/06/2024 14:00:07</publishTime>
     </File>
     <File Include="bin/tfg.pdb">
-      <publishTime>06/05/2024 10:24:51</publishTime>
+      <publishTime>06/06/2024 14:00:07</publishTime>
     </File>
     <File Include="bin/ZstdSharp.dll">
       <publishTime>06/03/2024 11:41:39</publishTime>
     </File>
     <File Include="default.aspx">
-      <publishTime>06/05/2024 10:20:42</publishTime>
+      <publishTime>06/06/2024 13:41:32</publishTime>
     </File>
     <File Include="default.css">
       <publishTime>06/05/2024 10:11:55</publishTime>
@@ -390,37 +390,43 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>06/05/2024 10:15:45</publishTime>
     </File>
     <File Include="Paginas/Contacto.aspx">
-      <publishTime>06/05/2024 10:19:21</publishTime>
+      <publishTime>06/06/2024 13:56:25</publishTime>
     </File>
     <File Include="Paginas/DatosCuenta.aspx">
-      <publishTime>06/05/2024 10:19:21</publishTime>
+      <publishTime>06/06/2024 13:56:15</publishTime>
     </File>
     <File Include="Paginas/DatosTarjeta.aspx">
-      <publishTime>06/05/2024 10:19:20</publishTime>
+      <publishTime>06/06/2024 13:56:10</publishTime>
     </File>
     <File Include="Paginas/DetalleProducto.aspx">
-      <publishTime>06/05/2024 10:19:20</publishTime>
+      <publishTime>06/06/2024 13:56:01</publishTime>
+    </File>
+    <File Include="Paginas/DetallesPedidos.aspx">
+      <publishTime>06/06/2024 13:55:47</publishTime>
     </File>
     <File Include="Paginas/listaDeseos.aspx">
-      <publishTime>06/05/2024 10:19:12</publishTime>
+      <publishTime>06/06/2024 13:55:40</publishTime>
     </File>
     <File Include="Paginas/MiCuenta.aspx">
-      <publishTime>06/05/2024 10:19:12</publishTime>
+      <publishTime>06/06/2024 13:55:33</publishTime>
     </File>
     <File Include="Paginas/Nosotros.aspx">
-      <publishTime>06/05/2024 10:19:11</publishTime>
+      <publishTime>06/06/2024 13:55:27</publishTime>
     </File>
     <File Include="Paginas/Pago.aspx">
-      <publishTime>06/05/2024 10:17:23</publishTime>
+      <publishTime>06/06/2024 13:55:19</publishTime>
     </File>
     <File Include="Paginas/Productos.aspx">
-      <publishTime>06/05/2024 10:19:10</publishTime>
+      <publishTime>06/06/2024 13:55:07</publishTime>
     </File>
     <File Include="Paginas/Registro.aspx">
-      <publishTime>06/05/2024 10:19:57</publishTime>
+      <publishTime>06/06/2024 13:54:44</publishTime>
+    </File>
+    <File Include="Paginas/ResultadosBusqueda.aspx">
+      <publishTime>06/06/2024 13:54:33</publishTime>
     </File>
     <File Include="Web.config">
-      <publishTime>06/05/2024 10:24:52</publishTime>
+      <publishTime>06/06/2024 12:05:17</publishTime>
     </File>
   </ItemGroup>
 </Project>
