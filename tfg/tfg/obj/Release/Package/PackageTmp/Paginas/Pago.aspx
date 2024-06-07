@@ -21,6 +21,7 @@
 
     <link rel="stylesheet" href="../default.css" />
     <link rel="stylesheet" href="../Estilos/Footer.css" />
+    <link rel="stylesheet" href="../Estilos/Pago.css" />
 
     <script src="../default.js"></script>
     <script>
@@ -119,10 +120,10 @@
                 </nav>
 
                 <div class="search-cart-container">
-                        <div class="search-container">
-                            <asp:TextBox ID="txtSearch" runat="server" CssClass="search-input" Placeholder="Buscar..." />
-                            <asp:Button ID="searchButton" runat="server" Text="Buscar" CssClass="search-button" OnClick="searchButton_Click" />
-                        </div>
+                    <div class="search-container">
+                        <asp:TextBox ID="txtSearch" runat="server" CssClass="search-input" Placeholder="Buscar..." />
+                        <asp:Button ID="searchButton" runat="server" Text="Buscar" CssClass="search-button" OnClick="searchButton_Click" />
+                    </div>
 
                 </div>
                 <div class="cart-icon" id="cartIcon">
@@ -168,10 +169,73 @@
 
             </header>
 
+            <table>
+                <tbody>
+                    <tr>
+                        <td>
+                            <div class="tarjetaCredito">
+                                <div class="datosTarjeta">
+                                    <div class="grupo">
+                                        <span for="numeroTarjeta">Número de Tarjeta:</span>
+                                        <asp:TextBox ID="txtNumeroTarjeta" runat="server" placeholder="Número de Tarjeta" MaxLength="16" ReadOnly="true"></asp:TextBox>
+                                    </div>
+                                    <div class="grupo">
+                                        <span for="nombreTarjeta">Nombre en la Tarjeta:</span>
+                                        <asp:TextBox ID="txtNombreTarjeta" runat="server" placeholder="Nombre en la Tarjeta" ReadOnly="true"></asp:TextBox>
+                                    </div>
+                                    <div class="grupo">
+                                        <span for="fechaExpiracion">Fecha de Expiración:</span>
+                                        <asp:DropDownList ID="mesExpiracion" runat="server" Enabled="false">
+                                            <asp:ListItem Text="Mes" Value="" />
+                                            <asp:ListItem Text="Enero" Value="01" />
+                                            <asp:ListItem Text="Febrero" Value="02" />
+                                            <asp:ListItem Text="Marzo" Value="03" />
+                                            <asp:ListItem Text="Abril" Value="04" />
+                                            <asp:ListItem Text="Mayo" Value="05" />
+                                            <asp:ListItem Text="Junio" Value="06" />
+                                            <asp:ListItem Text="Julio" Value="07" />
+                                            <asp:ListItem Text="Agosto" Value="08" />
+                                            <asp:ListItem Text="Septiembre" Value="09" />
+                                            <asp:ListItem Text="Octubre" Value="10" />
+                                            <asp:ListItem Text="Noviembre" Value="11" />
+                                            <asp:ListItem Text="Diciembre" Value="12" />
+                                        </asp:DropDownList>
+                                        <asp:DropDownList ID="anioExpiracion" runat="server" Enabled="false">
+                                            <asp:ListItem Text="Año" Value="" />
+                                            <asp:ListItem Text="2024" Value="01" />
+                                            <asp:ListItem Text="2025" Value="02" />
+                                            <asp:ListItem Text="2026" Value="03" />
+                                            <asp:ListItem Text="2027" Value="04" />
+                                            <asp:ListItem Text="2028" Value="05" />
+                                            <asp:ListItem Text="2029" Value="06" />
+                                            <asp:ListItem Text="2030" Value="07" />
+                                            <asp:ListItem Text="2031" Value="08" />
+                                            <asp:ListItem Text="2032" Value="09" />
+                                            <asp:ListItem Text="2033" Value="10" />
+                                            <asp:ListItem Text="2034" Value="11" />
+                                        </asp:DropDownList>
+                                    </div>
+                                    <div class="grupo">
+                                        <span for="cvv">CVV:</span>
+                                        <asp:TextBox ID="txtCVV" runat="server" placeholder="CVV" MaxLength="3" ReadOnly="true"></asp:TextBox>
+                                    </div>
+                                </div>
+                                <asp:Button ID="btnEditarDatosTarjeta" runat="server" Text="Editar Datos" OnClick="BtnEditarDatosTarjeta_Click" CssClass="btnGuardar" />
+
+                            </div>
+
+                        </td>
+                        <td>
+                            <div id="ultimoPedidosContainer" runat="server"></div>
+                            <asp:Button ID="btnPagar" runat="server" Text="Pagar" OnClick="BtnPagar_Click" CssClass="btnPagar" />
+
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
 
 
 
-            <div id="pedidos" runat="server" class="pedidos-container"></div>
 
 
 

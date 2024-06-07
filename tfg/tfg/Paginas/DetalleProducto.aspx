@@ -28,7 +28,83 @@
 
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
     <script src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+    <style>
+        .producto-detalle {
+            display: flex;
+            flex-direction: row;
+            align-items: flex-start;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            padding: 20px;
+            margin: 20px;
+        }
 
+            .producto-detalle img {
+                flex: 1;
+                max-width: 30%;
+                height: auto;
+                border-radius: 5px;
+                margin-right: 20px;
+            }
+
+            .producto-detalle div.info {
+                flex: 1;
+                display: flex;
+                flex-direction: column;
+                justify-content: space-around;
+            }
+
+            .producto-detalle h2 {
+                font-size: 24px;
+                margin-bottom: 10px;
+            }
+
+            .producto-detalle p {
+                font-size: 18px;
+                margin-bottom: 5px;
+            }
+
+        .btnCarrito, .btnDeseos {
+            text-align:center;
+            padding: 10px 20px; /* Espaciado interno */
+            background-color: #94604f; /* Color de fondo */
+            color: white; /* Color del texto */
+            border: none; /* Sin borde */
+            border-radius: 5px; /* Bordes redondeados */
+            cursor: pointer; /* Manita para el cursor */
+            transition: transform 0.3s ease; /* Animación para el efecto hover */
+            display: inline-flex; /* Para alinear la imagen y centrarla */
+            align-items: center; /* Centrar contenido verticalmente */
+            justify-content: center; /* Centrar contenido horizontalmente */
+            width: 20%;
+            margin:5%;
+            align-content:end;
+        }
+
+            /* Estilo para la imagen dentro de los botones */
+            
+
+            /* Efecto hover para los botones */
+            .btnCarrito:hover, .btnDeseos:hover {
+                background-color: #7b4f3e; /* Color de fondo al hacer hover */
+                transform: scale(1.05); /* Aumenta el tamaño al hacer hover */
+            }
+
+        @media screen and (orientation: portrait) {
+
+
+            .producto-detalle img {
+                margin-right: 0;
+                margin-bottom: 20px;
+                max-width: 100%;
+            }
+
+            .producto-detalle div.info {
+                padding-left: 10%;
+                text-align: left;
+            }
+        }
+    </style>
 </head>
 <body>
     <form id="form1" runat="server">
@@ -64,21 +140,21 @@
                 <ul>
                     <li><a href="../default.aspx">Inicio</a></li>
                     <li><a href="/Productos.aspx">Productos</a>
-                        
+
                     </li>
                     <li><a href="Nosotros.aspx">Nosotros</a></li>
                     <li><a href="Contacto.aspx">Contacto</a>
-                        
+
                     </li>
-                    
+
                 </ul>
             </nav>
 
             <div class="search-cart-container">
-                        <div class="search-container">
-                            <asp:TextBox ID="txtSearch" runat="server" CssClass="search-input" Placeholder="Buscar..." />
-                            <asp:Button ID="searchButton" runat="server" Text="Buscar" CssClass="search-button" OnClick="searchButton_Click" />
-                        </div>
+                <div class="search-container">
+                    <asp:TextBox ID="txtSearch" runat="server" CssClass="search-input" Placeholder="Buscar..." />
+                    <asp:Button ID="searchButton" runat="server" Text="Buscar" CssClass="search-button" OnClick="searchButton_Click" />
+                </div>
 
             </div>
             <div class="cart-icon" id="cartIcon">
@@ -122,11 +198,7 @@
         <div id="detalleContainer" runat="server">
             <!-- Aquí se insertará el detalle del producto -->
         </div>
-        <div>
-            <button class="btn" onclick="agregarACesta()">Añadir a la Cesta</button>
-            <button class="btn" onclick="agregarAListaDeseos()">Añadir a la Lista de Deseos</button>
 
-        </div>
 
 
 

@@ -38,9 +38,17 @@
                 }
             });
         });
+    </script>
+    <script type="text/javascript">
+        function mostrarModalSinTarjetas() {
+            // Mostrar el modal
+            document.getElementById('modalSinTarjetas').style.display = 'block';
+        }
 
-
-
+        function cerrarModal() {
+            // Ocultar el modal
+            document.getElementById('modalSinTarjetas').style.display = 'none';
+        }
     </script>
 </head>
 <body>
@@ -76,7 +84,7 @@
             <nav class="navbar">
                 <ul>
                     <li><a href="../default.aspx">Inicio</a></li>
-                    <li><a href="/Productos.aspx">Productos</a>
+                    <li><a href="Productos.aspx">Productos</a>
 
                     </li>
                     <li><a href="Nosotros.aspx">Nosotros</a></li>
@@ -88,10 +96,10 @@
             </nav>
 
             <div class="search-cart-container">
-                        <div class="search-container">
-                            <asp:TextBox ID="txtSearch" runat="server" CssClass="search-input" Placeholder="Buscar..." />
-                            <asp:Button ID="searchButton" runat="server" Text="Buscar" CssClass="search-button" OnClick="searchButton_Click" />
-                        </div>
+                <div class="search-container">
+                    <asp:TextBox ID="txtSearch" runat="server" CssClass="search-input" Placeholder="Buscar..." />
+                    <asp:Button ID="searchButton" runat="server" Text="Buscar" CssClass="search-button" OnClick="searchButton_Click" />
+                </div>
 
             </div>
             <div class="cart-icon" id="cartIcon">
@@ -137,6 +145,13 @@
 
         </header>
 
+
+        <div id="modalSinTarjetas" class="modal">
+            <div class="modal-content">
+                <span class="close" onclick="cerrarModal()">&times;</span>
+                <p>No tienes ninguna tarjeta añadida. Por favor, añade una tarjeta.</p>
+            </div>
+        </div>
         <%-- Datos Tarjeta --%>
 
         <div class="tarjetaCredito">
@@ -186,6 +201,7 @@
                     <asp:TextBox ID="txtCVV" runat="server" placeholder="CVV" MaxLength="3"></asp:TextBox>
                 </div>
                 <asp:Button ID="btnGuardarDatosTarjeta" runat="server" Text="Guardar Datos" OnClick="BtnGuardarDatosTarjeta_Click" CssClass="btnGuardar" />
+                <asp:Button ID="btnBorrarDatosTarjeta" runat="server" Text="Borrar Datos" OnClick="BtnBorrarDatosTarjeta_Click" CssClass="btnGuardar" />
             </div>
         </div>
 

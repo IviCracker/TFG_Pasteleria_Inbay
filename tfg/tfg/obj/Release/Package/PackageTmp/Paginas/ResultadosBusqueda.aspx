@@ -15,7 +15,7 @@
     </script>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 
-    <title>Lista de productos deseados</title>
+    <title>Lista de productos buscados</title>
 
     <link rel="stylesheet" href="../default.css" />
     <link rel="stylesheet" href="../Estilos/Footer.css" />
@@ -107,7 +107,7 @@
 
                 </ul>
             </nav>
-
+            <asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>
             <div class="search-cart-container">
                         <div class="search-container">
                             <asp:TextBox ID="txtSearch" runat="server" CssClass="search-input" Placeholder="Buscar..." />
@@ -152,7 +152,7 @@
         </header>
 
         <%-- Datos Tarjeta --%>
-
+        <h2 style="text-align: center; font-size: 26px; padding-top: 50px;">Productos Buscados</h2>
         <div id="productosBuscador" runat="server" class="productos-container"></div>
 
 

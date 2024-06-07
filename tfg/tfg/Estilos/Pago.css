@@ -1,7 +1,7 @@
 ﻿/* Estilos para el contenedor de la tarjeta de crédito */
 .tarjetaCredito {
     max-width: 600px;
-    margin: 0 auto;
+    margin: 4%;
     padding: 20px; /* Espacio interno */
     border-radius: 10px; /* Bordes redondeados */
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); /* Sombra */
@@ -60,6 +60,7 @@
     .datosTarjeta .btnGuardar:hover {
         background-color: #55281b;
     }
+
 #mesExpiracion {
     margin-left: 11%;
 }
@@ -75,68 +76,129 @@
 
         .datosTarjeta .grupo span {
             margin-bottom: 10px; /* Aumentamos el espacio entre la etiqueta y el campo de entrada */
-            font-size: 40px;
+            font-size: 30px;
         }
 
         .datosTarjeta .grupo input[type="text"],
         .datosTarjeta .grupo select {
             width: calc(100% - 20px); /* Restamos el espacio del margen derecho */
-            font-size:40px;
+            font-size: 30px;
         }
-        #mesExpiracion{
-            margin-left: 5.5%;
-        }
+
+    #mesExpiracion {
+        margin-left: 5.5%;
+    }
+
     .datosTarjeta .btnGuardar {
-        font-size:40px;
+        font-size: 30px;
     }
 }
 
-.modal {
-    display: none;
-    position: fixed;
-    z-index: 1;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    overflow: auto;
-    background-color: rgb(0,0,0);
-    background-color: rgba(0,0,0,0.4);
+.pedidos-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
 }
 
-.modal-content {
-    background-color: #fefefe;
-    margin: 15% auto;
-    padding: 20px;
-    border: 1px solid #888;
-    width: 80%;
-    max-width: 500px;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-    animation: animateModal 0.4s;
+.pedido {
+    border: 1px solid #ccc;
+    width: 90%;
+    padding: 15px;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+    transition: box-shadow 0.3s ease;
+    margin: 20px auto;
 }
 
-@keyframes animateModal {
-    from {
-        top: -300px;
-        opacity: 0
+    .pedido:hover {
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     }
 
-    to {
-        top: 0;
-        opacity: 1
-    }
+.detalles-pedido {
+    margin-top: 10px;
+    padding-left: 20px;
 }
 
-.close {
-    color: #aaa;
-    float: right;
-    font-size: 28px;
+.detalle-pedido {
+    border-top: 1px solid #eee;
+    padding-top: 10px;
+    margin-top: 10px;
+}
+
+    .detalle-pedido:first-child {
+        border-top: none;
+        padding-top: 0;
+        margin-top: 0;
+    }
+
+.precio-total-pedido {
     font-weight: bold;
+    text-align: right;
+    margin-top: 10px;
+
 }
 
-    .close:hover,
-    .close:focus {
-        color: black;
-        text-decoration: none;
-        cursor: pointer;
+table {
+    width: 100%;
+}
+td {
+    width: 50%;
+    
+    align-items: center;
+    justify-content: center;
+}
+/* Estilos para la tabla en modo portrait */
+@media screen and (orientation: portrait) {
+    table {
+        display: block;
+        width: 100%;
+    }
+    
+    tbody,
+    tr,
+    td {
+        display: block;
+        width: 100%;
+    }
+    
+    td {
+        margin-bottom: 20px; /* Espacio entre las celdas */
+    }
+    .btnGuardar{
+        font-size: 30px !important;
+    }
+    .btnPagar{
+        font-size: 30px !important;
+    }
+}
+
+.btnGuardar {
+
+    padding: 10px 20px;
+    background-color: #94604f;
+    color: white;
+    border: none;
+    border-radius: 5px; /* Bordes redondeados */
+    cursor: pointer;
+}
+
+/* Estilos para el botón al pasar el ratón por encima */
+.btnGuardar:hover {
+    background-color: #55281b;
+}
+
+.btnPagar {
+    width: 90%;
+    padding: 10px 20px;
+    background-color: #94604f;
+    color: white;
+    border: none;
+    border-radius: 5px; /* Bordes redondeados */
+    cursor: pointer;
+    margin: auto 5%;
+}
+
+/* Estilos para el botón al pasar el ratón por encima */
+    .btnPagar:hover {
+        background-color: #55281b;
     }

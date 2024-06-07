@@ -550,28 +550,52 @@ namespace tfg.Paginas
         {
             string connectionString = "Server=sql.bsite.net\\MSSQL2016;Database=proyectopasteleriainbay_;Uid=proyectopasteleriainbay_;Pwd=proyectopasteleriainbay_;";
             int idCliente = ObtenerIdCliente();
-            int idPedido = GenerarIdPedido(); // Supongamos que tienes una función para generar el id_pedido
-
-            string queryCarrito = "SELECT id_producto, cantidad FROM carrito WHERE id_cliente = @id_cliente";
 
             try
             {
                 using (SqlConnection connection = new SqlConnection(connectionString))
                 {
-                    using (SqlCommand commandCarrito = new SqlCommand(queryCarrito, connection))
+                    connection.Open();
+
+                    // Consultar si existe una tarjeta de crédito
+                    string queryTarjeta = "SELECT COUNT(*) FROM informacion_tarjeta WHERE id_cliente = @id_cliente";
+                    using (SqlCommand commandTarjeta = new SqlCommand(queryTarjeta, connection))
                     {
-                        commandCarrito.Parameters.AddWithValue("@id_cliente", idCliente);
-                        connection.Open();
+                        commandTarjeta.Parameters.AddWithValue("@id_cliente", idCliente);
+                        int cantidadTarjetas = (int)commandTarjeta.ExecuteScalar();
 
-                        using (SqlDataReader reader = commandCarrito.ExecuteReader())
+                        if (cantidadTarjetas > 0)
                         {
-                            while (reader.Read())
-                            {
-                                int idProducto = Convert.ToInt32(reader["id_producto"]);
-                                int cantidad = Convert.ToInt32(reader["cantidad"]);
+                            int idPedido = GenerarIdPedido(); // Supongamos que tienes una función para generar el id_pedido
 
-                                InsertarDetallePedido(idPedido, idProducto, cantidad);
+                            string queryCarrito = "SELECT id_producto, cantidad FROM carrito WHERE id_cliente = @id_cliente";
+
+                            // Consultar el carrito
+                            using (SqlCommand commandCarrito = new SqlCommand(queryCarrito, connection))
+                            {
+                                commandCarrito.Parameters.AddWithValue("@id_cliente", idCliente);
+
+                                using (SqlDataReader reader = commandCarrito.ExecuteReader())
+                                {
+                                    while (reader.Read())
+                                    {
+                                        int idProducto = Convert.ToInt32(reader["id_producto"]);
+                                        int cantidad = Convert.ToInt32(reader["cantidad"]);
+
+                                        InsertarDetallePedido(idPedido, idProducto, cantidad);
+                                    }
+                                }
                             }
+
+                            // Insertar estado del pedido y borrar el carrito
+                            InsertarEstadoPedido(idCliente, idPedido);
+                            borrarCarrito(idCliente);
+                            Response.Redirect("pago.aspx");
+                        }
+                        else
+                        {
+                            // Si no hay tarjetas, redirigir a la página para agregar una tarjeta
+                            Response.Redirect("DatosTarjeta.aspx");
                         }
                     }
                 }
@@ -581,12 +605,7 @@ namespace tfg.Paginas
                 // Manejar la excepción aquí
                 Console.WriteLine("Error: " + ex.Message);
             }
-
-            InsertarEstadoPedido(idCliente, idPedido);
-            borrarCarrito(idCliente);
-            Response.Redirect("pago.aspx");
         }
-
         private void borrarCarrito(int idCliente)
         {
             string connectionString = "Server=sql.bsite.net\\MSSQL2016;Database=proyectopasteleriainbay_;Uid=proyectopasteleriainbay_;Pwd=proyectopasteleriainbay_;";

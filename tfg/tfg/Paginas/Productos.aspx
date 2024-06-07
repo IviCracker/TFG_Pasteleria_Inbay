@@ -54,8 +54,6 @@
             // Redirigir a la página de detalle del producto
             window.location.href = url;
         }
-
-
     </script>
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
     <script src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
@@ -117,10 +115,10 @@
                 </nav>
 
                 <div class="search-cart-container">
-                        <div class="search-container">
-                            <asp:TextBox ID="txtSearch" runat="server" CssClass="search-input" Placeholder="Buscar..." />
-                            <asp:Button ID="searchButton" runat="server" Text="Buscar" CssClass="search-button" OnClick="searchButton_Click" />
-                        </div>
+                    <div class="search-container">
+                        <asp:TextBox ID="txtSearch" runat="server" CssClass="search-input" Placeholder="Buscar..." />
+                        <asp:Button ID="searchButton" runat="server" Text="Buscar" CssClass="search-button" OnClick="searchButton_Click" />
+                    </div>
 
                 </div>
                 <div class="cart-icon" id="cartIcon">

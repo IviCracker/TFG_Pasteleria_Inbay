@@ -14,31 +14,348 @@ namespace tfg.Paginas
         {
             if (!IsPostBack)
             {
-                // Leer los parámetros de la URL
-                string nombre = Request.QueryString["nombre"];
-                string imagenUrl = Request.QueryString["imagenUrl"];
-                decimal precio = Convert.ToDecimal(Request.QueryString["precio"]);
-                double valoracion = Convert.ToDouble(Request.QueryString["valoracion"]);
+                CargarInformacionProducto();
+            }
+        }
 
-                // Buscar el control detalleContainer en la página
-                var detalleContainer = this.FindControl("detalleContainer");
 
-                // Mostrar los detalles del producto
-                string detalleHtml = $@"
-                <div class='producto-detalle'>
-                    <h2>{nombre}</h2>
-                    <img src='{imagenUrl}' alt='{nombre}'>
-                    <p>Precio: {precio}</p>
-                    <p>Valoración: {valoracion}</p>
-                </div>";
 
-                // Verificar que el contenedor se haya encontrado
-                if (detalleContainer != null && detalleContainer is Control)
+        protected void CargarInformacionProducto()
+        {
+            // Obtener el nombre del producto desde la URL
+            string nombreProducto = Request.QueryString["nombre"];
+
+            if (string.IsNullOrEmpty(nombreProducto))
+            {
+                // Si no hay nombre de producto en la URL, redirigir o mostrar un mensaje de error
+                Response.Redirect("../default.aspx");
+                return;
+            }
+
+            // Cadena de conexión a la base de datos
+            string connectionString = "Server=sql.bsite.net\\MSSQL2016;Database=proyectopasteleriainbay_;Uid=proyectopasteleriainbay_;Pwd=proyectopasteleriainbay_;";
+            string query = @"
+    SELECT 
+        p.Nombre, 
+        p.Descripcion, 
+        p.Precio, 
+        p.Stock, 
+        ISNULL(AVG(vp.valoracion), 0) AS ValoracionMedia 
+    FROM 
+        producto p 
+    LEFT JOIN 
+        valoracion_producto vp ON p.id_producto = vp.id_producto 
+    WHERE 
+        p.Nombre = @Nombre 
+    GROUP BY 
+        p.id_producto, 
+        p.Nombre, 
+        p.Descripcion, 
+        p.Precio, 
+        p.Stock";
+
+            // Crear la conexión y el comando SQL
+            using (SqlConnection conexion = new SqlConnection(connectionString))
+            {
+                using (SqlCommand comando = new SqlCommand(query, conexion))
                 {
-                    ((Control)detalleContainer).Controls.Add(new LiteralControl(detalleHtml));
+                    // Establecer el nombre del producto como parámetro para evitar la inyección de SQL
+                    comando.Parameters.AddWithValue("@Nombre", nombreProducto);
+
+                    // Abrir la conexión
+                    conexion.Open();
+
+                    // Ejecutar el comando y leer los resultados
+                    using (SqlDataReader reader = comando.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            string nombre = reader["Nombre"].ToString();
+                            string descripcion = reader["Descripcion"].ToString();
+                            decimal precio = Convert.ToDecimal(reader["Precio"]);
+                            int stock = Convert.ToInt32(reader["Stock"]);
+                            double valoracion = Convert.ToDouble(reader["ValoracionMedia"]);
+
+                            // Convertir la valoración a estrellas
+                            string valoracionEstrellas;
+                            if (valoracion == 0)
+                            {
+                                double notaCero = 5.05;
+                                valoracionEstrellas = ConvertirValoracionAEstrellas(notaCero);
+                            }
+                            else
+                            {
+                                valoracionEstrellas = ConvertirValoracionAEstrellas(valoracion);
+                            }
+
+                            // Crear la URL de la imagen
+                            string imagenUrl = $"../imagenesProductos/{nombre}.png";
+
+                            // Crear los controles de los botones
+                            string idBotonCarrito = $"btn-carrito-{nombre.Replace(" ", "-")}";
+                            string idBotonDeseos = $"btn-deseos-{nombre.Replace(" ", "-")}";
+
+                            ImageButton botonCarrito = new ImageButton
+                            {
+                                CssClass = "btnCarrito",
+                                ID = idBotonCarrito,
+                                ImageUrl = "~/imagenes/carrito1.png",
+                                CommandArgument = nombre
+                            };
+                            botonCarrito.Click += new ImageClickEventHandler(AgregarACarrito_Click);
+
+                            ImageButton botonListaDeseos = new ImageButton
+                            {
+                                CssClass = "btnDeseos",
+                                ID = idBotonDeseos,
+                                ImageUrl = "~/imagenes/corazonVacio.png", // Predeterminado
+                                CommandArgument = nombre
+                            };
+                            botonListaDeseos.Click += new ImageClickEventHandler(AgregarAListaDeseos_Click);
+
+                            if (Session["UsuarioActual"] != null)
+                            {
+                                botonListaDeseos.ImageUrl = comprobarListaDeseados(nombre)
+                                    ? "~/imagenes/corazonLleno.png"
+                                    : "~/imagenes/corazonVacio.png";
+                            }
+
+                            // Generar el HTML del producto
+                            string productoHtmlInicio = $@"
+                    <div class='producto-detalle'>
+                        <img src='{imagenUrl}' alt='{nombre}' />
+                        <div class='info'>
+                            <h2>{nombre}</h2>
+                            <p>Descripcion: {descripcion}</p>
+                            <p>Precio: {precio} €</p>
+                            <p>Valoración: {valoracionEstrellas}</p>
+                            <p>Stock: {stock}</p>
+                    ";
+
+                            string productoHtmlFin = @"
+                        </div>
+                    </div>";
+
+                            // Agregar el inicio del HTML del producto al contenedor
+                            detalleContainer.Controls.Add(new LiteralControl(productoHtmlInicio));
+
+                            // Crear un contenedor para los botones
+                            var botonContainer = new Panel();
+                            botonContainer.Controls.Add(botonCarrito);
+                            botonContainer.Controls.Add(botonListaDeseos);
+
+                            // Agregar el contenedor de botones al contenedor principal
+                            detalleContainer.Controls.Add(botonContainer);
+
+                            // Agregar el fin del HTML del producto al contenedor
+                            detalleContainer.Controls.Add(new LiteralControl(productoHtmlFin));
+                        }
+                    }
                 }
             }
         }
+
+
+        protected void AgregarAListaDeseos_Click(object sender, EventArgs e)
+        {
+            // Obtener el ID del cliente y el ID del producto
+            int idCliente = ObtenerIdCliente();
+            ImageButton clickedButton = (ImageButton)sender;
+            string nombreProducto = clickedButton.CommandArgument;
+
+            // Convertir el CommandArgument a entero y usarlo para obtener el ID del producto
+            int idProducto = ObtenerIdProducto(nombreProducto);
+
+            // Verificar si el producto ya está en la lista de deseos del cliente
+            if (comprobarListaDeseados(nombreProducto))
+            {
+                // Si el producto ya está en la lista, eliminarlo
+                EliminarProductoDeListaDeseos(idCliente, idProducto);
+            }
+            else
+            {
+                // Si el producto no está en la lista, agregarlo
+                AgregarProductoAListaDeseos(idCliente, idProducto);
+            }
+            ScriptManager.RegisterStartupScript(this, GetType(), "PostBackScript", "__doPostBack('', '');", true);
+            // Actualizar la vista, si es necesario
+            //CargarProductosCarrito(); // O cualquier otra lógica de actualización de la interfaz de usuario
+        }
+        protected void AgregarProductoAListaDeseos(int idCliente, int idProducto)
+        {
+            string connectionString = "Server=sql.bsite.net\\MSSQL2016;Database=proyectopasteleriainbay_;Uid=proyectopasteleriainbay_;Pwd=proyectopasteleriainbay_;";
+            string query = "INSERT INTO lista_deseos_cliente (id_cliente, id_producto) VALUES (@idCliente, @idProducto)"; // Consulta para insertar un producto en la lista de deseos del cliente
+
+            using (SqlConnection conexion = new SqlConnection(connectionString))
+            {
+                SqlCommand comando = new SqlCommand(query, conexion);
+                comando.Parameters.AddWithValue("@idCliente", idCliente); // Agregar el parámetro del ID del cliente
+                comando.Parameters.AddWithValue("@idProducto", idProducto); // Agregar el parámetro del ID del producto
+                conexion.Open();
+
+                comando.ExecuteNonQuery(); // Ejecutar la consulta para insertar el producto en la lista de deseos del cliente
+            }
+        }
+        protected bool comprobarListaDeseados(string nombreProducto)
+        {
+
+            int idCliente = ObtenerIdCliente();
+            int idProducto = ObtenerIdProducto(nombreProducto);
+
+            string connectionString = "Server=sql.bsite.net\\MSSQL2016;Database=proyectopasteleriainbay_;Uid=proyectopasteleriainbay_;Pwd=proyectopasteleriainbay_;";
+            string query = "SELECT 1 FROM lista_deseos_cliente WHERE id_cliente = @idCliente AND id_producto = @idProducto";
+
+            using (SqlConnection conexion = new SqlConnection(connectionString))
+            {
+                SqlCommand comando = new SqlCommand(query, conexion);
+                comando.Parameters.AddWithValue("@idCliente", idCliente); // Agregar el parámetro del ID del cliente
+                comando.Parameters.AddWithValue("@idProducto", idProducto); // Agregar el parámetro del ID del producto
+
+                conexion.Open();
+
+                using (SqlDataReader reader = comando.ExecuteReader())
+                {
+                    // Verificar si hay algún resultado
+                    if (reader.Read())
+                    {
+                        return true; // Si hay un resultado, el producto está en la lista de deseos
+                    }
+                    else
+                    {
+                        return false; // Si no hay resultados, el producto no está en la lista de deseos
+                    }
+                }
+            }
+        }
+        protected void AgregarACarrito_Click(object sender, EventArgs e)
+        {
+            // Obtener el ID del cliente y el ID del producto
+            int idCliente = ObtenerIdCliente();
+            ImageButton clickedButton = (ImageButton)sender;
+            string commandArgument = clickedButton.CommandArgument;
+
+            // Convertir el CommandArgument a entero y usarlo para obtener el ID del producto
+            int idProducto = ObtenerIdProducto(commandArgument);
+
+            // Agregar el producto a la lista de deseos del cliente en la base de datos
+            AgregarProductoACarrito(idCliente, idProducto);
+            ScriptManager.RegisterStartupScript(this, GetType(), "PostBackScript", "__doPostBack('', '');", true);
+
+        }
+        protected int ObtenerIdProducto(string nombreProducto)
+        {
+            int idProducto = 0; // Inicializamos el ID del producto como 0
+
+            string connectionString = "Server=sql.bsite.net\\MSSQL2016;Database=proyectopasteleriainbay_;Uid=proyectopasteleriainbay_;Pwd=proyectopasteleriainbay_;";
+            string query = "SELECT id_producto FROM producto WHERE Nombre = @nombreProducto"; // Consulta para obtener el ID del producto basado en el nombre
+
+            using (SqlConnection conexion = new SqlConnection(connectionString))
+            {
+                SqlCommand comando = new SqlCommand(query, conexion);
+                comando.Parameters.AddWithValue("@nombreProducto", nombreProducto); // Agregar el parámetro del nombre del producto
+                conexion.Open();
+
+                object result = comando.ExecuteScalar(); // Ejecutar la consulta y obtener el resultado
+
+                if (result != null) // Si se encuentra el ID del producto
+                {
+                    idProducto = Convert.ToInt32(result); // Convertir el resultado a entero y asignarlo a idProducto
+                }
+            }
+
+            return idProducto;
+        }
+
+        protected void AgregarProductoACarrito(int idCliente, int idProducto)
+        {
+            string connectionString = "Server=sql.bsite.net\\MSSQL2016;Database=proyectopasteleriainbay_;Uid=proyectopasteleriainbay_;Pwd=proyectopasteleriainbay_;";
+
+            // Consulta para verificar la existencia del producto en el carrito
+            string queryCheck = "SELECT cantidad FROM carrito WHERE id_cliente = @idCliente AND id_producto = @idProducto";
+
+            // Consulta para insertar el producto si no existe
+            string queryInsert = "INSERT INTO carrito (id_cliente, id_producto, cantidad) VALUES (@idCliente, @idProducto, @cantidad)";
+
+            // Consulta para actualizar la cantidad del producto si ya existe
+            string queryUpdate = "UPDATE carrito SET cantidad = cantidad + 1 WHERE id_cliente = @idCliente AND id_producto = @idProducto";
+
+            using (SqlConnection conexion = new SqlConnection(connectionString))
+            {
+                SqlCommand comandoCheck = new SqlCommand(queryCheck, conexion);
+                comandoCheck.Parameters.AddWithValue("@idCliente", idCliente);
+                comandoCheck.Parameters.AddWithValue("@idProducto", idProducto);
+
+                conexion.Open();
+
+                var cantidad = comandoCheck.ExecuteScalar();
+
+                if (cantidad == null) // El producto no existe en el carrito
+                {
+                    SqlCommand comandoInsert = new SqlCommand(queryInsert, conexion);
+                    comandoInsert.Parameters.AddWithValue("@idCliente", idCliente);
+                    comandoInsert.Parameters.AddWithValue("@idProducto", idProducto);
+                    comandoInsert.Parameters.AddWithValue("@cantidad", 1);
+
+                    comandoInsert.ExecuteNonQuery(); // Insertar el producto en el carrito con cantidad = 1
+                }
+                else // El producto ya existe en el carrito
+                {
+                    SqlCommand comandoUpdate = new SqlCommand(queryUpdate, conexion);
+                    comandoUpdate.Parameters.AddWithValue("@idCliente", idCliente);
+                    comandoUpdate.Parameters.AddWithValue("@idProducto", idProducto);
+
+                    comandoUpdate.ExecuteNonQuery(); // Incrementar la cantidad del producto en el carrito
+                }
+            }
+        }
+        private void EliminarProductoDeListaDeseos(int idCliente, int idProducto)
+        {
+            string connectionString = "Server=sql.bsite.net\\MSSQL2016;Database=proyectopasteleriainbay_;Uid=proyectopasteleriainbay_;Pwd=proyectopasteleriainbay_;";
+
+            string query = "DELETE FROM lista_deseos_cliente WHERE id_cliente = @idCliente AND id_producto = @idProducto";
+
+            try
+            {
+                using (SqlConnection conexion = new SqlConnection(connectionString))
+                {
+                    SqlCommand comando = new SqlCommand(query, conexion);
+                    comando.Parameters.AddWithValue("@idCliente", idCliente);
+                    comando.Parameters.AddWithValue("@idProducto", idProducto);
+                    conexion.Open();
+                    comando.ExecuteNonQuery();
+                }
+            }
+            catch (Exception ex)
+            {
+                // Manejar la excepción aquí
+            }
+        }
+       
+        protected string ConvertirValoracionAEstrellas(double valoracion)
+        {
+            // Calcula el número de estrellas completas
+            int estrellasCompletas = (int)Math.Floor(valoracion / 2);
+
+            // Calcula si hay una estrella adicional para agregar si la valoración es impar
+            bool agregarEstrellaMedia = valoracion % 2 != 0;
+
+            // Si la fracción es mayor o igual a 0.5, aproxima hacia arriba agregando una estrella completa
+            if (valoracion % 2 >= 0.5)
+            {
+                estrellasCompletas++;
+            }
+
+            // Crea una cadena con las estrellas completas en color amarillo
+            string estrellas = $"<span style='color: #ffbe61;'>{new string('★', estrellasCompletas)}</span>";
+
+            // Agrega estrellas vacías si es necesario
+            int estrellasVacias = 5 - estrellasCompletas;
+            estrellas += new string('☆', estrellasVacias);
+
+            return estrellas;
+        }
+
+
         protected void searchButton_Click(object sender, EventArgs e)
         {
             string searchQuery = txtSearch.Text.Trim();
@@ -246,28 +563,52 @@ namespace tfg.Paginas
         {
             string connectionString = "Server=sql.bsite.net\\MSSQL2016;Database=proyectopasteleriainbay_;Uid=proyectopasteleriainbay_;Pwd=proyectopasteleriainbay_;";
             int idCliente = ObtenerIdCliente();
-            int idPedido = GenerarIdPedido(); // Supongamos que tienes una función para generar el id_pedido
-
-            string queryCarrito = "SELECT id_producto, cantidad FROM carrito WHERE id_cliente = @id_cliente";
 
             try
             {
                 using (SqlConnection connection = new SqlConnection(connectionString))
                 {
-                    using (SqlCommand commandCarrito = new SqlCommand(queryCarrito, connection))
+                    connection.Open();
+
+                    // Consultar si existe una tarjeta de crédito
+                    string queryTarjeta = "SELECT COUNT(*) FROM informacion_tarjeta WHERE id_cliente = @id_cliente";
+                    using (SqlCommand commandTarjeta = new SqlCommand(queryTarjeta, connection))
                     {
-                        commandCarrito.Parameters.AddWithValue("@id_cliente", idCliente);
-                        connection.Open();
+                        commandTarjeta.Parameters.AddWithValue("@id_cliente", idCliente);
+                        int cantidadTarjetas = (int)commandTarjeta.ExecuteScalar();
 
-                        using (SqlDataReader reader = commandCarrito.ExecuteReader())
+                        if (cantidadTarjetas > 0)
                         {
-                            while (reader.Read())
-                            {
-                                int idProducto = Convert.ToInt32(reader["id_producto"]);
-                                int cantidad = Convert.ToInt32(reader["cantidad"]);
+                            int idPedido = GenerarIdPedido(); // Supongamos que tienes una función para generar el id_pedido
 
-                                InsertarDetallePedido(idPedido, idProducto, cantidad);
+                            string queryCarrito = "SELECT id_producto, cantidad FROM carrito WHERE id_cliente = @id_cliente";
+
+                            // Consultar el carrito
+                            using (SqlCommand commandCarrito = new SqlCommand(queryCarrito, connection))
+                            {
+                                commandCarrito.Parameters.AddWithValue("@id_cliente", idCliente);
+
+                                using (SqlDataReader reader = commandCarrito.ExecuteReader())
+                                {
+                                    while (reader.Read())
+                                    {
+                                        int idProducto = Convert.ToInt32(reader["id_producto"]);
+                                        int cantidad = Convert.ToInt32(reader["cantidad"]);
+
+                                        InsertarDetallePedido(idPedido, idProducto, cantidad);
+                                    }
+                                }
                             }
+
+                            // Insertar estado del pedido y borrar el carrito
+                            InsertarEstadoPedido(idCliente, idPedido);
+                            borrarCarrito(idCliente);
+                            Response.Redirect("pago.aspx");
+                        }
+                        else
+                        {
+                            // Si no hay tarjetas, redirigir a la página para agregar una tarjeta
+                            Response.Redirect("DatosTarjeta.aspx");
                         }
                     }
                 }
@@ -277,12 +618,7 @@ namespace tfg.Paginas
                 // Manejar la excepción aquí
                 Console.WriteLine("Error: " + ex.Message);
             }
-
-            InsertarEstadoPedido(idCliente, idPedido);
-            borrarCarrito(idCliente);
-            Response.Redirect("pago.aspx");
         }
-
         private void borrarCarrito(int idCliente)
         {
             string connectionString = "Server=sql.bsite.net\\MSSQL2016;Database=proyectopasteleriainbay_;Uid=proyectopasteleriainbay_;Pwd=proyectopasteleriainbay_;";

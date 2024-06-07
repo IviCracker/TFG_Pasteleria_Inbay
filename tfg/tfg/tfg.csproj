@@ -136,6 +136,7 @@
     <Content Include="Estilos\DetalleProducto.css" />
     <Content Include="Estilos\Footer.css" />
     <Content Include="Estilos\MiCuenta.css" />
+    <Content Include="Estilos\Pago.css" />
     <Content Include="Estilos\Registro.css" />
     <Content Include="fonts\icomoon\demo-files\demo.css" />
     <Content Include="fonts\icomoon\demo-files\demo.js" />

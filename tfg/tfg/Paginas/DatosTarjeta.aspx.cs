@@ -26,6 +26,7 @@ namespace tfg.Paginas
                 {
                     // Cargar los valores de los campos solo en el primer cargado de la página
                     CargarValoresCampos();
+                    comprobarTarjeta();
                 }
             }
         }
@@ -36,6 +37,33 @@ namespace tfg.Paginas
             {
                 // Redirigir a la página de resultados de búsqueda con la consulta de búsqueda como un parámetro de consulta
                 Response.Redirect($"ResultadosBusqueda.aspx?query={Server.UrlEncode(searchQuery)}");
+            }
+        }
+
+        protected void comprobarTarjeta()
+        {
+            int idCliente = ObtenerIdCliente();
+
+            string connectionString = "Server=sql.bsite.net\\MSSQL2016;Database=proyectopasteleriainbay_;Uid=proyectopasteleriainbay_;Pwd=proyectopasteleriainbay_;"; // Aquí debes poner tu cadena de conexión
+            bool tieneTarjetas = false;
+
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                string queryTarjetas = "SELECT COUNT(*) FROM informacion_tarjeta WHERE id_cliente = @id_cliente";
+
+                using (SqlCommand commandTarjetas = new SqlCommand(queryTarjetas, connection))
+                {
+                    commandTarjetas.Parameters.AddWithValue("@id_cliente", idCliente);
+                    connection.Open();
+
+                    int cantidadTarjetas = (int)commandTarjetas.ExecuteScalar();
+                    tieneTarjetas = cantidadTarjetas > 0;
+                }
+            }
+
+            if (!tieneTarjetas)
+            {
+                ScriptManager.RegisterStartupScript(this, GetType(), "NoTarjetasModal", "mostrarModalSinTarjetas();", true);
             }
         }
         protected int comprobarCarrito(int idCliente)
@@ -129,9 +157,39 @@ namespace tfg.Paginas
                     commandUpdate.ExecuteNonQuery();
                 }
             }
+            ScriptManager.RegisterStartupScript(this, GetType(), "PostBackScript", "__doPostBack('', '');", true);
+        }
+        protected void BtnBorrarDatosTarjeta_Click(object sender, EventArgs e)
+        {
+            int idCliente = ObtenerIdCliente();
+
+            string connectionString = "Server=sql.bsite.net\\MSSQL2016;Database=proyectopasteleriainbay_;Uid=proyectopasteleriainbay_;Pwd=proyectopasteleriainbay_;"; // Aquí debes poner tu cadena de conexión
+
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                string queryDelete = "DELETE FROM informacion_tarjeta WHERE id_cliente = @id_cliente";
+
+                using (SqlCommand commandDelete = new SqlCommand(queryDelete, connection))
+                {
+                    commandDelete.Parameters.AddWithValue("@id_cliente", idCliente);
+                    connection.Open();
+                    commandDelete.ExecuteNonQuery();
+                }
+            }
+            borrarCampos();
+            ScriptManager.RegisterStartupScript(this, GetType(), "PostBackScript", "__doPostBack('', '');", true);
+
         }
 
+        protected void borrarCampos()
+        {
+            txtNumeroTarjeta.Text = "";
+            txtNombreTarjeta.Text = "";
+            mesExpiracion.SelectedIndex = 0;
+            anioExpiracion.SelectedIndex = 0;
 
+            txtCVV.Text = "";
+        }
         protected int ObtenerIdCliente()
         {
             int id_cliente = 0; // Inicializamos el ID del cliente como 0
@@ -276,28 +334,52 @@ namespace tfg.Paginas
         {
             string connectionString = "Server=sql.bsite.net\\MSSQL2016;Database=proyectopasteleriainbay_;Uid=proyectopasteleriainbay_;Pwd=proyectopasteleriainbay_;";
             int idCliente = ObtenerIdCliente();
-            int idPedido = GenerarIdPedido(); // Supongamos que tienes una función para generar el id_pedido
-
-            string queryCarrito = "SELECT id_producto, cantidad FROM carrito WHERE id_cliente = @id_cliente";
 
             try
             {
                 using (SqlConnection connection = new SqlConnection(connectionString))
                 {
-                    using (SqlCommand commandCarrito = new SqlCommand(queryCarrito, connection))
+                    connection.Open();
+
+                    // Consultar si existe una tarjeta de crédito
+                    string queryTarjeta = "SELECT COUNT(*) FROM informacion_tarjeta WHERE id_cliente = @id_cliente";
+                    using (SqlCommand commandTarjeta = new SqlCommand(queryTarjeta, connection))
                     {
-                        commandCarrito.Parameters.AddWithValue("@id_cliente", idCliente);
-                        connection.Open();
+                        commandTarjeta.Parameters.AddWithValue("@id_cliente", idCliente);
+                        int cantidadTarjetas = (int)commandTarjeta.ExecuteScalar();
 
-                        using (SqlDataReader reader = commandCarrito.ExecuteReader())
+                        if (cantidadTarjetas > 0)
                         {
-                            while (reader.Read())
-                            {
-                                int idProducto = Convert.ToInt32(reader["id_producto"]);
-                                int cantidad = Convert.ToInt32(reader["cantidad"]);
+                            int idPedido = GenerarIdPedido(); // Supongamos que tienes una función para generar el id_pedido
 
-                                InsertarDetallePedido(idPedido, idProducto, cantidad);
+                            string queryCarrito = "SELECT id_producto, cantidad FROM carrito WHERE id_cliente = @id_cliente";
+
+                            // Consultar el carrito
+                            using (SqlCommand commandCarrito = new SqlCommand(queryCarrito, connection))
+                            {
+                                commandCarrito.Parameters.AddWithValue("@id_cliente", idCliente);
+
+                                using (SqlDataReader reader = commandCarrito.ExecuteReader())
+                                {
+                                    while (reader.Read())
+                                    {
+                                        int idProducto = Convert.ToInt32(reader["id_producto"]);
+                                        int cantidad = Convert.ToInt32(reader["cantidad"]);
+
+                                        InsertarDetallePedido(idPedido, idProducto, cantidad);
+                                    }
+                                }
                             }
+
+                            // Insertar estado del pedido y borrar el carrito
+                            InsertarEstadoPedido(idCliente, idPedido);
+                            borrarCarrito(idCliente);
+                            Response.Redirect("pago.aspx");
+                        }
+                        else
+                        {
+                            // Si no hay tarjetas, redirigir a la página para agregar una tarjeta
+                            Response.Redirect("DatosTarjeta.aspx");
                         }
                     }
                 }
@@ -307,12 +389,7 @@ namespace tfg.Paginas
                 // Manejar la excepción aquí
                 Console.WriteLine("Error: " + ex.Message);
             }
-
-            InsertarEstadoPedido(idCliente, idPedido);
-            borrarCarrito(idCliente);
-            Response.Redirect("pago.aspx");
         }
-
         private void borrarCarrito(int idCliente)
         {
             string connectionString = "Server=sql.bsite.net\\MSSQL2016;Database=proyectopasteleriainbay_;Uid=proyectopasteleriainbay_;Pwd=proyectopasteleriainbay_;";

@@ -138,7 +138,7 @@
         </header>
 
         <%-- Datos Tarjeta --%>
-
+        <asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>
         <div class="productos-Deseados">
             <h2 style="text-align: center; font-size: 26px; padding-top: 50px;">Productos de la Lista de Deseos</h2>
             <div id="productosListaDeseosContainer" runat="server" class="productos-container">
