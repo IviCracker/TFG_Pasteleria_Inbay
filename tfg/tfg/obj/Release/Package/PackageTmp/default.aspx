@@ -63,6 +63,19 @@
 
 
     </script>
+    <script>
+        function mostrarDetalleProducto(nombre) {
+            // Codificar los parámetros de la URL para pasarlos a la página de detalle
+            var encodedNombre = encodeURIComponent(nombre);
+            
+
+            // Construir la URL de la página de detalle del producto con los parámetros codificados
+            var url = "Paginas/DetalleProducto.aspx?nombre=" + encodedNombre;
+
+            // Redirigir a la página de detalle del producto
+            window.location.href = url;
+        }
+    </script>
 
     <link rel="stylesheet" href="fonts/icomoon/style.css" />
     <link rel="stylesheet" href="css/owl.carousel.min.css" />

@@ -39,17 +39,13 @@
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
-        function mostrarDetalleProducto(nombre, imagenUrl, precio, valoracion) {
+        function mostrarDetalleProducto(nombre) {
             // Codificar los parámetros de la URL para pasarlos a la página de detalle
             var encodedNombre = encodeURIComponent(nombre);
-            var encodedImagenUrl = encodeURIComponent(imagenUrl);
-            // Convertir el precio a formato de cadena con dos decimales
 
-            var encodedPrecio = encodeURIComponent(precio);
-            var encodedValoracion = encodeURIComponent(valoracion);
 
             // Construir la URL de la página de detalle del producto con los parámetros codificados
-            var url = "DetalleProducto.aspx?nombre=" + encodedNombre + "&imagenUrl=" + encodedImagenUrl + "&precio=" + encodedPrecio + "&valoracion=" + encodedValoracion;
+            var url = "DetalleProducto.aspx?nombre=" + encodedNombre;
 
             // Redirigir a la página de detalle del producto
             window.location.href = url;
@@ -175,13 +171,13 @@
                             <h2>ARTICULOS DE VENTA</h2>
                             <ol>
                                 <li>
-                                    <asp:LinkButton ID="LinkButton1" runat="server" OnClick='TipoProductoPanes_Click'>Panes</asp:LinkButton>
+                                    <asp:LinkButton ID="LinkButton1" runat="server" OnClick='TipoProductoPanes_Click'>Panadería</asp:LinkButton>
                                 </li>
                                 <li>
-                                    <asp:LinkButton ID="LinkButton2" runat="server" OnClick='TipoProductoBollos_Click'>Bollos</asp:LinkButton>
+                                    <asp:LinkButton ID="LinkButton2" runat="server" OnClick='TipoProductoBollos_Click'>Bollería</asp:LinkButton>
                                 </li>
                                 <li>
-                                    <asp:LinkButton ID="LinkButton3" runat="server" OnClick='TipoProductoPasteles_Click'>Pasteles</asp:LinkButton>
+                                    <asp:LinkButton ID="LinkButton3" runat="server" OnClick='TipoProductoPasteles_Click'>Pastelería</asp:LinkButton>
                                 </li>
                                 <li>
                                     <asp:LinkButton ID="LinkButton4" runat="server" OnClick='TipoProductoTartas_Click'>Tartas</asp:LinkButton>

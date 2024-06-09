@@ -853,7 +853,7 @@ p {
                     border-bottom: none; /* Elimina el borde derecho del último elemento */
                 }
     header ul li a {
-        font-size: 50px;
+        font-size: 35px;
         
     }
 
@@ -1001,6 +1001,11 @@ p {
 
     #filtrosProductos {
         grid-area: 1 / 2 / 2 / 3;
+        display: flow;
+    }
+    #filtrosProductos h3 {
+        text-align:center;
+        font-size: 50px
     }
 
     #productosDisponibles {
@@ -1023,10 +1028,16 @@ p {
     }
 
     .datos-producto {
-        font-size: 30px;
+        font-size: 30px !important;
     }
 
     .precio-valoracion-producto {
         font-size: 40px !important;
     }
+
+    .boton-filtro {
+        font-size: 38px !important
+    }
+
 }
+

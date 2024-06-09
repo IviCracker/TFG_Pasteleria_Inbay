@@ -13,13 +13,24 @@
 
         gtag('config', 'G-JBGTE8PV6Y');
     </script>
+     <script>
+         function showModal() {
+             var modal = document.getElementById('myModal');
+             modal.style.display = 'block';
+         }
+
+         function closeModal() {
+             var modal = document.getElementById('myModal');
+             modal.style.display = 'none';
+         }
+    </script>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 
     <title>Detalles del producto</title>
 
     <link rel="stylesheet" href="../default.css" />
     <link rel="stylesheet" href="../Estilos/Footer.css" />
-    <link rel="stylesheet" href="../Estilos/DatosTarjeta.css" />
+    <link rel="stylesheet" href="../Estilos/DetalleProducto.css" />
 
 
     <script src="https://kit.fontawesome.com/24693b33fa.js" crossorigin="anonymous"></script>
@@ -28,7 +39,7 @@
 
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
     <script src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
-
+    
 </head>
 <body>
     <form id="form1" runat="server">
@@ -63,22 +74,22 @@
             <nav class="navbar">
                 <ul>
                     <li><a href="../default.aspx">Inicio</a></li>
-                    <li><a href="/Productos.aspx">Productos</a>
-                        
+                    <li><a href="Productos.aspx">Productos</a>
+
                     </li>
                     <li><a href="Nosotros.aspx">Nosotros</a></li>
                     <li><a href="Contacto.aspx">Contacto</a>
-                        
+
                     </li>
-                    
+
                 </ul>
             </nav>
 
             <div class="search-cart-container">
-                        <div class="search-container">
-                            <asp:TextBox ID="txtSearch" runat="server" CssClass="search-input" Placeholder="Buscar..." />
-                            <asp:Button ID="searchButton" runat="server" Text="Buscar" CssClass="search-button" OnClick="searchButton_Click" />
-                        </div>
+                <div class="search-container">
+                    <asp:TextBox ID="txtSearch" runat="server" CssClass="search-input" Placeholder="Buscar..." />
+                    <asp:Button ID="searchButton" runat="server" Text="Buscar" CssClass="search-button" OnClick="searchButton_Click" />
+                </div>
 
             </div>
             <div class="cart-icon" id="cartIcon">
@@ -122,12 +133,13 @@
         <div id="detalleContainer" runat="server">
             <!-- Aquí se insertará el detalle del producto -->
         </div>
-        <div>
-            <button class="btn" onclick="agregarACesta()">Añadir a la Cesta</button>
-            <button class="btn" onclick="agregarAListaDeseos()">Añadir a la Lista de Deseos</button>
 
+        <div id="myModal" class="modal">
+            <div class="modal-content">
+                <span class="close" onclick="closeModal()">&times;</span>
+                <p>El producto ya está ha sido valorado.</p>
+            </div>
         </div>
-
 
 
         <div id="subfooter" class="subfooter">

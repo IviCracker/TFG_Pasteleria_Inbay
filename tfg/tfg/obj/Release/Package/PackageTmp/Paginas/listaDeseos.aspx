@@ -41,6 +41,19 @@
 
 
     </script>
+    <script>
+        function mostrarDetalleProducto(nombre) {
+            // Codificar los parámetros de la URL para pasarlos a la página de detalle
+            var encodedNombre = encodeURIComponent(nombre);
+
+
+            // Construir la URL de la página de detalle del producto con los parámetros codificados
+            var url = "DetalleProducto.aspx?nombre=" + encodedNombre;
+
+            // Redirigir a la página de detalle del producto
+            window.location.href = url;
+        }
+    </script>
     <style>
         .producto:hover .panel-hover {
             bottom: 0;

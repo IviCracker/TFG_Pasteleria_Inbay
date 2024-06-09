@@ -196,15 +196,7 @@ namespace tfg.Paginas
                             // Convertir la valoración a estrellas
                             string valoracionEstrellas;
 
-                            if (valoracion == 0)
-                            {
-                                double notaCero = 5.05;
-                                valoracionEstrellas = ConvertirValoracionAEstrellas(notaCero);
-                            }
-                            else
-                            {
-                                valoracionEstrellas = ConvertirValoracionAEstrellas(valoracion);
-                            }
+                            valoracionEstrellas = ConvertirValoracionAEstrellas(valoracion);
 
 
                             string imagenUrl = $"{rutaImagenes}{nombre}.png";
@@ -261,7 +253,7 @@ namespace tfg.Paginas
                             string productoHtmlInicio = $@"
                     <div class='producto'>
                         <div class='imagen-producto'  style='height: 250px; display: flex; justify-content: center; align-items: center; text-align:center; overflow: hidden; position: relative;'>
-                            <img src='{imagenUrl}' alt='{nombre}' onclick='mostrarDetalleProducto(""{nombre}"", ""{imagenUrl}"", ""{precio}"", ""{valoracion}"")'style='width: auto; height: 100%; object-fit: cover;' />
+                            <img src='{imagenUrl}' alt='{nombre}' onclick='mostrarDetalleProducto(""{nombre}"")'style='width: auto; height: 100%; object-fit: cover;' />
                             <div class='panel-hover'>
                                 
                     ";
@@ -445,7 +437,7 @@ namespace tfg.Paginas
                             string productoHtmlInicio = $@"
                     <div class='producto'>
                         <div class='imagen-producto'  style='height: 250px; display: flex; justify-content: center; align-items: center; text-align:center; overflow: hidden; position: relative;'>
-                            <img src='{imagenUrl}' alt='{nombre}' onclick='mostrarDetalleProducto(""{nombre}"", ""{imagenUrl}"", ""{precio}"", ""{valoracion}"")'style='width: auto; height: 100%; object-fit: cover;' />
+                            <img src='{imagenUrl}' alt='{nombre}' onclick='mostrarDetalleProducto(""{nombre}"")'style='width: auto; height: 100%; object-fit: cover;' />
                             <div class='panel-hover'>
                                 
                     ";
@@ -794,7 +786,7 @@ namespace tfg.Paginas
 
                             // Crear un elemento <div> con el nombre del producto
                             string productoHtml = $@"
-                                <div class='productoCarrito' onclick='mostrarDetalleProducto(""{nombre}"", ""{imagenUrl}"")'>
+                                <div class='productoCarrito' onclick='mostrarDetalleProducto(""{nombre}"")'>
                                     <div class='imagen-producto-carrito'>
                                         <img src='{imagenUrl}' alt='{nombre}'/>
                                     </div>

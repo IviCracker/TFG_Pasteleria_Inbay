@@ -163,9 +163,9 @@ header, .usuario {
     transition: font-size 0.3s ease;
 }
 
-.cart-icon ion-icon:hover{
-    font-size: 40px;
-}
+    .cart-icon ion-icon:hover {
+        font-size: 40px;
+    }
 
 .cart-panel {
     position: fixed;
@@ -218,13 +218,13 @@ header, .usuario {
         background-color: #ff7e5f; /* Color de fondo verde oscuro al pasar el ratón */
         transform: scale(1.05); /* Aumenta ligeramente el tamaño al pasar el ratón */
     }
+
 #cartInfoContainer {
     font-size: 20px;
     padding-top: 50px;
     padding-bottom: 25px;
     width: 100%; /* Ajusta según sea necesario */
     text-align: left;
-   
 }
 
 
@@ -435,36 +435,36 @@ p {
     }
 
 
-#menuVerticalArticulos ol {
-    list-style-type: square;
-    padding-top: 20px;
-    padding-left: 20px;
-}
-
-#menuVerticalArticulos li {
-    margin-bottom: 10px;
-}
-
-#menuVerticalArticulos a {
-    color: black;
-    text-decoration: none;
-    font-size: 22px;
-    transition: color 0.3s ease;
-}
-
-    #menuVerticalArticulos a:hover {
-        color: #ff7e5f;
+    #menuVerticalArticulos ol {
+        list-style-type: square;
+        padding-top: 20px;
+        padding-left: 20px;
     }
 
-#menuVerticalArticulos h2::after {
-    content: "";
-    bottom: -8px;
-    width: 120px;
-    height: 1px;
-    display: block;
-    background: url(./imagenes/lineaSubmenu.png) no-repeat;
-    left: 0;
-}
+    #menuVerticalArticulos li {
+        margin-bottom: 10px;
+    }
+
+    #menuVerticalArticulos a {
+        color: black;
+        text-decoration: none;
+        font-size: 22px;
+        transition: color 0.3s ease;
+    }
+
+        #menuVerticalArticulos a:hover {
+            color: #ff7e5f;
+        }
+
+    #menuVerticalArticulos h2::after {
+        content: "";
+        bottom: -8px;
+        width: 120px;
+        height: 1px;
+        display: block;
+        background: url(./imagenes/lineaSubmenu.png) no-repeat;
+        left: 0;
+    }
 
 #filtrosProductos {
     grid-area: 1 / 2 / 2 / 3;
@@ -749,6 +749,7 @@ p {
         font-size: 50px;
     }
 }
+
 @media (orientation: landscape) {
     header ul li a {
         font-size: 20px;
@@ -765,7 +766,10 @@ p {
         flex-wrap: wrap;
     }
 
-    
+    header .navbar {
+        align-content: start;
+    }
+
 
         header .navbar ul li {
             width: 100%;
@@ -812,7 +816,6 @@ p {
         display: flex;
         justify-content: center;
         align-items: center;
-        
         cursor: pointer;
     }
 
@@ -827,27 +830,40 @@ p {
         border-top: 1px solid rgba(0, 0, 0, .1);
         z-index: 9999;
         transition: height 0.3s ease; /* Agrega una transición suave */
+        align-content:start;
     }
 
         header .navbar ul {
-            list-style-type: none;
+            list-style-type: none; /* Quita los puntos de la lista */
             padding: 0;
             margin: 0;
             text-align: center;
+            overflow-x: auto; /* Permite el desplazamiento horizontal cuando el contenido sea más ancho */
         }
 
             header .navbar ul li {
                 width: 100%;
                 padding: 15px 0;
+                margin: 0;
+                border-bottom: 2px solid rgba(0, 0, 0, 0.2); /* Ajusta el grosor y el color del borde */
+
             }
 
-                header .navbar ul li:hover {
-                    background-color: antiquewhite;
+                header .navbar ul li:last-child {
+                    border-bottom: none; /* Elimina el borde derecho del último elemento */
                 }
+    header ul li a {
+        font-size: 35px;
+        
+    }
 
-                header .navbar ul li ul {
-                    width: 100%;
-                }
+    header .navbar ul li:hover {
+        background-color: antiquewhite;
+    }
+
+    header .navbar ul li ul {
+        width: 100%;
+    }
 
     #menu-bar:checked ~ .navbar {
         height: 100%; /* Cuando el checkbox está marcado, el menú ocupa toda la altura */
@@ -985,6 +1001,11 @@ p {
 
     #filtrosProductos {
         grid-area: 1 / 2 / 2 / 3;
+        display: flow;
+    }
+    #filtrosProductos h3 {
+        text-align:center;
+        font-size: 50px
     }
 
     #productosDisponibles {
@@ -1007,12 +1028,16 @@ p {
     }
 
     .datos-producto {
-        font-size: 30px;
+        font-size: 30px !important;
     }
 
     .precio-valoracion-producto {
         font-size: 40px !important;
     }
-}
 
+    .boton-filtro {
+        font-size: 38px !important
+    }
+
+}
 

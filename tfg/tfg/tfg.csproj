@@ -131,6 +131,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Estilos\Administracion.css" />
     <Content Include="Estilos\DatosCuenta.css" />
     <Content Include="Estilos\DatosTarjeta.css" />
     <Content Include="Estilos\DetalleProducto.css" />
@@ -144,14 +145,18 @@
     <Content Include="fonts\icomoon\fonts\icomoon.svg" />
     <Content Include="fonts\icomoon\Read Me.txt" />
     <Content Include="fonts\icomoon\style.css" />
+    <Content Include="imagenesProductos\croissants de chocolate.png" />
+    <Content Include="imagenesProductos\croissants.png" />
     <Content Include="imagenesProductos\Palmeritas de Chocolate.png" />
+    <Content Include="imagenesProductos\Tarta de frutas.png" />
+    <Content Include="imagenesProductos\Tartas Personalizadas.png" />
     <Content Include="imagenes\carrito.png" />
     <Content Include="imagenes\carrito1.png" />
     <Content Include="imagenes\corazonLleno.png" />
     <Content Include="imagenes\corazonVacio.png" />
     <Content Include="imagenesProductos\Tarta de Bombon.png" />
     <Content Include="imagenesProductos\donuts.png" />
-    <Content Include="imagenesProductos\nata y trufa.png" />
+    <Content Include="imagenesProductos\Tarta de Nata y Trufa.png" />
     <Content Include="imagenesProductos\Tarta de crema sacher.png" />
     <Content Include="imagenesProductos\tarta de naranja.png" />
     <Content Include="imagenes\.jpg" />
@@ -176,6 +181,7 @@
     <Content Include="default.css" />
     <Content Include="default.js" />
     <Content Include="js\jquery-3.3.1.min.js" />
+    <Content Include="Paginas\Administracion.aspx" />
     <Content Include="Paginas\cerrarSesion.aspx" />
     <Content Include="Paginas\Contacto.aspx" />
     <Content Include="Paginas\DatosCuenta.aspx" />
@@ -198,6 +204,13 @@
     </Compile>
     <Compile Include="default.aspx.designer.cs">
       <DependentUpon>default.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Paginas\Administracion.aspx.cs">
+      <DependentUpon>Administracion.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Paginas\Administracion.aspx.designer.cs">
+      <DependentUpon>Administracion.aspx</DependentUpon>
     </Compile>
     <Compile Include="Paginas\cerrarSesion.aspx.cs">
       <DependentUpon>cerrarSesion.aspx</DependentUpon>

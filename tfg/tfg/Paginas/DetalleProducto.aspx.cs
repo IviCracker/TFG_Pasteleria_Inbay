@@ -15,6 +15,13 @@ namespace tfg.Paginas
             if (!IsPostBack)
             {
                 CargarInformacionProducto();
+                
+            }
+            else
+            {
+                CargarInformacionProducto();
+                CargarProductosCarrito();
+                ObtenerPrecioTotal();
             }
         }
 
@@ -35,24 +42,24 @@ namespace tfg.Paginas
             // Cadena de conexión a la base de datos
             string connectionString = "Server=sql.bsite.net\\MSSQL2016;Database=proyectopasteleriainbay_;Uid=proyectopasteleriainbay_;Pwd=proyectopasteleriainbay_;";
             string query = @"
-    SELECT 
-        p.Nombre, 
-        p.Descripcion, 
-        p.Precio, 
-        p.Stock, 
-        ISNULL(AVG(vp.valoracion), 0) AS ValoracionMedia 
-    FROM 
-        producto p 
-    LEFT JOIN 
-        valoracion_producto vp ON p.id_producto = vp.id_producto 
-    WHERE 
-        p.Nombre = @Nombre 
-    GROUP BY 
-        p.id_producto, 
-        p.Nombre, 
-        p.Descripcion, 
-        p.Precio, 
-        p.Stock";
+SELECT 
+    p.Nombre, 
+    p.Descripcion, 
+    p.Precio, 
+    p.Stock, 
+    ISNULL(AVG(vp.valoracion), 0) AS ValoracionMedia 
+FROM 
+    producto p 
+LEFT JOIN 
+    valoracion_producto vp ON p.id_producto = vp.id_producto 
+WHERE 
+    p.Nombre = @Nombre 
+GROUP BY 
+    p.id_producto, 
+    p.Nombre, 
+    p.Descripcion, 
+    p.Precio, 
+    p.Stock";
 
             // Crear la conexión y el comando SQL
             using (SqlConnection conexion = new SqlConnection(connectionString))
@@ -78,15 +85,9 @@ namespace tfg.Paginas
 
                             // Convertir la valoración a estrellas
                             string valoracionEstrellas;
-                            if (valoracion == 0)
-                            {
-                                double notaCero = 5.05;
-                                valoracionEstrellas = ConvertirValoracionAEstrellas(notaCero);
-                            }
-                            else
-                            {
-                                valoracionEstrellas = ConvertirValoracionAEstrellas(valoracion);
-                            }
+
+                            valoracionEstrellas = ConvertirValoracionAEstrellas(valoracion);
+
 
                             // Crear la URL de la imagen
                             string imagenUrl = $"../imagenesProductos/{nombre}.png";
@@ -94,15 +95,25 @@ namespace tfg.Paginas
                             // Crear los controles de los botones
                             string idBotonCarrito = $"btn-carrito-{nombre.Replace(" ", "-")}";
                             string idBotonDeseos = $"btn-deseos-{nombre.Replace(" ", "-")}";
+                            string idBotonValoracion = $"btn-valoracion-{nombre.Replace(" ", "-")}";
 
-                            ImageButton botonCarrito = new ImageButton
+                            Button botonValoracion = new Button
+                            {
+                                CssClass = "btnSubmit",
+                                ID = idBotonValoracion,
+                                Text = "Valorar producto",
+                                CommandArgument = nombre
+                            };
+                            botonValoracion.Click += new EventHandler(SubmitRating_Click);
+
+                            Button botonCarrito = new Button
                             {
                                 CssClass = "btnCarrito",
                                 ID = idBotonCarrito,
-                                ImageUrl = "~/imagenes/carrito1.png",
+                                Text = "Agregar al carrito",
                                 CommandArgument = nombre
                             };
-                            botonCarrito.Click += new ImageClickEventHandler(AgregarACarrito_Click);
+                            botonCarrito.Click += new EventHandler(AgregarACarrito_Click);
 
                             ImageButton botonListaDeseos = new ImageButton
                             {
@@ -120,32 +131,72 @@ namespace tfg.Paginas
                                     : "~/imagenes/corazonVacio.png";
                             }
 
+                            // Crear el control RadioButtonList para la valoración
+                            var ratingRadioList = new RadioButtonList();
+                            ratingRadioList.ID = "ratingRadioList";
+                            ratingRadioList.CssClass = "rating";
+                            ratingRadioList.RepeatDirection = RepeatDirection.Horizontal;
+                            ratingRadioList.DataSource = new[]
+                            {
+                        new { Text = "☆", Value = "2" },
+                        new { Text = "☆", Value = "4" },
+                        new { Text = "☆", Value = "6" },
+                        new { Text = "☆", Value = "8" },
+                        new { Text = "☆", Value = "10" }
+                    };
+                            ratingRadioList.DataTextField = "Text";
+                            ratingRadioList.DataValueField = "Value";
+                            ratingRadioList.DataBind();
+
                             // Generar el HTML del producto
                             string productoHtmlInicio = $@"
-                    <div class='producto-detalle'>
-                        <img src='{imagenUrl}' alt='{nombre}' />
-                        <div class='info'>
-                            <h2>{nombre}</h2>
-                            <p>Descripcion: {descripcion}</p>
-                            <p>Precio: {precio} €</p>
-                            <p>Valoración: {valoracionEstrellas}</p>
-                            <p>Stock: {stock}</p>
-                    ";
+                        <div class='producto-detalle'>
+                            <img src='{imagenUrl}' alt='{nombre}' />
+                            <div class='info'>
+                                <h2>{nombre}</h2>
+                                <p>Descripcion: {descripcion}</p>
+                                <p>Precio: {precio} €</p>
+                                <p>Valoración: {valoracionEstrellas}</p>
+                                <p>Stock: {stock}</p>
+                                <div class='botones-producto'>
+                                
+                                                                ";
+
+                            string productoHtmlMedio = @"
+                                </div>
+                                <div class='valoraciones'>";
+
 
                             string productoHtmlFin = @"
-                        </div>
-                    </div>";
+                                </div>
+                            </div>
+                        </div>";
 
                             // Agregar el inicio del HTML del producto al contenedor
                             detalleContainer.Controls.Add(new LiteralControl(productoHtmlInicio));
 
                             // Crear un contenedor para los botones
                             var botonContainer = new Panel();
+                            botonContainer.CssClass = "botones-producto";
+                            botonCarrito.CssClass = "btnCarrito";
+                            botonListaDeseos.CssClass = "btnDeseos";
+
                             botonContainer.Controls.Add(botonCarrito);
                             botonContainer.Controls.Add(botonListaDeseos);
 
                             // Agregar el contenedor de botones al contenedor principal
                             detalleContainer.Controls.Add(botonContainer);
+                            detalleContainer.Controls.Add(new LiteralControl(productoHtmlMedio));
+                            // Agregar el control RadioButtonList para la valoración
+                            var ratingContainer = new Panel();
+                            ratingContainer.CssClass = "rating-container";
+                            ratingContainer.Controls.Add(ratingRadioList);
+
+                            // Agregar el contenedor para la valoración al contenedor principal
+                            detalleContainer.Controls.Add(ratingContainer);
+
+                            // Agregar el botón de valoración al contenedor principal
+                            detalleContainer.Controls.Add(botonValoracion);
 
                             // Agregar el fin del HTML del producto al contenedor
                             detalleContainer.Controls.Add(new LiteralControl(productoHtmlFin));
@@ -154,6 +205,167 @@ namespace tfg.Paginas
                 }
             }
         }
+
+        protected int comprobarValoracion(int idCliente, int idProducto)
+        {
+            int totalRegistros = 0;
+
+            string connectionString = "Server=sql.bsite.net\\MSSQL2016;Database=proyectopasteleriainbay_;Uid=proyectopasteleriainbay_;Pwd=proyectopasteleriainbay_;";
+            string query = "SELECT COUNT(*) AS TotalRegistros FROM valoracion_producto WHERE id_cliente = @id_cliente and id_cliente = @id_produto";
+
+
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+                    using (SqlCommand command = new SqlCommand(query, connection))
+                    {
+                        command.Parameters.AddWithValue("@id_cliente", idCliente);
+                        command.Parameters.AddWithValue("@id_produto", idProducto);
+
+                        connection.Open();
+                        object result = command.ExecuteScalar();
+
+                        // Si el resultado no es nulo, conviértelo a int
+                        if (result != null)
+                        {
+                            totalRegistros = Convert.ToInt32(result);
+                        }
+                        else
+                        {
+                            totalRegistros = 0;
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                // Manejar la excepción aquí
+                Console.WriteLine("Error: " + ex.Message);
+            }
+
+            return totalRegistros;
+        }
+
+
+        protected int comprobarCarrito(int idCliente, int argumento)
+        {
+            int totalRegistros = 0;
+
+            string connectionString = "Server=sql.bsite.net\\MSSQL2016;Database=proyectopasteleriainbay_;Uid=proyectopasteleriainbay_;Pwd=proyectopasteleriainbay_;";
+            string query = "SELECT COUNT(*) AS TotalRegistros FROM valoracion_producto WHERE id_cliente = @id_cliente and id_producto = @id_producto";
+
+
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+                    using (SqlCommand command = new SqlCommand(query, connection))
+                    {
+                        command.Parameters.AddWithValue("@id_cliente", idCliente);
+                        command.Parameters.AddWithValue("@id_producto", argumento);
+
+                        connection.Open();
+                        object result = command.ExecuteScalar();
+
+                        // Si el resultado no es nulo, conviértelo a int
+                        if (result != null)
+                        {
+                            totalRegistros = Convert.ToInt32(result);
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                // Manejar la excepción aquí
+                Console.WriteLine("Error: " + ex.Message);
+            }
+
+            return totalRegistros;
+        }
+        private void MostrarModal()
+        {
+            ClientScript.RegisterStartupScript(this.GetType(), "showModal", "showModal();", true);
+        }
+        protected void SubmitRating_Click(object sender, EventArgs e)
+        {
+
+
+            // Verificar si el usuario ha iniciado sesión
+            if (Session["UsuarioActual"] == null)
+            {
+                // Redirigir al usuario a la página de inicio de sesión si no ha iniciado sesión
+                Response.Redirect("Registro.aspx");
+                return;
+            }
+
+            // Obtener el ID del cliente desde la sesión
+            int idCliente = ObtenerIdCliente();
+            Button clickedButton = (Button)sender;
+            // Obtener el ID del producto y la valoración seleccionada
+            string nombreProducto = clickedButton.CommandArgument;
+
+
+            // Convertir el CommandArgument a entero y usarlo para obtener el ID del producto
+            int idProducto = ObtenerIdProducto(nombreProducto);
+
+            if (comprobarCarrito(idCliente, idProducto) > 0)
+            {
+                MostrarModal();
+                return;
+            }
+            // Encontrar el RadioButtonList en la página
+            RadioButtonList ratingRadioList = (RadioButtonList)FindControl("ratingRadioList");
+            if (ratingRadioList == null)
+            {
+                // Manejar el caso en que no se encuentra el RadioButtonList
+                return;
+            }
+
+            // Obtener la valoración seleccionada
+            int valoracion = 0;
+            if (comprobarValoracion(idCliente, idProducto) == 0)
+            {
+                if (!string.IsNullOrEmpty(ratingRadioList.SelectedValue))
+                {
+                    valoracion = Convert.ToInt32(ratingRadioList.SelectedValue);
+                }
+                else
+                {
+                    return;
+                }
+            }
+
+
+
+
+            // Cadena de conexión a la base de datos
+            string connectionString = "Server=sql.bsite.net\\MSSQL2016;Database=proyectopasteleriainbay_;Uid=proyectopasteleriainbay_;Pwd=proyectopasteleriainbay_;";
+            string query = "INSERT INTO valoracion_producto (id_cliente, id_producto, valoracion) VALUES (@idCliente, @idProducto, @valoracion)";
+
+            // Crear la conexión y el comando SQL
+            using (SqlConnection conexion = new SqlConnection(connectionString))
+            {
+                using (SqlCommand comando = new SqlCommand(query, conexion))
+                {
+                    // Establecer los parámetros
+                    comando.Parameters.AddWithValue("@idCliente", idCliente);
+                    comando.Parameters.AddWithValue("@idProducto", idProducto);
+                    comando.Parameters.AddWithValue("@valoracion", valoracion);
+
+                    // Abrir la conexión
+                    conexion.Open();
+
+                    // Ejecutar el comando
+                    comando.ExecuteNonQuery();
+                }
+            }
+
+            // Redirigir a la página de detalles del producto o mostrar un mensaje de éxito
+            Response.Redirect(Request.RawUrl);
+        }
+
 
 
         protected void AgregarAListaDeseos_Click(object sender, EventArgs e)
@@ -231,7 +443,7 @@ namespace tfg.Paginas
         {
             // Obtener el ID del cliente y el ID del producto
             int idCliente = ObtenerIdCliente();
-            ImageButton clickedButton = (ImageButton)sender;
+            Button clickedButton = (Button)sender;
             string commandArgument = clickedButton.CommandArgument;
 
             // Convertir el CommandArgument a entero y usarlo para obtener el ID del producto
@@ -330,7 +542,7 @@ namespace tfg.Paginas
                 // Manejar la excepción aquí
             }
         }
-       
+
         protected string ConvertirValoracionAEstrellas(double valoracion)
         {
             // Calcula el número de estrellas completas

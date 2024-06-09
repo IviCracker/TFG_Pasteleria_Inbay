@@ -1,0 +1,51 @@
+﻿ .panel {
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            background-color: #f9f9f9;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
+
+        .cliente, .pedido {
+            width: 48%;
+        }
+
+        .cliente h3 {
+            margin-top: 0;
+            color: #333;
+        }
+
+        .pedido h4, .pedido p {
+            margin: 5px 0;
+            color: #555;
+        }
+
+        .detalles-pedido {
+            margin-left: 20px;
+        }
+
+        .titulo-pendiente {
+            color: red;
+        }
+
+        .titulo-completado {
+            color: green;
+        }
+
+.btnSubmit {
+    margin-top: 10px;
+    padding: 10px 20px;
+    background-color: #94604f;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+    .btnSubmit:hover {
+        background-color: #7b4f3e;
+    }

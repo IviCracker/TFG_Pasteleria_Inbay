@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
+using System.Text;
 using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.UI;
@@ -10,14 +11,238 @@ using System.Web.UI.WebControls;
 
 namespace tfg.Paginas
 {
-    public partial class Registro : System.Web.UI.Page
+    public partial class Administracion : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (Session["UsuarioActual"] != null)
+            CargarPedidos();
+        }
+
+
+
+        private void CargarPedidos()
+        {
+            string connectionString = "Server=sql.bsite.net\\MSSQL2016;Database=proyectopasteleriainbay_;Uid=proyectopasteleriainbay_;Pwd=proyectopasteleriainbay_;";
+            string consulta = @"
+                SELECT 
+                    p.id_pedido,
+                    p.id_cliente,
+                    p.Fecha_pedido,
+                    p.Estado_pedido,
+                    dp.id_detalle,
+                    dp.id_producto,
+                    dp.Cantidad,
+                    dp.Precio_unitario,
+                    c.Nombre AS NombreCliente,
+                    c.Correo,
+                    c.Telefono,
+                    c.Direccion,
+                    pr.Nombre AS NombreProducto
+                FROM 
+                    pedido p
+                JOIN 
+                    detalle_pedido dp ON p.id_pedido = dp.id_pedido
+                JOIN 
+                    cliente c ON p.id_cliente = c.id_cliente
+                JOIN 
+                    producto pr ON dp.id_producto = pr.id_producto
+                ORDER BY 
+                    p.id_pedido, dp.id_detalle;
+            ";
+
+            using (SqlConnection conexion = new SqlConnection(connectionString))
             {
-                CargarProductosCarrito();
-                ObtenerPrecioTotal();
+                using (SqlCommand comando = new SqlCommand(consulta, conexion))
+                {
+                    conexion.Open();
+                    SqlDataReader reader = comando.ExecuteReader();
+
+                    int currentPedidoId = -1;
+                    decimal totalPedido = 0;
+                    StringBuilder detallesPedido = new StringBuilder();
+                    bool firstRecord = true;
+                    string nombreCliente = "", correo = "", telefono = "", direccion = "", fechaPedido = "", estadoPedido = "";
+
+                    while (reader.Read())
+                    {
+                        int idPedido = Convert.ToInt32(reader["id_pedido"]);
+
+                        if (idPedido != currentPedidoId)
+                        {
+                            if (!firstRecord)
+                            {
+                                // Crear div del pedido anterior
+                                CrearDivPedido(currentPedidoId, nombreCliente, correo, telefono, direccion, fechaPedido, estadoPedido, totalPedido, detallesPedido.ToString());
+                            }
+
+                            // Reiniciar acumuladores para el nuevo pedido
+                            currentPedidoId = idPedido;
+                            totalPedido = 0;
+                            detallesPedido.Clear();
+
+                            nombreCliente = reader["NombreCliente"].ToString();
+                            correo = reader["Correo"].ToString();
+                            telefono = reader["Telefono"].ToString();
+                            direccion = reader["Direccion"].ToString();
+                            fechaPedido = reader["Fecha_pedido"].ToString();
+                            estadoPedido = reader["Estado_pedido"].ToString();
+
+                            firstRecord = false;
+                        }
+
+                        // Acumular detalles del producto actual
+                        detallesPedido.Append($@"
+                            <p>Producto: {reader["NombreProducto"]}</p>
+                            <p>Cantidad: {reader["Cantidad"]}</p>
+                            <p>Precio Unitario: {reader["Precio_unitario"]}</p>
+                        ");
+
+                        // Calcular total del pedido
+                        decimal precioUnitario = Convert.ToDecimal(reader["Precio_unitario"]);
+                        int cantidad = Convert.ToInt32(reader["Cantidad"]);
+                        totalPedido += precioUnitario * cantidad;
+                    }
+
+                    if (!firstRecord)
+                    {
+                        // Crear div del último pedido
+                        CrearDivPedido(currentPedidoId, nombreCliente, correo, telefono, direccion, fechaPedido, estadoPedido, totalPedido, detallesPedido.ToString());
+                    }
+
+                    reader.Close();
+                }
+            }
+        }
+        protected int comprobarEstado(int idPedido)
+        {
+            int totalRegistros = 0;
+
+            string connectionString = "Server=sql.bsite.net\\MSSQL2016;Database=proyectopasteleriainbay_;Uid=proyectopasteleriainbay_;Pwd=proyectopasteleriainbay_;";
+            string query = "SELECT COUNT(*) AS TotalRegistros FROM pedido WHERE id_pedido = @id_Pedido and Estado_pedido = 'pendiente'";
+
+
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+                    using (SqlCommand command = new SqlCommand(query, connection))
+                    {
+                        
+                        command.Parameters.AddWithValue("@id_Pedido", idPedido);
+
+                        connection.Open();
+                        object result = command.ExecuteScalar();
+
+                        // Si el resultado no es nulo, conviértelo a int
+                        if (result != null)
+                        {
+                            totalRegistros = Convert.ToInt32(result);
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                // Manejar la excepción aquí
+                Console.WriteLine("Error: " + ex.Message);
+            }
+
+            return totalRegistros;
+        }
+       
+        private void CrearDivPedido(int idPedido, string nombreCliente, string correo, string telefono, string direccion, string fechaPedido, string estadoPedido, decimal totalPedido, string detallesPedido)
+        {
+           
+
+            string tituloClase = estadoPedido == "Pendiente" ? "titulo-pendiente" : "titulo-completado";
+
+            // Crear el botón y asociar el evento de clic
+            Button botonAceptarPedido = new Button
+            {
+                CssClass = "btnSubmit",
+                ID = $"btn-carrito-{idPedido}",
+                Text = "Completar Pedido",
+                CommandArgument = idPedido.ToString()
+            };
+            botonAceptarPedido.Click += new EventHandler(aceptarPedido_Click);
+
+            // Crear un contenedor literal para el HTML
+            System.Web.UI.WebControls.Literal literalHtml = new System.Web.UI.WebControls.Literal
+            {
+                Text = $@"
+<div class='cliente'>
+    <h3 class='{tituloClase}'>Pedido ID: {idPedido}</h3>
+    <p>Cliente: {nombreCliente} ({correo})</p>
+    <p>Teléfono: {telefono}</p>
+    <p>Dirección: {direccion}</p>
+</div>
+<div class='pedido'>
+    <p>Fecha del Pedido: {fechaPedido}</p>
+    <p>Estado del Pedido: {estadoPedido}</p>
+    <h4>Detalle del Pedido:</h4>
+    <div class='detalles-pedido'>
+        {detallesPedido}
+    </div>
+    <br>
+    <h4>Total del Pedido: {totalPedido:C}</h4>
+</div>"
+            };
+
+            // Crear el div contenedor para el pedido
+            System.Web.UI.HtmlControls.HtmlGenericControl divPedido = new System.Web.UI.HtmlControls.HtmlGenericControl("div");
+            divPedido.Attributes["class"] = "panel"; // Aplicar la clase 'panel'
+
+            // Agregar el HTML al contenedor
+            divPedido.Controls.Add(literalHtml);
+
+            // Agregar el botón al div con clase 'pedido' solo si el estado es 'Pendiente'
+            if (comprobarEstado(idPedido) > 0)
+            {
+                PedidosContainer.Controls.Add(botonAceptarPedido);
+            }
+
+            // Agregar el div al contenedor de pedidos
+            PedidosContainer.Controls.Add(divPedido);
+
+        }
+
+
+
+
+        protected void aceptarPedido_Click(object sender, EventArgs e)
+        {
+            Button btn = (Button)sender;
+            int idPedido = int.Parse(btn.CommandArgument);
+
+            string connectionString = "Server=sql.bsite.net\\MSSQL2016;Database=proyectopasteleriainbay_;Uid=proyectopasteleriainbay_;Pwd=proyectopasteleriainbay_;";
+
+            try
+            {
+                using (SqlConnection conexion = new SqlConnection(connectionString))
+                {
+                    conexion.Open();
+
+                    string consulta = "UPDATE pedido SET estado_pedido = @estadoPedido WHERE id_pedido = @idPedido";
+
+                    using (SqlCommand comando = new SqlCommand(consulta, conexion))
+                    {
+                        comando.Parameters.AddWithValue("@estadoPedido", "Completado");
+                        comando.Parameters.AddWithValue("@idPedido", idPedido);
+
+                        int rowsAffected = comando.ExecuteNonQuery();
+
+                        if (rowsAffected > 0)
+                        {
+                            // Si la actualización fue exitosa, recargar la página o actualizar el estado en la UI
+                            Response.Redirect(Request.RawUrl); // Recargar la página actual
+                        }
+                        
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                
             }
         }
 
@@ -30,6 +255,7 @@ namespace tfg.Paginas
                 Response.Redirect($"ResultadosBusqueda.aspx?query={Server.UrlEncode(searchQuery)}");
             }
         }
+        
         private void ObtenerPrecioTotal()
         {
             string precioTotal = "0.00"; // Valor inicial del precio total
@@ -192,107 +418,6 @@ namespace tfg.Paginas
             return totalRegistros;
         }
 
-        protected void btnMostrarRegistro_Click(object sender, EventArgs e)
-        {
-            // Ocultar el formulario de inicio de sesión y mostrar el formulario de registro
-            textoIniciarSesion.Style["display"] = "none";
-            textoCrearCuenta.Style["display"] = "block";
-
-        }
-
-
-        protected void lnkIniciarSesion_Click(object sender, EventArgs e)
-        {
-            Response.Redirect("Registro.aspx");
-        }
-
-
-
-
-        protected void btnIniciarSesion_Click(object sender, EventArgs e)
-        {
-            string nombreOCorreo = txtNombreUsuario.Text; // El campo txtNombreUsuario ahora puede contener el nombre de usuario o el correo electrónico
-            string contraseña = txtContraseñaInicioSesion.Text;
-
-            try
-            {
-                string connectionString = "Server=sql.bsite.net\\MSSQL2016;Database=proyectopasteleriainbay_;Uid=proyectopasteleriainbay_;Pwd=proyectopasteleriainbay_;";
-
-                using (SqlConnection conexion = new SqlConnection(connectionString))
-                {
-                    conexion.Open();
-
-                    // Primero, verifica en la tabla administrador
-                    string consultaAdmin = "SELECT COUNT(*) FROM administrador WHERE nombre = @nombre AND contraseña = @contraseña";
-
-                    using (SqlCommand comandoAdmin = new SqlCommand(consultaAdmin, conexion))
-                    {
-                        comandoAdmin.Parameters.AddWithValue("@nombre", nombreOCorreo);
-                        comandoAdmin.Parameters.AddWithValue("@contraseña", contraseña);
-
-                        int countAdmin = Convert.ToInt32(comandoAdmin.ExecuteScalar());
-
-                        if (countAdmin > 0)
-                        {
-                            // Si encuentra una coincidencia en administrador, redirige a administracion.aspx
-                            Response.Redirect("Administracion.aspx");
-                            return;
-                        }
-                    }
-
-                    // Si no encuentra en administrador, verifica en la tabla cliente
-                    string consultaCliente = "SELECT COUNT(*) FROM cliente WHERE (nombre = @nombreOCorreo OR correo = @nombreOCorreo) AND contraseña = @contraseña";
-
-                    using (SqlCommand comandoCliente = new SqlCommand(consultaCliente, conexion))
-                    {
-                        comandoCliente.Parameters.AddWithValue("@nombreOCorreo", nombreOCorreo);
-                        comandoCliente.Parameters.AddWithValue("@contraseña", contraseña);
-
-                        int countCliente = Convert.ToInt32(comandoCliente.ExecuteScalar());
-
-                        if (countCliente > 0)
-                        {
-                            if (nombreOCorreo.Contains("@"))
-                            {
-                                string consultaSesion = "SELECT nombre FROM cliente WHERE (nombre = @nombreOCorreo OR correo = @nombreOCorreo) AND contraseña = @contraseña";
-                                using (SqlCommand comandoNombreSesion = new SqlCommand(consultaSesion, conexion))
-                                {
-                                    comandoNombreSesion.Parameters.AddWithValue("@nombreOCorreo", nombreOCorreo);
-                                    comandoNombreSesion.Parameters.AddWithValue("@contraseña", contraseña);
-
-                                    string nombreUsuario = comandoNombreSesion.ExecuteScalar() as string;
-
-                                    if (!string.IsNullOrEmpty(nombreUsuario))
-                                    {
-                                        Session["UsuarioActual"] = nombreUsuario;
-                                    }
-                                }
-                            }
-                            else
-                            {
-                                Session["UsuarioActual"] = nombreOCorreo;
-                            }
-
-                            HttpContext.Current.Response.Redirect("../default.aspx");
-                        }
-                        else
-                        {
-                            lblErrorInicioSesion.Text = "Nombre de usuario, correo electrónico y/o contraseña incorrectos.";
-                            lblErrorInicioSesion.Visible = true;
-                            txtNombreUsuario.CssClass = "textbox error";
-                            txtContraseñaInicioSesion.CssClass = "textbox error";
-                        }
-                    }
-                }
-            }
-            catch (Exception falloInicioSesion)
-            {
-                lblErrorInicioSesion.Text = "Error al intentar iniciar sesión.";
-                lblErrorInicioSesion.Visible = true;
-                txtNombreUsuario.CssClass = "textbox error";
-                txtContraseñaInicioSesion.CssClass = "textbox error";
-            }
-        }
 
         protected void VerCarritoBtn_Click(object sender, EventArgs e)
         {
@@ -492,135 +617,7 @@ namespace tfg.Paginas
             return nextId;
         }
 
-        protected void btnRegistrarse_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                // Reset error labels and CSS classes
-                ResetErrorLabels();
-
-                string nombre = txtNombre.Text.Trim();
-                string correo = txtCorreo.Text.Trim();
-                string telefono = txtTelefono.Text.Trim();
-                string direccion = txtDireccion.Text.Trim();
-                string contraseña = txtContraseña.Text.Trim();
-                string repetContraseña = txtRepetContraseña.Text.Trim();
-
-                bool isValid = true;
-
-                // Validations
-                if (string.IsNullOrEmpty(nombre))
-                {
-                    lblErrorNombre.Text = "El nombre es obligatorio.";
-                    lblErrorNombre.Visible = true;
-                    txtNombre.CssClass = "textbox error-textbox";
-                    isValid = false;
-                }
-                else if (UsuarioExiste(nombre))
-                {
-                    lblErrorNombre.Text = "El nombre de usuario ya está registrado.";
-                    lblErrorNombre.Visible = true;
-                    txtNombre.CssClass = "textbox error-textbox";
-                    isValid = false;
-                }
-
-                if (string.IsNullOrEmpty(correo))
-                {
-                    lblErrorCorreo.Text = "El correo es obligatorio.";
-                    lblErrorCorreo.Visible = true;
-                    txtCorreo.CssClass = "textbox error-textbox";
-                    isValid = false;
-                }
-                else if (!ValidarCorreo(correo))
-                {
-                    lblErrorCorreo.Text = "Formato de correo inválido.";
-                    lblErrorCorreo.Visible = true;
-                    txtCorreo.CssClass = "textbox error-textbox";
-                    isValid = false;
-                }
-                else if (UsuarioExiste(correo))
-                {
-                    lblErrorCorreo.Text = "El correo electrónico ya está registrado.";
-                    lblErrorCorreo.Visible = true;
-                    txtCorreo.CssClass = "textbox error-textbox";
-                    isValid = false;
-                }
-
-                if (string.IsNullOrEmpty(telefono))
-                {
-                    lblErrorTelefono.Text = "El teléfono es obligatorio.";
-                    lblErrorTelefono.Visible = true;
-                    txtTelefono.CssClass = "textbox error-textbox";
-                    isValid = false;
-                }
-                else if (!EsNumero(telefono))
-                {
-                    lblErrorTelefono.Text = "El teléfono solo debe contener números.";
-                    lblErrorTelefono.Visible = true;
-                    txtTelefono.CssClass = "textbox error-textbox";
-                    isValid = false;
-                }
-
-                if (!ValidarContraseña(contraseña))
-                {
-                    lblErrorContraseña.Text = "La contraseña debe tener al menos 1 mayúscula, 1 minúscula y un dígito.";
-                    lblErrorContraseña.Visible = true;
-                    txtContraseña.CssClass = "textbox error-textbox";
-                    isValid = false;
-                }
-
-                if (contraseña != repetContraseña)
-                {
-                    lblErrorRepetContraseña.Text = "Las contraseñas no coinciden.";
-                    lblErrorRepetContraseña.Visible = true;
-                    txtRepetContraseña.CssClass = "textbox error-textbox";
-                    isValid = false;
-                }
-
-                if (!isValid) return;
-
-                // Database Insertion
-                string connectionString = "Server=sql.bsite.net\\MSSQL2016;Database=proyectopasteleriainbay_;Uid=proyectopasteleriainbay_;Pwd=proyectopasteleriainbay_;";
-                using (SqlConnection conexion = new SqlConnection(connectionString))
-                {
-                    string consulta = "INSERT INTO cliente(nombre, correo, telefono, direccion, contraseña) VALUES(@nombre, @correo, @telefono, @direccion, @contraseña)";
-                    using (SqlCommand comando = new SqlCommand(consulta, conexion))
-                    {
-                        comando.Parameters.AddWithValue("@nombre", nombre);
-                        comando.Parameters.AddWithValue("@correo", correo);
-                        comando.Parameters.AddWithValue("@telefono", telefono);
-                        comando.Parameters.AddWithValue("@direccion", direccion);
-                        comando.Parameters.AddWithValue("@contraseña", contraseña);
-
-                        conexion.Open();
-                        comando.ExecuteNonQuery();
-                        conexion.Close();
-                    }
-                }
-
-                // Almacenar el nombre en la sesión si el registro es exitoso
-                Session["UsuarioActual"] = nombre;
-
-                // Redireccionar a la página de inicio de sesión u otra página después del registro
-                Response.Redirect("../default.aspx");
-            }
-            catch (Exception ex)
-            {
-                // Manejar la excepción
-            }
-        }
-
-        private void ResetErrorLabels()
-        {
-            lblErrorNombre.Visible = false;
-            lblErrorCorreo.Visible = false;
-            lblErrorTelefono.Visible = false;
-            lblErrorDireccion.Visible = false;
-            lblErrorContraseña.Visible = false;
-            lblErrorRepetContraseña.Visible = false;
-
-            txtNombre.CssClass = txtCorreo.CssClass = txtTelefono.CssClass = txtDireccion.CssClass = txtContraseña.CssClass = txtRepetContraseña.CssClass = "textbox";
-        }
+       
         private bool UsuarioExiste(string correo)
         {
             // Implementación para verificar si el correo ya existe en la base de datos
@@ -660,8 +657,5 @@ namespace tfg.Paginas
             }
             return true;
         }
-
-
-
     }
 }

@@ -42,23 +42,17 @@
 
     </script>
     <script>
-        function mostrarDetalleProducto(nombre, imagenUrl, precio, valoracion) {
+        function mostrarDetalleProducto(nombre) {
             // Codificar los parámetros de la URL para pasarlos a la página de detalle
             var encodedNombre = encodeURIComponent(nombre);
-            var encodedImagenUrl = encodeURIComponent(imagenUrl);
-            // Convertir el precio a formato de cadena con dos decimales
 
-            var encodedPrecio = encodeURIComponent(precio);
-            var encodedValoracion = encodeURIComponent(valoracion);
 
             // Construir la URL de la página de detalle del producto con los parámetros codificados
-            var url = "DetalleProducto.aspx?nombre=" + encodedNombre + "&imagenUrl=" + encodedImagenUrl + "&precio=" + encodedPrecio + "&valoracion=" + encodedValoracion;
+            var url = "DetalleProducto.aspx?nombre=" + encodedNombre;
 
             // Redirigir a la página de detalle del producto
             window.location.href = url;
         }
-
-
     </script>
     
 </head>

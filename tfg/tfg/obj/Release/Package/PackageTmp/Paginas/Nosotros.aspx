@@ -195,62 +195,56 @@
 
         </div>
         <div class="main-content-container">
-            <div class="content-section-wrapper">
-                <h2>Bienvenidos a Pastelería Inbay</h2>
-                <img src="ruta_a_imagen_bienvenidos.jpg" alt="Bienvenidos a Pastelería Inbay">
-                <p>En Pastelería Inbay, la pasión por la repostería se entrelaza con la tradición y la innovación para crear experiencias culinarias inolvidables. Fundada en el corazón de nuestra querida ciudad, Inbay es más que una pastelería; es un lugar donde los sueños dulces se hacen realidad.</p>
-            </div>
+    <div class="content-section-wrapper">
+        <h2>Bienvenidos a Pastelería Inbay</h2>
+        <p>En Pastelería Inbay, la pasión por la repostería se combina con la tradición y la innovación para crear experiencias culinarias inolvidables. Fundada en el corazón de Tetuán, Madrid, Inbay es más que una pastelería; es un lugar donde los sueños dulces se hacen realidad.</p>
+    </div>
 
-            <div class="content-section-wrapper">
-                <h2>Nuestra Historia</h2>
-                <img src="ruta_a_imagen_historia.jpg" alt="Nuestra Historia">
-                <p>La historia de Inbay comienza hace más de tres décadas, cuando nuestra fundadora, Doña Isabel Bayona, decidió compartir su amor por la repostería con el mundo. Inspirada por las recetas de su abuela y su inigualable talento para combinar ingredientes, Doña Isabel abrió las puertas de Inbay con un objetivo claro: crear delicias que deleiten todos los sentidos.</p>
-                <p>Desde entonces, hemos crecido y evolucionado, pero nuestra misión sigue siendo la misma. Hoy, la segunda generación de la familia Bayona continúa con el legado, incorporando técnicas modernas y nuevos sabores, pero siempre manteniendo la esencia que nos ha distinguido desde el principio.</p>
-            </div>
+    <div class="content-section-wrapper">
+        <h2>Nuestra Historia</h2>
+        <p>La historia de Inbay comienza hace 22 años, cuando las fundadoras, Inma e Ines, decidieron compartir su amor por la repostería con el mundo. Inspiradas por las recetas tradicionales y su talento para combinar ingredientes, abrieron las puertas de Inbay con un objetivo claro: crear delicias que deleiten todos los sentidos.</p>
+        <p>Desde entonces, hemos crecido y evolucionado, pero nuestra misión sigue siendo la misma. Hoy, seguimos incorporando técnicas modernas y nuevos sabores, pero siempre manteniendo la esencia que nos ha distinguido desde el principio.</p>
+    </div>
 
-            <div class="content-section-wrapper">
-                <h2>Nuestra Filosofía</h2>
-                <img src="ruta_a_imagen_filosofia.jpg" alt="Nuestra Filosofía">
-                <p>En Pastelería Inbay, creemos que la repostería es un arte. Cada uno de nuestros productos es elaborado con dedicación y atención al detalle, utilizando solo los mejores ingredientes. Nos enorgullece ofrecer productos frescos, hechos a mano, y libres de conservantes artificiales.</p>
-                <p>Nuestra filosofía se basa en tres pilares fundamentales:</p>
-                <ul>
-                    <li><strong>Calidad</strong>: Seleccionamos cuidadosamente cada ingrediente, desde la harina hasta el chocolate, asegurándonos de que cumplan con nuestros altos estándares de calidad.</li>
-                    <li><strong>Creatividad</strong>: Nos encanta experimentar con nuevos sabores y técnicas para sorprender y deleitar a nuestros clientes. Ya sea a través de nuestras tartas personalizadas, nuestros macarons de temporada o nuestras innovadoras combinaciones de sabores, siempre estamos buscando formas de innovar.</li>
-                    <li><strong>Tradición</strong>: Aunque estamos abiertos a la innovación, nunca olvidamos nuestras raíces. Nuestras recetas clásicas, como el pastel de tres leches y la tarta de manzana, siguen siendo un pilar fundamental de nuestro repertorio.</li>
-                </ul>
-            </div>
+    <div class="content-section-wrapper">
+        <h2>Nuestra Filosofía</h2>
+        <p>En Pastelería Inbay, creemos que la repostería es un arte. Cada uno de nuestros productos se elabora con dedicación y atención al detalle, utilizando solo los mejores ingredientes artesanales y locales. Nos enorgullece ofrecer productos frescos, hechos a mano, y libres de conservantes artificiales.</p>
+        <p>Nuestra filosofía se basa en tres pilares fundamentales:</p>
+        <ul>
+            <li><strong>Calidad</strong>: Seleccionamos cuidadosamente cada ingrediente, desde la harina hasta el chocolate, asegurándonos de que cumplan con nuestros altos estándares de calidad.</li>
+            <li><strong>Creatividad</strong>: Nos encanta experimentar con nuevos sabores y técnicas para sorprender y deleitar a nuestros clientes. Ya sea a través de nuestras tartas personalizadas, nuestros macarons de temporada o nuestras innovadoras combinaciones de sabores, siempre estamos buscando formas de innovar.</li>
+            <li><strong>Tradición</strong>: Aunque estamos abiertos a la innovación, nunca olvidamos nuestras raíces. Nuestras recetas clásicas, como el pastel de tres leches y la tarta de manzana, siguen siendo un pilar fundamental de nuestro repertorio. Nuestro producto estrella son las palmeritas de chocolate; todos lo dicen.</li>
+        </ul>
+    </div>
 
-            <div class="content-section-wrapper">
-                <h2>Nuestro Compromiso</h2>
-                <img src="ruta_a_imagen_compromiso.jpg" alt="Nuestro Compromiso">
-                <p>En Inbay, nos comprometemos no solo a satisfacer, sino a superar las expectativas de nuestros clientes. Sabemos que detrás de cada pedido hay una ocasión especial, un momento para recordar, y nos sentimos honrados de ser parte de esos momentos. Desde celebraciones familiares hasta grandes eventos corporativos, trabajamos de la mano con nuestros clientes para crear productos que no solo sean deliciosos, sino también memorables.</p>
-            </div>
+    <div class="content-section-wrapper">
+        <h2>Nuestro Compromiso</h2>
+        <p>En Inbay, nos comprometemos no solo a satisfacer, sino a superar las expectativas de nuestros clientes. Sabemos que detrás de cada pedido hay una ocasión especial, un momento para recordar, y nos sentimos honrados de ser parte de esos momentos. Desde celebraciones familiares hasta grandes eventos corporativos, trabajamos de la mano con nuestros clientes para crear productos que no solo sean deliciosos, sino también memorables.</p>
+    </div>
 
-            <div class="content-section-wrapper">
-                <h2>Nuestros Productos</h2>
-                <img src="ruta_a_imagen_productos.jpg" alt="Nuestros Productos">
-                <p>Nuestra amplia gama de productos incluye:</p>
-                <ul>
-                    <li><strong>Pasteles y tartas</strong>: Desde los clásicos pasteles de cumpleaños hasta elegantes tartas de bodas, cada creación es una obra de arte.</li>
-                    <li><strong>Panadería artesanal</strong>: Ofrecemos una variedad de panes frescos, incluyendo nuestras famosas baguettes y croissants.</li>
-                    <li><strong>Postres individuales</strong>: Macarons, cupcakes, eclairs y más, perfectos para cualquier antojo.</li>
-                    <li><strong>Opciones personalizadas</strong>: Trabajamos con nuestros clientes para crear productos personalizados que se adapten a sus necesidades y preferencias.</li>
-                </ul>
-            </div>
+    <div class="content-section-wrapper">
+        <h2>Nuestros Productos</h2>
+        <p>Nuestra amplia gama de productos incluye:</p>
+        <ul>
+            <li><strong>Pasteles y tartas</strong>: Desde los clásicos pasteles de cumpleaños hasta elegantes tartas de bodas, cada creación es una obra de arte.</li>
+            <li><strong>Panadería artesanal</strong>: Ofrecemos una variedad de panes frescos, incluyendo nuestras famosas baguettes y croissants.</li>
+            <li><strong>Postres individuales</strong>: Macarons, cupcakes, eclairs y más, perfectos para cualquier antojo.</li>
+            <li><strong>Opciones personalizadas</strong>: Trabajamos con nuestros clientes para crear productos personalizados que se adapten a sus necesidades y preferencias.</li>
+        </ul>
+    </div>
 
-            <div class="content-section-wrapper">
-                <h2>Visítanos</h2>
-                <img src="ruta_a_imagen_visitanos.jpg" alt="Visítanos">
-                <p>Te invitamos a visitar nuestra pastelería y descubrir por ti mismo el mundo de sabores que hemos creado. Nuestro equipo de reposteros y panaderos estará encantado de atenderte y ayudarte a encontrar la delicia perfecta para cualquier ocasión.</p>
-            </div>
+    <div class="content-section-wrapper">
+        <h2>Visítanos</h2>
+        <p>Te invitamos a visitar nuestra pastelería y descubrir por ti mismo el mundo de sabores que hemos creado. Nuestro equipo de reposteros y panaderos estará encantado de atenderte y ayudarte a encontrar la delicia perfecta para cualquier ocasión.</p>
+    </div>
 
-            <div class="content-section-wrapper">
-                <h2>Únete a Nuestra Familia</h2>
-                <img src="ruta_a_imagen_familia.jpg" alt="Únete a Nuestra Familia">
-                <p>En Inbay, consideramos a nuestros clientes como parte de nuestra gran familia. Nos encanta escuchar sus historias, recibir sus comentarios y ser parte de sus celebraciones. Síguenos en nuestras redes sociales para estar al tanto de nuestras últimas creaciones y promociones especiales.</p>
-                <p>Gracias por ser parte de nuestra historia. En Pastelería Inbay, cada día es una nueva oportunidad para endulzar tu vida.</p>
-            </div>
-        </div>
+    <div class="content-section-wrapper">
+        <h2>Únete a Nuestra Familia</h2>
+        <p>En Inbay, consideramos a nuestros clientes como parte de nuestra gran familia. Nos encanta escuchar sus historias, recibir sus comentarios y ser parte de sus celebraciones. Síguenos en nuestras redes sociales, Facebook e Instagram, para estar al tanto de nuestras últimas creaciones y promociones especiales.</p>
+        <p>Gracias por ser parte de nuestra historia. En Pastelería Inbay, cada día es una nueva oportunidad para endulzar tu vida.</p>
+    </div>
+</div>
+
 
 
         <%--<div id="subfooter" class="subfooter">
