@@ -74,7 +74,7 @@ namespace tfg.Paginas
         protected void TipoProductoPasteles_Click(object sender, EventArgs e)
         {
             variable = 1;
-            Session["TipoProducto"] = "pastel";
+            Session["TipoProducto"] = "Salados";
             ScriptManager.RegisterStartupScript(this, GetType(), "PostBackScript", "__doPostBack('', '');", true);
 
         }

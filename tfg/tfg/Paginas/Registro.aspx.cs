@@ -623,20 +623,30 @@ namespace tfg.Paginas
         }
         private bool UsuarioExiste(string correo)
         {
-            // Implementación para verificar si el correo ya existe en la base de datos
-            // Este es solo un pseudocódigo
-            string connectionString = "DataBase=tfg;DataSource=localhost;user=root;Port=3306";
+            string connectionString = "Server=sql.bsite.net\\MSSQL2016;Database=proyectopasteleriainbay_;Uid=proyectopasteleriainbay_;Pwd=proyectopasteleriainbay_;";
+
             string query = "SELECT COUNT(*) FROM cliente WHERE correo = @correo";
-            using (MySqlConnection conexion = new MySqlConnection(connectionString))
+            try
             {
-                MySqlCommand comando = new MySqlCommand(query, conexion);
-                comando.Parameters.AddWithValue("@correo", correo);
-                conexion.Open();
-                int result = Convert.ToInt32(comando.ExecuteScalar());
-                conexion.Close();
-                return result > 0;
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+                    using (SqlCommand command = new SqlCommand(query, connection))
+                    {
+                        command.Parameters.AddWithValue("@correo", correo);
+                        connection.Open();
+                        int result = (int)command.ExecuteScalar();
+                        return result > 0;
+                    }
+                }
+            }
+            catch (SqlException ex)
+            {
+                // Manejar la excepción si ocurre algún error en la conexión o ejecución de la consulta
+                Console.WriteLine("Error al verificar si el usuario existe: " + ex.Message);
+                return false; // Devolver false en caso de error
             }
         }
+
         private bool ValidarCorreo(string correo)
         {
             // Regex for a basic email validation

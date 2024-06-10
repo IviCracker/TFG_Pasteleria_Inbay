@@ -1002,15 +1002,18 @@ p {
     #filtrosProductos {
         grid-area: 1 / 2 / 2 / 3;
         display: flow;
+        height: 400px;
     }
     #filtrosProductos h3 {
         text-align:center;
-        font-size: 50px
+        font-size: 50px;
+        padding-bottom: 30px;
+        
     }
 
     #productosDisponibles {
         grid-area: 2 / 1 / 3 / 3;
-        margin-top: 400px;
+        margin-top: 420px;
     }
 
     .productos-container {
@@ -1036,7 +1039,9 @@ p {
     }
 
     .boton-filtro {
-        font-size: 38px !important
+        font-size: 38px !important;
+        margin: 15px auto !important;
+        width: 70% !important;
     }
 
 }

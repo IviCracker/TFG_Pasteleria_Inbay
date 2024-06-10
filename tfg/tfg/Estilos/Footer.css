@@ -309,7 +309,7 @@ h6 a{
 
 .subfooter p {
     margin: 10px 0;
-    font-size: 10px;
+    
     line-height: 1.6;
     font-family: Georgia, 'Times New Roman', Times, serif;
     color: #55281b;
@@ -318,23 +318,33 @@ h6 a{
 .subfooter a {
     color: white; /* Color marrón chocolate complementario */
     text-decoration: none;
+    
 }
+@media only screen and (orientation: portrait) {
+    .subfooter a {
+        
+        font-size: 50px;
+    }
+}
+
 
     .subfooter a:hover {
         text-decoration: underline;
     }
 
-.subfooter-link {
-    display: inline-block;
-    margin-top: 20px;
-    padding: 10px 20px;
-    background-color: #895848; /* Color marrón chocolate complementario */
-    color: #ffffff; /* Color blanco */
-    border-radius: 5px;
-    font-size: 16px;
-    transition: background-color 0.3s ease;
-}
-
-    .subfooter-link:hover {
-        background-color: #55281b; /* Color marrón chocolate más oscuro */
+    .subfooter-link {
+        display: inline-block;
+        margin-top: 20px;
+        padding: 10px 20px;
+        background-color: #895848; /* Color marrón chocolate complementario */
+        color: #ffffff; /* Color blanco */
+        border-radius: 5px;
+        font-size: 16px;
+        transition: background-color 0.3s ease;
     }
+
+        .subfooter-link:hover {
+            background-color: #55281b; /* Color marrón chocolate más oscuro */
+        }
+    
+

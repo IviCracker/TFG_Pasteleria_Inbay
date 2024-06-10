@@ -16,7 +16,8 @@
         gtag('config', 'G-JBGTE8PV6Y');
     </script>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>Productos</title>
+    <title>Pago</title>
+        <link rel="shortcut icon" href="../imagenes/iconoPestaña.png" /> 
 
 
     <link rel="stylesheet" href="../default.css" />
@@ -240,12 +241,11 @@
 
 
 
-            <div id="subfooter" class="subfooter">
-                <p>¡Ven a nuestra pastelería y descubre un mundo de sabores exquisitos! Desde deliciosos croissants recién horneados hasta irresistibles tartas caseras, ¡te esperamos con los brazos abiertos!</p>
-                <p>No te pierdas nuestras ofertas especiales de la semana y eventos exclusivos. ¡Haz tu día más dulce con nosotros!</p>
-                <a href="/Paginas/Contacto.aspx" class="subfooter-link">¡Contáctanos para más información!</a>
-            </div>
-
+                    <div id="subfooter" class="subfooter">
+    <p>Visítanos y disfruta de nuestros croissants recién horneados y tartas caseras.</p>
+    <p>Te esperamos con una gran variedad de productos frescos y deliciosos.</p>
+    <a href="/Paginas/Contacto.aspx" class="subfooter-link">Contáctanos para más información</a>
+</div>
             <footer>
                 <div class="container-footer w-container">
                     <div class="w-row">
@@ -268,7 +268,7 @@
                                                 </span></a>
                                                 <a href="Contacto.aspx"><span class="footer-link">Contacto<br />
                                                 </span></a>
-                                                <a href="HacerPedido.aspx"><span class="footer-link">Hacer Pedido</span></a><strong><br />
+                                                
                                                 </strong>
                                             </p>
                                         </div>

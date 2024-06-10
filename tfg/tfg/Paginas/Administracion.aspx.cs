@@ -618,44 +618,6 @@ namespace tfg.Paginas
         }
 
        
-        private bool UsuarioExiste(string correo)
-        {
-            // Implementación para verificar si el correo ya existe en la base de datos
-            // Este es solo un pseudocódigo
-            string connectionString = "DataBase=tfg;DataSource=localhost;user=root;Port=3306";
-            string query = "SELECT COUNT(*) FROM cliente WHERE correo = @correo";
-            using (MySqlConnection conexion = new MySqlConnection(connectionString))
-            {
-                MySqlCommand comando = new MySqlCommand(query, conexion);
-                comando.Parameters.AddWithValue("@correo", correo);
-                conexion.Open();
-                int result = Convert.ToInt32(comando.ExecuteScalar());
-                conexion.Close();
-                return result > 0;
-            }
-        }
-        private bool ValidarCorreo(string correo)
-        {
-            // Regex for a basic email validation
-            return Regex.IsMatch(correo, @"^[^@\s]+@[^@\s]+\.[^@\s]+$");
-        }
-
-        private bool ValidarContraseña(string contraseña)
-        {
-            // Simple password validation that could be expanded
-            return contraseña.Length >= 4 && contraseña.Any(char.IsDigit) && contraseña.Any(char.IsUpper) && contraseña.Any(char.IsLower);
-        }
-
-        private bool EsNumero(string str)
-        {
-            foreach (char c in str)
-            {
-                if (!char.IsDigit(c))
-                {
-                    return false;
-                }
-            }
-            return true;
-        }
+       
     }
 }

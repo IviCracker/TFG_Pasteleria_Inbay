@@ -15,6 +15,7 @@
     </script>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>Productos</title>
+    <link rel="shortcut icon" href="../imagenes/iconoPestaña.png" />
 
 
     <link rel="stylesheet" href="../default.css" />
@@ -177,7 +178,7 @@
                                     <asp:LinkButton ID="LinkButton2" runat="server" OnClick='TipoProductoBollos_Click'>Bollería</asp:LinkButton>
                                 </li>
                                 <li>
-                                    <asp:LinkButton ID="LinkButton3" runat="server" OnClick='TipoProductoPasteles_Click'>Pastelería</asp:LinkButton>
+                                    <asp:LinkButton ID="LinkButton3" runat="server" OnClick='TipoProductoPasteles_Click'>Salados</asp:LinkButton>
                                 </li>
                                 <li>
                                     <asp:LinkButton ID="LinkButton4" runat="server" OnClick='TipoProductoTartas_Click'>Tartas</asp:LinkButton>
@@ -200,11 +201,12 @@
 
 
 
-        <div id="subfooter" class="subfooter">
-            <p>¡Ven a nuestra pastelería y descubre un mundo de sabores exquisitos! Desde deliciosos croissants recién horneados hasta irresistibles tartas caseras, ¡te esperamos con los brazos abiertos!</p>
-            <p>No te pierdas nuestras ofertas especiales de la semana y eventos exclusivos. ¡Haz tu día más dulce con nosotros!</p>
-            <a href="/Paginas/Contacto.aspx" class="subfooter-link">¡Contáctanos para más información!</a>
-        </div>
+                <div id="subfooter" class="subfooter">
+    <p>Visítanos y disfruta de nuestros croissants recién horneados y tartas caseras.</p>
+    <p>Te esperamos con una gran variedad de productos frescos y deliciosos.</p>
+    <a href="/Paginas/Contacto.aspx" class="subfooter-link">Contáctanos para más información</a>
+</div>
+
 
         <footer>
             <div class="container-footer w-container">
@@ -228,7 +230,7 @@
                                             </span></a>
                                             <a href="Contacto.aspx"><span class="footer-link">Contacto<br />
                                             </span></a>
-                                            <a href="HacerPedido.aspx"><span class="footer-link">Hacer Pedido</span></a><strong><br />
+                                            
                                             </strong>
                                         </p>
                                     </div>
@@ -263,9 +265,8 @@
                 </div>
             </div>
         </footer>
-        <div>
-            <h6>COPYRIGHT 2024 - TODOS LOS DERECHOS RESERVADOS. DISEÑO POR <a href="https://www.linkedin.com/in/ivan-almendros-lozano/">IVÁN ALMENDROS</a></h6>
-        </div>
+        <div><h6 style="text-align: center;">COPYRIGHT 2024 - TODOS LOS DERECHOS RESERVADOS.<br/>DISEÑO POR <a href="https://www.linkedin.com/in/ivan-almendros-lozano/" style="font-family: Oswalsd; font-size: 10px;">IVÁN ALMENDROS</a>
+</h6>        </div>
     </form>
 </body>
 </html>

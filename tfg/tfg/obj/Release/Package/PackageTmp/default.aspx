@@ -26,6 +26,8 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 
     <title>Pasteleria Inbay TFG - Ivan Almendros</title>
+    <link rel="shortcut icon" href="imagenes/iconoPestaña.png" /> 
+    
     <script type="application/ld+json">
     {
       "@context" : "https://schema.org",
@@ -67,7 +69,7 @@
         function mostrarDetalleProducto(nombre) {
             // Codificar los parámetros de la URL para pasarlos a la página de detalle
             var encodedNombre = encodeURIComponent(nombre);
-            
+
 
             // Construir la URL de la página de detalle del producto con los parámetros codificados
             var url = "Paginas/DetalleProducto.aspx?nombre=" + encodedNombre;
@@ -217,10 +219,11 @@
             </main>
         </div>
         <div id="subfooter" class="subfooter">
-            <p>¡Ven a nuestra pastelería y descubre un mundo de sabores exquisitos! Desde deliciosos croissants recién horneados hasta irresistibles tartas caseras.</p>
-            <p>Prueba nuestras creaciones artesanales hechas con amor y los ingredientes más frescos. ¡Haz tu día más dulce con nosotros!</p>
-            <a href="/Paginas/Contacto.aspx" class="subfooter-link">¡Contáctanos para más información!</a>
-        </div>
+    <p>Visítanos y disfruta de nuestros croissants recién horneados y tartas caseras.</p>
+    <p>Te esperamos con una gran variedad de productos frescos y deliciosos.</p>
+    <a href="/Paginas/Contacto.aspx" class="subfooter-link">Contáctanos para más información</a>
+</div>
+
 
         <footer>
             <div class="container-footer w-container">
@@ -244,8 +247,7 @@
                                             </span></a>
                                             <a href="Paginas/Contacto.aspx"><span class="footer-link">Contacto<br />
                                             </span></a>
-                                            <a href="Paginas/HacerPedido.aspx"><span class="footer-link">Hacer Pedido</span></a><strong><br />
-                                            </strong>
+                                            
                                         </p>
                                     </div>
                                     <div class="w-col w-col-5 w-col-small-6 w-col-tiny-5">
