@@ -15,7 +15,7 @@ namespace tfg.Paginas
             if (!IsPostBack)
             {
                 CargarInformacionProducto();
-                
+
             }
             else
             {
@@ -211,7 +211,7 @@ GROUP BY
             int totalRegistros = 0;
 
             string connectionString = "Server=sql.bsite.net\\MSSQL2016;Database=proyectopasteleriainbay_;Uid=proyectopasteleriainbay_;Pwd=proyectopasteleriainbay_;";
-            string query = "SELECT COUNT(*) AS TotalRegistros FROM valoracion_producto WHERE id_cliente = @id_cliente and id_cliente = @id_produto";
+            string query = "SELECT COUNT(*) AS TotalRegistros FROM valoracion_producto WHERE id_cliente = @id_cliente and id_producto = @id_produto";
 
 
             try
@@ -309,60 +309,49 @@ GROUP BY
 
             // Convertir el CommandArgument a entero y usarlo para obtener el ID del producto
             int idProducto = ObtenerIdProducto(nombreProducto);
-
-            if (comprobarCarrito(idCliente, idProducto) > 0)
-            {
-                MostrarModal();
-                return;
-            }
-            // Encontrar el RadioButtonList en la página
             RadioButtonList ratingRadioList = (RadioButtonList)FindControl("ratingRadioList");
             if (ratingRadioList == null)
             {
                 // Manejar el caso en que no se encuentra el RadioButtonList
                 return;
             }
-
-            // Obtener la valoración seleccionada
-            int valoracion = 0;
-            if (comprobarValoracion(idCliente, idProducto) == 0)
+            if (comprobarValoracion(idCliente, idProducto) > 0)
             {
-                if (!string.IsNullOrEmpty(ratingRadioList.SelectedValue))
+                MostrarModal();
+                return;
+            }
+            else
+            {
+                // Obtener la valoración seleccionada
+                int valoracion = 0;
+                if (comprobarValoracion(idCliente, idProducto) == 0)
                 {
+
                     valoracion = Convert.ToInt32(ratingRadioList.SelectedValue);
-                }
-                else
-                {
-                    return;
-                }
-            }
+                    // Cadena de conexión a la base de datos
+                    string connectionString = "Server=sql.bsite.net\\MSSQL2016;Database=proyectopasteleriainbay_;Uid=proyectopasteleriainbay_;Pwd=proyectopasteleriainbay_;";
+                    string query = "INSERT INTO valoracion_producto (id_cliente, id_producto, valoracion) VALUES (@idCliente, @idProducto, @valoracion)";
 
+                    // Crear la conexión y el comando SQL
+                    using (SqlConnection conexion = new SqlConnection(connectionString))
+                    {
+                        using (SqlCommand comando = new SqlCommand(query, conexion))
+                        {
+                            // Establecer los parámetros
+                            comando.Parameters.AddWithValue("@idCliente", idCliente);
+                            comando.Parameters.AddWithValue("@idProducto", idProducto);
+                            comando.Parameters.AddWithValue("@valoracion", valoracion);
 
+                            // Abrir la conexión
+                            conexion.Open();
 
+                            // Ejecutar el comando
+                            comando.ExecuteNonQuery();
+                        }
+                    }
 
-            // Cadena de conexión a la base de datos
-            string connectionString = "Server=sql.bsite.net\\MSSQL2016;Database=proyectopasteleriainbay_;Uid=proyectopasteleriainbay_;Pwd=proyectopasteleriainbay_;";
-            string query = "INSERT INTO valoracion_producto (id_cliente, id_producto, valoracion) VALUES (@idCliente, @idProducto, @valoracion)";
-
-            // Crear la conexión y el comando SQL
-            using (SqlConnection conexion = new SqlConnection(connectionString))
-            {
-                using (SqlCommand comando = new SqlCommand(query, conexion))
-                {
-                    // Establecer los parámetros
-                    comando.Parameters.AddWithValue("@idCliente", idCliente);
-                    comando.Parameters.AddWithValue("@idProducto", idProducto);
-                    comando.Parameters.AddWithValue("@valoracion", valoracion);
-
-                    // Abrir la conexión
-                    conexion.Open();
-
-                    // Ejecutar el comando
-                    comando.ExecuteNonQuery();
                 }
             }
-
-            // Redirigir a la página de detalles del producto o mostrar un mensaje de éxito
             Response.Redirect(Request.RawUrl);
         }
 

@@ -59,7 +59,7 @@ namespace tfg.Paginas
         protected void TipoProductoPanes_Click(object sender, EventArgs e)
         {
             variable = 1;
-            Session["TipoProducto"] = "pan";
+            Session["TipoProducto"] = "Panadería";
             ScriptManager.RegisterStartupScript(this, GetType(), "PostBackScript", "__doPostBack('', '');", true);
 
 
@@ -67,7 +67,7 @@ namespace tfg.Paginas
         protected void TipoProductoBollos_Click(object sender, EventArgs e)
         {
             variable = 1;
-            Session["TipoProducto"] = "Bollos";
+            Session["TipoProducto"] = "Bollería";
             ScriptManager.RegisterStartupScript(this, GetType(), "PostBackScript", "__doPostBack('', '');", true);
 
         }
