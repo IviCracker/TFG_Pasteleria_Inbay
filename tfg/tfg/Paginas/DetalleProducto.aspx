@@ -130,6 +130,7 @@
         </header>
 
         <%-- detalles productos --%>
+        <asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>
 
         <div id="detalleContainer" runat="server">
             <!-- Aquí se insertará el detalle del producto -->

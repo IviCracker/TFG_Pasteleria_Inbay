@@ -15,11 +15,16 @@ namespace tfg.Paginas
             if (!IsPostBack)
             {
                 CargarInformacionProducto();
+                
 
             }
             else
             {
                 CargarInformacionProducto();
+                
+            }
+            if (Session["UsuarioActual"] != null)
+            {
                 CargarProductosCarrito();
                 ObtenerPrecioTotal();
             }

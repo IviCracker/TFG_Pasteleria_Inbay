@@ -146,6 +146,12 @@
     <Content Include="fonts\icomoon\Read Me.txt" />
     <Content Include="fonts\icomoon\style.css" />
     <Content Include="imagenesProductos\Baguette.png" />
+    <Content Include="imagenesProductos\Bandeja de Palmeritas de Chocolate.png" />
+    <Content Include="imagenesProductos\Brioche.png" />
+    <Content Include="imagenesProductos\Empanada de pollo con bechamel.png" />
+    <Content Include="imagenesProductos\Masa Madre.png" />
+    <Content Include="imagenesProductos\Palmera de chocolate.png" />
+    <Content Include="imagenesProductos\Palmera glaseada.png" />
     <Content Include="imagenesProductos\Rejitas de Queso Cabra y Setas.png" />
     <Content Include="imagenesProductos\Candeal.png" />
     <Content Include="imagenesProductos\Chapata.png" />

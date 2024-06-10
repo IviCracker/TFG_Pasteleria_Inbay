@@ -302,3 +302,4 @@ C:\Users\ivial\Escritorio\TFG\tfg\tfg\obj\Release\tfg.csproj.CopyComplete
 C:\Users\ivial\Escritorio\TFG\tfg\tfg\obj\Release\tfg.dll
 C:\Users\ivial\Escritorio\TFG\tfg\tfg\obj\Release\tfg.pdb
 C:\Users\ivial\Escritorio\TFG\tfg\tfg\bin\imagenesProductos\Palmeritas de Chocolate.png
+F:\TFG\tfg\tfg\bin\imagenesProductos\Palmeritas de Chocolate.png
