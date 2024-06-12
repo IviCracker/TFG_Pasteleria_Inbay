@@ -163,7 +163,7 @@
                 </div>
                 <div class="grupo">
                     <span for="nombreTarjeta">Nombre en la Tarjeta:</span>
-                    <asp:TextBox ID="txtNombreTarjeta" runat="server" placeholder="Nombre en la Tarjeta"></asp:TextBox>
+                    <asp:TextBox ID="txtNombreTarjeta" runat="server" placeholder="Nombre en la Tarjeta" MaxLength="50"></asp:TextBox>
                 </div>
                 <div class="grupo">
                     <span for="fechaExpiracion">Fecha de Expiración:</span>

@@ -148,8 +148,14 @@
     <Content Include="imagenesProductos\Baguette.png" />
     <Content Include="imagenesProductos\Bandeja de Palmeritas de Chocolate.png" />
     <Content Include="imagenesProductos\Brioche.png" />
+    <Content Include="imagenesProductos\Caracolas.png" />
     <Content Include="imagenesProductos\Empanada de pollo con bechamel.png" />
     <Content Include="imagenesProductos\Masa Madre.png" />
+    <Content Include="imagenesProductos\Mini berlinesas.png" />
+    <Content Include="imagenesProductos\Mini caracolas.png" />
+    <Content Include="imagenesProductos\Mini lacitos de chocolate y glaseados.png" />
+    <Content Include="imagenesProductos\Mini Pizzas.png" />
+    <Content Include="imagenesProductos\Napolitana de Jamón y Queso.png" />
     <Content Include="imagenesProductos\Palmera de chocolate.png" />
     <Content Include="imagenesProductos\Palmera glaseada.png" />
     <Content Include="imagenesProductos\Rejitas de Queso Cabra y Setas.png" />
@@ -159,7 +165,6 @@
     <Content Include="imagenesProductos\croissants.png" />
     <Content Include="imagenesProductos\Empanada Grande.png" />
     <Content Include="imagenesProductos\Empanadillas.png" />
-    <Content Include="imagenesProductos\Ensaimadas.png" />
     <Content Include="imagenesProductos\Gourmet.png" />
     <Content Include="imagenesProductos\Napolitanas.png" />
     <Content Include="imagenesProductos\Palmeritas de Chocolate.png">
@@ -167,6 +172,7 @@
     </Content>
     <Content Include="imagenesProductos\Pepito de chocolate y azúcar.png" />
     <Content Include="imagenesProductos\Rosquillas.png" />
+    <Content Include="imagenesProductos\Tarta de chocolate.png" />
     <Content Include="imagenesProductos\Tarta de frutas.png" />
     <Content Include="imagenesProductos\Tarta de manzana.png" />
     <Content Include="imagenesProductos\Tartas Personalizadas.png" />

@@ -866,7 +866,7 @@ p {
     }
 
     #menu-bar:checked ~ .navbar {
-        height: 100%; /* Cuando el checkbox está marcado, el menú ocupa toda la altura */
+        height: 1000px; /* Cuando el checkbox está marcado, el menú ocupa toda la altura */
     }
 }
 

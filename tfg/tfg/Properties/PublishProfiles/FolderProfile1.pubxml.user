@@ -5,7 +5,8 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <_PublishTargetUrl>C:\Users\9ialmendros\Desktop\tfg</_PublishTargetUrl>
-    <History>True|2024-06-06T09:06:38.7827299Z;True|2024-06-05T10:24:54.2940978+02:00;</History>
+    <History>False|2024-06-10T22:01:54.1993882Z;False|2024-06-11T00:01:43.0872443+02:00;True|2024-06-06T11:06:38.7827299+02:00;True|2024-06-05T10:24:54.2940978+02:00;</History>
+    <LastFailureDetails />
   </PropertyGroup>
   <ItemGroup>
     <File Include="bin/BouncyCastle.Cryptography.dll">

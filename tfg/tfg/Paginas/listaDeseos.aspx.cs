@@ -358,6 +358,7 @@ namespace tfg.Paginas
                                         int cantidad = Convert.ToInt32(reader["cantidad"]);
 
                                         InsertarDetallePedido(idPedido, idProducto, cantidad);
+                                        ActualizarStock(idProducto, cantidad);
                                     }
                                 }
                             }
@@ -365,13 +366,38 @@ namespace tfg.Paginas
                             // Insertar estado del pedido y borrar el carrito
                             InsertarEstadoPedido(idCliente, idPedido);
                             borrarCarrito(idCliente);
-                            Response.Redirect("pago.aspx");
+                            Response.Redirect("Pago.aspx");
                         }
                         else
                         {
                             // Si no hay tarjetas, redirigir a la página para agregar una tarjeta
                             Response.Redirect("DatosTarjeta.aspx");
                         }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                // Manejar la excepción aquí
+                Console.WriteLine("Error: " + ex.Message);
+            }
+        }
+        private void ActualizarStock(int idProducto, int cantidad)
+        {
+            string connectionString = "Server=sql.bsite.net\\MSSQL2016;Database=proyectopasteleriainbay_;Uid=proyectopasteleriainbay_;Pwd=proyectopasteleriainbay_;";
+            string queryUpdateStock = "UPDATE producto SET Stock = Stock - @cantidad WHERE id_producto = @id_producto";
+
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+                    using (SqlCommand commandUpdateStock = new SqlCommand(queryUpdateStock, connection))
+                    {
+                        commandUpdateStock.Parameters.AddWithValue("@id_producto", idProducto);
+                        commandUpdateStock.Parameters.AddWithValue("@cantidad", cantidad);
+
+                        connection.Open();
+                        commandUpdateStock.ExecuteNonQuery();
                     }
                 }
             }

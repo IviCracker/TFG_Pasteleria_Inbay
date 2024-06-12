@@ -5,7 +5,7 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
 <Project>
   <PropertyGroup>
     <_PublishTargetUrl>C:\Users\ivial\Desktop\publishtfg</_PublishTargetUrl>
-    <History>True|2024-06-10T21:41:00.0431287Z;True|2024-06-10T14:23:42.3406090+02:00;True|2024-06-10T14:13:13.2925017+02:00;True|2024-06-10T14:04:37.2863187+02:00;True|2024-06-10T13:48:14.4016219+02:00;True|2024-06-10T13:47:54.8926881+02:00;True|2024-06-10T00:53:32.7479231+02:00;True|2024-06-07T19:23:04.7743922+02:00;False|2024-06-07T19:22:45.5851754+02:00;True|2024-06-07T12:07:59.8292650+02:00;True|2024-06-04T00:28:21.1202923+02:00;True|2024-06-03T00:32:29.7092149+02:00;True|2024-05-29T00:41:29.1512997+02:00;True|2024-05-27T00:14:05.7456736+02:00;True|2024-05-17T00:50:39.9641508+02:00;True|2024-05-16T00:37:33.3931011+02:00;True|2024-05-15T14:45:17.1679122+02:00;True|2024-05-13T00:35:38.0597645+02:00;True|2024-05-12T02:53:03.7649412+02:00;True|2024-05-10T00:32:02.6500005+02:00;True|2024-05-08T23:46:33.7647412+02:00;False|2024-05-08T23:45:50.5717977+02:00;False|2024-05-08T23:45:45.8000044+02:00;False|2024-05-08T23:45:05.2333388+02:00;</History>
+    <History>True|2024-06-11T20:10:25.6575510Z;True|2024-06-11T22:10:08.9602826+02:00;True|2024-06-11T00:02:07.8487583+02:00;True|2024-06-10T23:41:00.0431287+02:00;True|2024-06-10T14:23:42.3406090+02:00;True|2024-06-10T14:13:13.2925017+02:00;True|2024-06-10T14:04:37.2863187+02:00;True|2024-06-10T13:48:14.4016219+02:00;True|2024-06-10T13:47:54.8926881+02:00;True|2024-06-10T00:53:32.7479231+02:00;True|2024-06-07T19:23:04.7743922+02:00;False|2024-06-07T19:22:45.5851754+02:00;True|2024-06-07T12:07:59.8292650+02:00;True|2024-06-04T00:28:21.1202923+02:00;True|2024-06-03T00:32:29.7092149+02:00;True|2024-05-29T00:41:29.1512997+02:00;True|2024-05-27T00:14:05.7456736+02:00;True|2024-05-17T00:50:39.9641508+02:00;True|2024-05-16T00:37:33.3931011+02:00;True|2024-05-15T14:45:17.1679122+02:00;True|2024-05-13T00:35:38.0597645+02:00;True|2024-05-12T02:53:03.7649412+02:00;True|2024-05-10T00:32:02.6500005+02:00;True|2024-05-08T23:46:33.7647412+02:00;False|2024-05-08T23:45:50.5717977+02:00;False|2024-05-08T23:45:45.8000044+02:00;False|2024-05-08T23:45:05.2333388+02:00;</History>
     <LastFailureDetails />
   </PropertyGroup>
   <ItemGroup>
@@ -232,10 +232,10 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>05/27/2022 23:41:54</publishTime>
     </File>
     <File Include="bin/tfg.dll">
-      <publishTime>06/10/2024 23:40:56</publishTime>
+      <publishTime>06/11/2024 22:10:23</publishTime>
     </File>
     <File Include="bin/tfg.pdb">
-      <publishTime>06/10/2024 23:40:56</publishTime>
+      <publishTime>06/11/2024 22:10:23</publishTime>
     </File>
     <File Include="bin/ZstdSharp.dll">
       <publishTime>04/06/2023 14:25:30</publishTime>
@@ -259,7 +259,7 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>06/10/2024 21:02:37</publishTime>
     </File>
     <File Include="default.css">
-      <publishTime>06/10/2024 21:02:37</publishTime>
+      <publishTime>06/11/2024 22:00:38</publishTime>
     </File>
     <File Include="default.js">
       <publishTime>06/05/2024 18:39:31</publishTime>
@@ -396,6 +396,9 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
     <File Include="imagenesProductos/Candeal.png">
       <publishTime>06/10/2024 21:02:37</publishTime>
     </File>
+    <File Include="imagenesProductos/Caracolas.png">
+      <publishTime>06/10/2024 21:02:37</publishTime>
+    </File>
     <File Include="imagenesProductos/Chapata.png">
       <publishTime>06/10/2024 21:02:37</publishTime>
     </File>
@@ -425,6 +428,21 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
     </File>
     <File Include="imagenesProductos/Masa Madre.png">
       <publishTime>06/10/2024 21:55:38</publishTime>
+    </File>
+    <File Include="imagenesProductos/Mini berlinesas.png">
+      <publishTime>06/11/2024 22:05:04</publishTime>
+    </File>
+    <File Include="imagenesProductos/Mini caracolas.png">
+      <publishTime>06/11/2024 21:30:05</publishTime>
+    </File>
+    <File Include="imagenesProductos/Mini lacitos de chocolate y glaseados.png">
+      <publishTime>06/11/2024 21:53:30</publishTime>
+    </File>
+    <File Include="imagenesProductos/Mini Pizzas.png">
+      <publishTime>06/11/2024 21:42:06</publishTime>
+    </File>
+    <File Include="imagenesProductos/Napolitana de Jamón y Queso.png">
+      <publishTime>06/11/2024 21:58:21</publishTime>
     </File>
     <File Include="imagenesProductos/Napolitanas.png">
       <publishTime>06/10/2024 21:02:37</publishTime>
@@ -520,10 +538,10 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>06/10/2024 21:02:37</publishTime>
     </File>
     <File Include="Paginas/DatosTarjeta.aspx">
-      <publishTime>06/10/2024 21:02:37</publishTime>
+      <publishTime>06/11/2024 21:07:21</publishTime>
     </File>
     <File Include="Paginas/DetalleProducto.aspx">
-      <publishTime>06/10/2024 21:02:37</publishTime>
+      <publishTime>06/10/2024 23:59:56</publishTime>
     </File>
     <File Include="Paginas/DetallesPedidos.aspx">
       <publishTime>06/10/2024 21:02:37</publishTime>
